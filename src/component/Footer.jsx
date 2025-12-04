@@ -96,7 +96,7 @@ const Footer = () => {
             {/* Professional Badge - Matching header style */}
             <div className="inline-flex items-center px-5 py-2.5 bg-[#0b090a] rounded-full group hover:bg-[#ba181b] transition-all duration-300 cursor-pointer shadow-md">
               <div className="w-2 h-2 bg-[#ba181b] rounded-full mr-3 animate-pulse group-hover:animate-none group-hover:scale-110 group-hover:bg-[#0b090a]"></div>
-              <span className="text-[#ffffff] text-sm font-medium tracking-wide group-hover:text-[#ffffff]">AVAILABLE FOR FREELANCE WORK</span>
+              <span className="text-[#ffffff] text-sm font-medium tracking-wide group-hover:text-[#ffffff]">OPEN TO WORK</span>
             </div>
           </div>
 

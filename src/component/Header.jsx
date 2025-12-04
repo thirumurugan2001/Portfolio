@@ -46,6 +46,15 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'certifications', label: 'Certifications' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
   return (
     <nav className="fixed top-0 w-full bg-[#ffffff] backdrop-blur-lg z-50 border-b border-[#d3d3d3] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,45 +81,41 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {['home', 'about', 'experience', 'projects', 'contact'].map((item) => (
+          <div className="hidden md:flex items-center space-x-6">
+            {navItems.map((item) => (
               <button
-                key={item}
-                onClick={() => handleNavClick(item)}
-                className="text-[#161a1d] hover:text-[#0b090a] font-medium text-sm transition-all duration-300 tracking-wide relative group capitalize"
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className="text-[#161a1d] hover:text-[#0b090a] font-medium text-sm transition-all duration-300 tracking-wide relative group"
               >
-                {item === 'home' ? 'Home' : 
-                 item === 'about' ? 'About' : 
-                 item === 'projects' ? 'Projects' : 
-                 item === 'experience' ? 'Experience' : 
-                 item === 'contact' ? 'Contact' : item}
+                {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ba181b] to-[#e5383b] group-hover:w-full transition-all duration-300"></span>
               </button>
             ))}
             
             {/* Action Buttons */}
-            <div className="flex items-center space-x-3 ml-4">
+            <div className="flex items-center space-x-3 ml-2">
               <button 
                 onClick={handleRNDClick}
-                className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#ba181b]/20"
+                className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-3 py-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#ba181b]/20 whitespace-nowrap"
               >
                 Research
               </button>
               <button 
                 onClick={handleAskAboutMeClick}
-                className="bg-gradient-to-r from-[#0b090a] to-[#161a1d] text-white hover:from-[#ba181b] hover:to-[#e5383b] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#0b090a]/10"
+                className="bg-gradient-to-r from-[#0b090a] to-[#161a1d] text-white hover:from-[#ba181b] hover:to-[#e5383b] px-3 py-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#0b090a]/10 whitespace-nowrap"
               >
                 Ask About Me
               </button>
               <button 
                 onClick={handleStartProjectClick}
-                className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#ba181b]/20"
+                className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-3 py-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#ba181b]/20 whitespace-nowrap"
               >
                 Start Project
               </button>
               <button 
                 onClick={handleHireMeClick}
-                className="bg-[#0b090a] text-white hover:bg-[#ba181b] hover:text-white border border-[#0b090a] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                className="bg-[#0b090a] text-white hover:bg-[#ba181b] hover:text-white border border-[#0b090a] px-3 py-2 rounded-lg font-semibold text-xs transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg whitespace-nowrap"
               >
                 Hire Me
               </button>
@@ -134,17 +139,13 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden absolute top-16 left-0 w-full bg-[#ffffff] backdrop-blur-lg border-b border-[#d3d3d3] shadow-lg">
             <div className="flex flex-col space-y-1 p-4">
-              {['home', 'about', 'experience', 'projects', 'contact'].map((item) => (
+              {navItems.map((item) => (
                 <button
-                  key={item}
-                  onClick={() => handleNavClick(item)}
-                  className="text-[#161a1d] hover:text-[#0b090a] py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-[#ba181b] hover:bg-[#f5f3f4] rounded-r-lg text-left capitalize"
+                  key={item.id}
+                  onClick={() => handleNavClick(item.id)}
+                  className="text-[#161a1d] hover:text-[#0b090a] py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-[#ba181b] hover:bg-[#f5f3f4] rounded-r-lg text-left"
                 >
-                  {item === 'home' ? 'Home' : 
-                   item === 'about' ? 'About' : 
-                   item === 'projects' ? 'Projects' : 
-                   item === 'experience' ? 'Experience' : 
-                   item === 'contact' ? 'Contact' : item}
+                  {item.label}
                 </button>
               ))}
               

@@ -14,438 +14,373 @@ import {
   FaCheckCircle,
   FaLaptopCode,
   FaAward,
+  FaArrowRight,
 } from "react-icons/fa";
 import { MdWeb, MdApi, MdAutoAwesome, MdSmartToy, MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
-  const scrollRef = useRef(null);
   const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const timeoutRef = useRef(null);
+
+  // Check for mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const projects = [
     {
-      icon: <FaCloud className="w-6 h-6" />,
-      title: "AI-Powered Cloud Operations Platform",
-      description:
-        "Drag-and-drop application to simplify cloud operations with AI-driven architecture generation and deployment automation.",
-      features: [
-        "Bot3 with RAG integration",
-        "Automated cloud service creation",
-        "Cost estimation & deployment",
-        "AI architecture generation",
-      ],
-      technologies: ["AI/ML", "RAG", "Cloud Automation", "Bot3"],
+      icon: <FaCloud className="w-5 h-5" />,
+      title: "AI Cloud Operations Platform",
+      description: "Drag-and-drop app with AI-driven architecture generation and deployment automation.",
+      features: ["Bot3 with RAG", "Cloud automation", "Cost estimation"],
+      technologies: ["AI/ML", "RAG", "Cloud"],
       category: "AI & Cloud",
-      color: "from-[#ba181b] to-[#e5383b]"
+      color: "from-[#530304ff] to-[#e5383b]",
+      // color: "#530304ff",
     },
     {
-      icon: <MdApi className="w-6 h-6" />,
-      title: "AWS Well-Architected Framework AI",
-      description:
-        "RESTful APIs to dynamically streamline AWS Well-Architected Framework Review with AI-driven insights and automation.",
-      features: [
-        "AI-driven cloud optimization",
-        "Automated framework review",
-        "Business operation optimization",
-        "RESTful API architecture",
-      ],
-      technologies: ["AWS", "REST API", "AI Automation", "Cloud Optimization"],
+      icon: <MdApi className="w-5 h-5" />,
+      title: "AWS Framework AI",
+      description: "RESTful APIs for AWS Well-Architected Framework with AI-driven insights.",
+      features: ["Cloud optimization", "Framework review", "REST API"],
+      technologies: ["AWS", "API", "Automation"],
       category: "Cloud & API",
       color: "from-[#0b090a] to-[#161a1d]"
     },
     {
-      icon: <MdSmartToy className="w-6 h-6" />,
+      icon: <MdSmartToy className="w-5 h-5" />,
       title: "Educational RAG Chatbot",
-      description:
-        "Web application for students to clear doubts using RAG integration with LLMs for intelligent responses based on uploaded knowledge.",
-      features: [
-        "RAG implementation",
-        "LLM integration",
-        "Knowledge base upload",
-        "Student doubt resolution",
-      ],
-      technologies: ["RAG", "LLMs", "Education Tech", "Web App"],
+      description: "Web app for students with RAG integration and LLM-powered responses.",
+      features: ["RAG implementation", "LLM integration", "Knowledge base"],
+      technologies: ["RAG", "LLMs", "Web App"],
       category: "AI & Education",
-      color: "from-[#ba181b] to-[#e5383b]"
+      color: "from-[#530304ff] to-[#e5383b]"
     },
     {
-      icon: <FaRobot className="w-6 h-6" />,
-      title: "India Tourism RAG & Fine-Tuning Model",
-      description:
-        "RAG and fine-tuning model project providing intelligent recommendations and information about famous places in India.",
-      features: [
-        "Fine-tuned LLM models",
-        "Tourism recommendations",
-        "Intelligent information retrieval",
-        "Location-based insights",
-      ],
-      technologies: ["Fine-Tuning", "RAG", "Tourism AI", "Recommendations"],
+      icon: <FaRobot className="w-5 h-5" />,
+      title: "India Tourism AI Model",
+      description: "RAG and fine-tuning model for intelligent tourism recommendations.",
+      features: ["Fine-tuned LLM", "Tourism AI", "Recommendations"],
+      technologies: ["Fine-Tuning", "RAG", "AI"],
       category: "AI & Tourism",
       color: "from-[#0b090a] to-[#161a1d]"
     },
     {
-      icon: <FaFileAlt className="w-6 h-6" />,
-      title: "AI Resume & Job Description Generator",
-      description:
-        "Intelligent systems for automated resume creation using DeepSeek AI and job description generation using Ollama models.",
-      features: [
-        "DeepSeek AI integration",
-        "Ollama model deployment",
-        "Professional resume generation",
-        "Tailored job descriptions",
-      ],
-      technologies: ["DeepSeek AI", "Ollama", "HR Tech", "Automation"],
+      icon: <FaFileAlt className="w-5 h-5" />,
+      title: "AI Resume Generator",
+      description: "Automated resume creation with DeepSeek AI and Ollama models.",
+      features: ["DeepSeek AI", "Ollama", "Resume generation"],
+      technologies: ["DeepSeek", "Ollama", "HR Tech"],
       category: "AI & HR",
-      color: "from-[#ba181b] to-[#e5383b]"
+      color: "from-[#530304ff] to-[#e5383b]"
     },
     {
-      icon: <FaEye className="w-6 h-6" />,
-      title: "AI Image Recognition System",
-      description:
-        "Advanced image recognition system using Azure OpenAI to analyze and identify objects, text, and patterns in images.",
-      features: [
-        "Azure OpenAI integration",
-        "Object & pattern recognition",
-        "Text extraction from images",
-        "Multi-format image support",
-      ],
-      technologies: ["Azure OpenAI", "Computer Vision", "Image Analysis", "AI"],
+      icon: <FaEye className="w-5 h-5" />,
+      title: "AI Image Recognition",
+      description: "Image recognition system using Azure OpenAI for object detection.",
+      features: ["Azure OpenAI", "Object recognition", "Text extraction"],
+      technologies: ["Azure", "Vision", "AI"],
       category: "Computer Vision",
       color: "from-[#0b090a] to-[#161a1d]"
     },
     {
-      icon: <FaLanguage className="w-6 h-6" />,
-      title: "Document Translation Application",
-      description:
-        "Application that translates DOCX files using Google Translate API for seamless multilingual support.",
-      features: [
-        "Google Translate API",
-        "DOCX file processing",
-        "Multilingual support",
-        "Batch translation",
-      ],
-      technologies: [
-        "Google API",
-        "Document Processing",
-        "Translation",
-        "Automation",
-      ],
+      icon: <FaLanguage className="w-5 h-5" />,
+      title: "Document Translator",
+      description: "DOCX file translation app using Google Translate API.",
+      features: ["Google API", "DOCX processing", "Translation"],
+      technologies: ["Google", "Translation", "Automation"],
       category: "AI & Translation",
-      color: "from-[#ba181b] to-[#e5383b]"
+      color: "from-[#530304ff] to-[#e5383b]"
     },
     {
-      icon: <FaCog className="w-6 h-6" />,
-      title: "Document Seal & Stamp Recognition",
-      description:
-        "FastAPI-based application that extracts seal and stamp information from document images using OpenAI's vision capabilities.",
-      features: [
-        "OpenAI Vision API",
-        "Seal & stamp detection",
-        "Document authentication",
-        "FastAPI backend",
-      ],
-      technologies: [
-        "OpenAI Vision",
-        "FastAPI",
-        "Document Processing",
-        "Computer Vision",
-      ],
+      icon: <FaCog className="w-5 h-5" />,
+      title: "Document Seal Recognition",
+      description: "FastAPI app for seal/stamp detection using OpenAI Vision.",
+      features: ["OpenAI Vision", "Seal detection", "Authentication"],
+      technologies: ["Vision API", "FastAPI", "Security"],
       category: "AI & Security",
       color: "from-[#0b090a] to-[#161a1d]"
     },
     {
-      icon: <FaCalculator className="w-6 h-6" />,
-      title: "Azure Pricing Calculator Automation",
-      description:
-        "Flask-based web service that automates Azure pricing calculations by scraping the Azure Pricing Calculator website.",
-      features: [
-        "Playwright automation",
-        "Real-time pricing data",
-        "REST API endpoint",
-        "Input validation",
-      ],
-      technologies: ["Flask", "Playwright", "Azure", "Web Scraping"],
+      icon: <FaCalculator className="w-5 h-5" />,
+      title: "Azure Pricing Automation",
+      description: "Flask service automating Azure pricing calculations.",
+      features: ["Playwright", "Real-time pricing", "API"],
+      technologies: ["Flask", "Playwright", "Azure"],
       category: "Cloud & Automation",
-      color: "from-[#ba181b] to-[#e5383b]"
+      color: "from-[#530304ff] to-[#e5383b]"
     },
     {
-      icon: <FaSearch className="w-6 h-6" />,
-      title: "Semantic Image Search API",
-      description:
-        "FastAPI-based semantic image search system using OpenAI's CLIP model with PostgreSQL for similarity search.",
-      features: [
-        "OpenAI CLIP model",
-        "Semantic search",
-        "PostgreSQL vector storage",
-        "Similarity matching",
-      ],
-      technologies: ["CLIP", "FastAPI", "PostgreSQL", "Vector Search"],
+      icon: <FaSearch className="w-5 h-5" />,
+      title: "Semantic Image Search",
+      description: "FastAPI semantic search using OpenAI CLIP model.",
+      features: ["CLIP model", "Semantic search", "Vector DB"],
+      technologies: ["CLIP", "FastAPI", "PostgreSQL"],
       category: "AI & Search",
-      color: "from-[#0b090a] to-[#161a1d]"
-    },
-    {
-      icon: <MdWeb className="w-6 h-6" />,
-      title: "AI ChatBot with Google Integration",
-      description:
-        "AI-powered chatbot using Flask, Azure OpenAI (GPT-4o), and Google Search API with PostgreSQL database.",
-      features: [
-        "Azure GPT-4o integration",
-        "Google Search API",
-        "User authentication",
-        "Chat history storage",
-      ],
-      technologies: ["Azure OpenAI", "Flask", "PostgreSQL", "Google API"],
-      category: "AI & Web",
-      color: "from-[#ba181b] to-[#e5383b]"
-    },
-    {
-      icon: <FaShieldAlt className="w-6 h-6" />,
-      title: "Zoho CRM Automation Suite",
-      description:
-        "Desktop application for PDF scraping, content extraction, and Zoho CRM API integration for lead management.",
-      features: [
-        "PDF scraping & extraction",
-        "Zoho CRM API integration",
-        "Lead management automation",
-        "Desktop application",
-      ],
-      technologies: ["Zoho API", "PDF Processing", "Desktop App", "Automation"],
-      category: "CRM & Automation",
-      color: "from-[#0b090a] to-[#161a1d]"
-    },
-    {
-      icon: <FaChartLine className="w-6 h-6" />,
-      title: "AI-Powered OCR Solutions",
-      description:
-        "Advanced OCR solutions using OpenAI's GPT, Google Gemini, and Llama models for multi-language text recognition.",
-      features: [
-        "Multi-language OCR",
-        "GPT & Gemini integration",
-        "Handwritten text recognition",
-        "Word document conversion",
-      ],
-      technologies: ["OCR", "OpenAI GPT", "Google Gemini", "Llama"],
-      category: "AI & OCR",
-      color: "from-[#ba181b] to-[#e5383b]"
-    },
-    {
-      icon: <MdAutoAwesome className="w-6 h-6" />,
-      title: "Voice-Enabled Website Chatbot",
-      description:
-        "Voice-enabled chatbot capable of answering user queries by analyzing website content and enhancing client interactions.",
-      features: [
-        "Voice recognition",
-        "Website content analysis",
-        "Real-time responses",
-        "Client interaction enhancement",
-      ],
-      technologies: ["Voice AI", "Web Scraping", "Real-time Chat", "NLP"],
-      category: "AI & Voice",
       color: "from-[#0b090a] to-[#161a1d]"
     },
   ];
 
-  // Duplicate projects for seamless infinite scroll
-  const duplicatedProjects = [...projects, ...projects];
+  // Calculate number of cards per slide based on screen size
+  const cardsPerSlide = isMobile ? 1 : 2;
+  const totalSlides = Math.ceil(projects.length / cardsPerSlide);
+  
+  // Create carousel items with the first set duplicated at the end for seamless transition
+  const carouselItems = [];
+  for (let i = 0; i < totalSlides + 1; i++) {
+    const slideIndex = i % totalSlides;
+    const startIndex = slideIndex * cardsPerSlide;
+    const slideProjects = projects.slice(startIndex, startIndex + cardsPerSlide);
+    carouselItems.push(slideProjects);
+  }
 
+  // Auto-slide effect - 6 seconds per slide
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => prev + 1);
+    }, 6000); // 6 seconds
 
-    let animationFrameId;
-    let scrollPosition = 0;
-    const scrollSpeed = 0.8;
+    return () => clearInterval(interval);
+  }, []);
 
-    const scroll = () => {
-      scrollPosition += scrollSpeed;
-
-      const maxScroll = scrollContainer.scrollWidth / 2;
-      if (scrollPosition >= maxScroll) {
-        scrollPosition = 0;
-      }
-
-      scrollContainer.scrollLeft = scrollPosition;
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    animationFrameId = requestAnimationFrame(scroll);
+  // Handle transition when reaching the end
+  useEffect(() => {
+    if (currentSlide === totalSlides) {
+      timeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentSlide(0);
+      }, 700);
+    } else {
+      setIsTransitioning(true);
+    }
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
-  }, []);
+  }, [currentSlide, totalSlides]);
+
+  const handleIndicatorClick = (index) => {
+    setIsTransitioning(true);
+    setCurrentSlide(index);
+  };
 
   const handleStartProjectClick = () => {
     navigate("/start-project");
   };
 
+  // Calculate the actual slide index for display
+  const displayIndex = currentSlide % totalSlides;
+
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
+    <section id="projects" className="py-16 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header - From code 1 */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-[#ba181b] border border-[#0b090a] rounded-full mb-4">
+        {/* Section Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center px-4 py-2 bg-[#ba181b] border border-[#0b090a] rounded-full mb-6">
             <div className="w-2 h-2 bg-[#0b090a] rounded-full mr-3"></div>
             <span className="text-[#ffffff] text-sm font-medium tracking-wide">
               MAJOR PROJECTS
             </span>
           </div>
-          <h2 className="text-4xl font-bold text-[#0b090a] tracking-tight mb-3">
+
+          <h2 className="text-3xl font-bold text-[#0b090a] tracking-tight mb-3">
             Innovative{" "}
             <span className="text-[#ba181b]">AI & Cloud Solutions</span>
           </h2>
-          <p className="text-lg text-[#161a1d] max-w-3xl mx-auto leading-relaxed">
-            A collection of cutting-edge projects showcasing expertise in AI,
-            machine learning, cloud automation, and full-stack development.
+          <p className="text-base text-[#161a1d] max-w-2xl mx-auto leading-relaxed">
+            A collection of cutting-edge projects showcasing expertise in AI, machine learning, and cloud automation.
           </p>
         </div>
 
-        {/* Stats Bar - From code 2 */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
-            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
-              <FaLaptopCode className="text-3xl" />
+        {/* Stats Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-lg p-4 text-center hover:shadow-md transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-2 group-hover:scale-110 transition-transform">
+              <FaLaptopCode className="text-2xl" />
             </div>
-            <div className="text-3xl font-bold text-[#0b090a] mb-1">{projects.length}</div>
-            <div className="text-[#161a1d] text-sm font-medium">Total Projects</div>
+            <div className="text-2xl font-bold text-[#0b090a] mb-1">10+ </div>
+            <div className="text-[#161a1d] text-xs font-medium">Total Projects</div>
           </div>
           
-          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
-            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
-              <FaRobot className="text-3xl" />
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-lg p-4 text-center hover:shadow-md transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-2 group-hover:scale-110 transition-transform">
+              <FaRobot className="text-2xl" />
             </div>
-            <div className="text-3xl font-bold text-[#0b090a] mb-1">10+</div>
-            <div className="text-[#161a1d] text-sm font-medium">AI Solutions</div>
+            <div className="text-2xl font-bold text-[#0b090a] mb-1">10+</div>
+            <div className="text-[#161a1d] text-xs font-medium">AI Solutions</div>
           </div>
           
-          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
-            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
-              <FaCloud className="text-3xl" />
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-lg p-4 text-center hover:shadow-md transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-2 group-hover:scale-110 transition-transform">
+              <FaCloud className="text-2xl" />
             </div>
-            <div className="text-3xl font-bold text-[#0b090a] mb-1">5+</div>
-            <div className="text-[#161a1d] text-sm font-medium">Cloud Projects</div>
+            <div className="text-2xl font-bold text-[#0b090a] mb-1">5+</div>
+            <div className="text-[#161a1d] text-xs font-medium">Cloud Projects</div>
           </div>
           
-          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
-            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
-              <FaAward className="text-3xl" />
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-lg p-4 text-center hover:shadow-md transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-2 group-hover:scale-110 transition-transform">
+              <FaAward className="text-2xl" />
             </div>
-            <div className="text-3xl font-bold text-[#0b090a] mb-1">100%</div>
-            <div className="text-[#161a1d] text-sm font-medium">Success Rate</div>
+            <div className="text-2xl font-bold text-[#0b090a] mb-1">100%</div>
+            <div className="text-[#161a1d] text-xs font-medium">Success Rate</div>
           </div>
         </div>
 
-        {/* Auto-Sliding Projects Carousel - From code 2 */}
-        <div className="relative">
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#ffffff] to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#ffffff] to-transparent z-10 pointer-events-none"></div>
-          
-          <div
-            ref={scrollRef}
-            className="flex gap-4 overflow-x-hidden py-6"
+        {/* Infinite Auto-Sliding Carousel */}
+        <div className="relative overflow-hidden rounded-xl mb-10">
+          <div 
+            className={`flex ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
-            {duplicatedProjects.map((project, index) => (
+            {carouselItems.map((slideProjects, slideIndex) => (
               <div
-                key={index}
-                className="flex-shrink-0 w-[320px] bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 group hover:border-[#ba181b] hover:-translate-y-2"
+                key={slideIndex}
+                className="min-w-full flex gap-4 px-4"
               >
-                {/* Card Header with Gradient */}
-                <div className={`bg-gradient-to-br ${project.color} p-4 relative overflow-hidden`}>
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-12 -mt-12"></div>
-                  <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/10 rounded-full -ml-10 -mb-10"></div>
-                  
-                  <div className="relative z-10 flex items-center justify-between mb-3">
-                    <div className="text-[#ffffff] group-hover:scale-110 transition-transform">
-                      {React.cloneElement(project.icon, { className: 'text-2xl' })}
+                {slideProjects.map((project, projectIndex) => (
+                  <div
+                    key={projectIndex}
+                    className={`${
+                      isMobile ? 'w-full' : 'w-1/2'
+                    } bg-[#fffff] border border-[#d3d3d3] rounded-lg p-4 hover:border-[#ba181b] hover:shadow-lg transition-all duration-300 group`}
+                  >
+                    {/* Card Header with Gradient */}
+                    <div className={`bg-gradient-to-br ${project.color} p-3 rounded-md mb-3 relative overflow-hidden`}>
+                      <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mr-8 -mt-8"></div>
+                      
+                      <div className=" relative z-10 flex items-center justify-between mb-2">
+                        <div className="text-[#ffffff] group-hover:scale-110 transition-transform">
+                          {React.cloneElement(project.icon, { className: 'text-xl' })}
+                        </div>
+                        <div className="bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                          <span className="text-[#ffffff] text-xs font-semibold">{project.category}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="relative z-10 flex items-center">
+                        <MdVerified className="text-[#ffffff] text-sm mr-1" />
+                        <span className="text-[#ffffff] text-xs font-medium">Production Ready</span>
+                      </div>
                     </div>
-                    <div className="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
-                      <span className="text-[#ffffff] text-xs font-semibold">{project.category}</span>
+
+                    {/* Card Body */}
+                    <div>
+                      <h3 className="text-[#0b090a] font-bold text-sm mb-1 leading-tight min-h-[40px] group-hover:text-[#ba181b] transition-colors">
+                        {project.title}
+                      </h3>
+                      
+                      <p className="text-[#161a1d] text-xs leading-relaxed mb-3 line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      {/* Key Features */}
+                      <div className="mb-3">
+                        <h4 className="text-[#0b090a] text-xs font-semibold mb-1 flex items-center">
+                          <FaCheckCircle className="text-[#ba181b] text-xs mr-1" />
+                          Features
+                        </h4>
+                        <ul className="space-y-1">
+                          {project.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-start space-x-1 text-[#161a1d] text-xs">
+                              <div className="w-1 h-1 bg-[#ba181b] rounded-full mt-1 flex-shrink-0"></div>
+                              <span className="line-clamp-1">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Technologies */}
+                      <div className="pt-2 border-t border-[#d3d3d3]">
+                        <div className="flex flex-wrap gap-1">
+                          {project.technologies.slice(0, 2).map((tech, idx) => (
+                            <span
+                              key={idx}
+                              className="text-xs text-[#161a1d] bg-[#ffffff] border border-[#d3d3d3] px-2 py-1 rounded-md hover:bg-[#ba181b] hover:text-[#ffffff] hover:border-[#ba181b] transition-all duration-200"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                          {project.technologies.length > 2 && (
+                            <span className="text-xs text-[#ffffff] bg-[#0b090a] border border-[#0b090a] px-2 py-1 rounded-md">
+                              +{project.technologies.length - 2}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="relative z-10 flex items-center">
-                    <MdVerified className="text-[#ffffff] text-lg mr-2" />
-                    <span className="text-[#ffffff] text-xs font-medium">Production Ready</span>
-                  </div>
-                </div>
-
-                {/* Card Body */}
-                <div className="p-4">
-                  <h3 className="text-[#0b090a] font-bold text-base mb-2 leading-tight min-h-[40px] group-hover:text-[#ba181b] transition-colors">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-[#161a1d] text-xs leading-relaxed mb-3 line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Key Features */}
-                  <div className="mb-3">
-                    <h4 className="text-[#0b090a] text-xs font-semibold mb-2 flex items-center">
-                      <FaCheckCircle className="text-[#ba181b] text-xs mr-1" />
-                      Key Features
-                    </h4>
-                    <ul className="space-y-1">
-                      {project.features.slice(0, 3).map((feature, idx) => (
-                        <li key={idx} className="flex items-start space-x-2 text-[#161a1d] text-xs">
-                          <div className="w-1 h-1 bg-[#ba181b] rounded-full mt-1.5 flex-shrink-0"></div>
-                          <span className="line-clamp-1">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Technologies */}
-                  <div className="pt-3 border-t border-[#d3d3d3]">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.technologies.slice(0, 3).map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="text-xs text-[#161a1d] bg-[#ffffff] border border-[#d3d3d3] px-2 py-1 rounded-md hover:bg-[#ba181b] hover:text-[#ffffff] hover:border-[#ba181b] transition-all duration-200"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 3 && (
-                        <span className="text-xs text-[#ffffff] bg-[#0b090a] border border-[#0b090a] px-2 py-1 rounded-md">
-                          +{project.technologies.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Hover Effect Border */}
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#ba181b] rounded-xl pointer-events-none transition-all duration-500"></div>
+                ))}
+                
+                {/* Fill empty slots if less than cardsPerSlide in last slide */}
+                {slideProjects.length < cardsPerSlide && 
+                  Array(cardsPerSlide - slideProjects.length).fill(null).map((_, idx) => (
+                    <div key={`empty-${idx}`} className={`${isMobile ? 'w-full' : 'w-1/2'} opacity-0`} />
+                  ))
+                }
               </div>
+            ))}
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center gap-1.5 mt-4">
+            {Array.from({ length: totalSlides }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleIndicatorClick(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  displayIndex === index 
+                    ? 'w-6 bg-[#ba181b]' 
+                    : 'w-1.5 bg-[#0b090a] opacity-30 hover:opacity-60'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
             ))}
           </div>
         </div>
 
-        {/* Call to Action - From code 1 */}
-        <div className="text-center mt-12">          
-          <div className="bg-[#0b090a] border border-[#0b090a] rounded-2xl p-6 max-w-2xl mx-auto hover:shadow-lg transition-all duration-300 group">            
-            <h3 className="text-[#ffffff] font-semibold text-lg mb-4 flex items-center justify-center">              
+        {/* Call to Action */}
+        <div className="text-center">          
+          <div className="bg-[#0b090a] border border-[#0b090a] rounded-xl p-6 max-w-xl mx-auto hover:shadow-lg transition-all duration-300 group">            
+            <h3 className="text-[#ffffff] font-semibold text-lg mb-3 flex items-center justify-center">              
               <div className="w-10 h-10 bg-[#ba181b] rounded-lg flex items-center justify-center mr-3 group-hover:scale-105 transition-transform">
                 <FaRocket className="text-[#0b090a] text-lg" />
               </div>
-              <span className="italic">Ready to Build Something Amazing?</span>
+              <span className="italic text-sm">Ready to Build Something Amazing?</span>
             </h3>
-            <div className="flex items-start space-x-4">              
-              <div>                
-                <p className="text-[#d3d3d3] text-sm leading-relaxed mb-4 italic">                  
-                  Let's collaborate on your next AI-powered project or discuss
-                  how these technologies can transform your business operations.
-                </p>
+            
+            <div className="text-center">
+              <p className="text-[#d3d3d3] text-sm leading-relaxed mb-4 max-w-md mx-auto italic">
+                Let's collaborate on your next AI-powered project.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
-                  className="bg-[#ba181b] text-[#ffffff] hover:bg-[#ffffff] hover:text-[#0b090a] border border-[#ba181b] px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm"
+                  className="group bg-[#ba181b] text-[#ffffff] hover:bg-[#ffffff] hover:text-[#0b090a] border border-[#ba181b] px-6 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center space-x-2 text-sm"
                   onClick={handleStartProjectClick}
-                >                  
-                  Start a Project
+                >
+                  <span className="tracking-wide">Start a Project</span>
+                  <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
+                
+                <a
+                  href="#contact"
+                  className="group border border-[#ba181b] text-[#ba181b] hover:bg-[#ba181b] hover:text-[#ffffff] px-6 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-sm"
+                >
+                  <span className="tracking-wide">Contact Me</span>
+                </a>
               </div>
             </div>
           </div>

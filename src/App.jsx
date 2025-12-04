@@ -4,7 +4,6 @@ import './App.css'
 import Hireme from './component/Hireme';
 import StartProject from './component/StartProject';
 import RND from './component/RND';
-import AskAboutMe from './component/AskAboutMe';
 import Chatbot from './component/Chatbot';
 
 function App() {

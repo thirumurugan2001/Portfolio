@@ -8,6 +8,7 @@ import Projects from './Projects';
 import Header from './Header';
 import Footer from './Footer';
 import Contact from './Contact';
+import Certifications from './Certifications';
 
 // Typing Animation Component
 const TypingAnimation = ({ text, speed = 30, className = "", onComplete }) => {
@@ -477,6 +478,7 @@ const HomePage = () => {
         <About />
         <Experience />
         <Projects />
+        <Certifications />
         <Contact />
         <Footer />
       </div>

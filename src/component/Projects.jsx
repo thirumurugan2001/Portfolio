@@ -11,8 +11,11 @@ import {
   FaLanguage,
   FaEye,
   FaChartLine,
+  FaCheckCircle,
+  FaLaptopCode,
+  FaAward,
 } from "react-icons/fa";
-import { MdWeb, MdApi, MdAutoAwesome, MdSmartToy } from "react-icons/md";
+import { MdWeb, MdApi, MdAutoAwesome, MdSmartToy, MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
@@ -33,6 +36,7 @@ const Projects = () => {
       ],
       technologies: ["AI/ML", "RAG", "Cloud Automation", "Bot3"],
       category: "AI & Cloud",
+      color: "from-[#ba181b] to-[#e5383b]"
     },
     {
       icon: <MdApi className="w-6 h-6" />,
@@ -47,6 +51,7 @@ const Projects = () => {
       ],
       technologies: ["AWS", "REST API", "AI Automation", "Cloud Optimization"],
       category: "Cloud & API",
+      color: "from-[#0b090a] to-[#161a1d]"
     },
     {
       icon: <MdSmartToy className="w-6 h-6" />,
@@ -61,6 +66,7 @@ const Projects = () => {
       ],
       technologies: ["RAG", "LLMs", "Education Tech", "Web App"],
       category: "AI & Education",
+      color: "from-[#ba181b] to-[#e5383b]"
     },
     {
       icon: <FaRobot className="w-6 h-6" />,
@@ -75,6 +81,7 @@ const Projects = () => {
       ],
       technologies: ["Fine-Tuning", "RAG", "Tourism AI", "Recommendations"],
       category: "AI & Tourism",
+      color: "from-[#0b090a] to-[#161a1d]"
     },
     {
       icon: <FaFileAlt className="w-6 h-6" />,
@@ -89,6 +96,7 @@ const Projects = () => {
       ],
       technologies: ["DeepSeek AI", "Ollama", "HR Tech", "Automation"],
       category: "AI & HR",
+      color: "from-[#ba181b] to-[#e5383b]"
     },
     {
       icon: <FaEye className="w-6 h-6" />,
@@ -103,6 +111,7 @@ const Projects = () => {
       ],
       technologies: ["Azure OpenAI", "Computer Vision", "Image Analysis", "AI"],
       category: "Computer Vision",
+      color: "from-[#0b090a] to-[#161a1d]"
     },
     {
       icon: <FaLanguage className="w-6 h-6" />,
@@ -122,6 +131,7 @@ const Projects = () => {
         "Automation",
       ],
       category: "AI & Translation",
+      color: "from-[#ba181b] to-[#e5383b]"
     },
     {
       icon: <FaCog className="w-6 h-6" />,
@@ -141,6 +151,7 @@ const Projects = () => {
         "Computer Vision",
       ],
       category: "AI & Security",
+      color: "from-[#0b090a] to-[#161a1d]"
     },
     {
       icon: <FaCalculator className="w-6 h-6" />,
@@ -155,6 +166,7 @@ const Projects = () => {
       ],
       technologies: ["Flask", "Playwright", "Azure", "Web Scraping"],
       category: "Cloud & Automation",
+      color: "from-[#ba181b] to-[#e5383b]"
     },
     {
       icon: <FaSearch className="w-6 h-6" />,
@@ -169,6 +181,7 @@ const Projects = () => {
       ],
       technologies: ["CLIP", "FastAPI", "PostgreSQL", "Vector Search"],
       category: "AI & Search",
+      color: "from-[#0b090a] to-[#161a1d]"
     },
     {
       icon: <MdWeb className="w-6 h-6" />,
@@ -183,6 +196,7 @@ const Projects = () => {
       ],
       technologies: ["Azure OpenAI", "Flask", "PostgreSQL", "Google API"],
       category: "AI & Web",
+      color: "from-[#ba181b] to-[#e5383b]"
     },
     {
       icon: <FaShieldAlt className="w-6 h-6" />,
@@ -197,6 +211,7 @@ const Projects = () => {
       ],
       technologies: ["Zoho API", "PDF Processing", "Desktop App", "Automation"],
       category: "CRM & Automation",
+      color: "from-[#0b090a] to-[#161a1d]"
     },
     {
       icon: <FaChartLine className="w-6 h-6" />,
@@ -211,6 +226,7 @@ const Projects = () => {
       ],
       technologies: ["OCR", "OpenAI GPT", "Google Gemini", "Llama"],
       category: "AI & OCR",
+      color: "from-[#ba181b] to-[#e5383b]"
     },
     {
       icon: <MdAutoAwesome className="w-6 h-6" />,
@@ -225,6 +241,7 @@ const Projects = () => {
       ],
       technologies: ["Voice AI", "Web Scraping", "Real-time Chat", "NLP"],
       category: "AI & Voice",
+      color: "from-[#0b090a] to-[#161a1d]"
     },
   ];
 
@@ -237,7 +254,7 @@ const Projects = () => {
 
     let animationFrameId;
     let scrollPosition = 0;
-    const scrollSpeed = 0.5;
+    const scrollSpeed = 0.8;
 
     const scroll = () => {
       scrollPosition += scrollSpeed;
@@ -267,7 +284,7 @@ const Projects = () => {
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+        {/* Section Header - From code 1 */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-[#ba181b] border border-[#0b090a] rounded-full mb-4">
             <div className="w-2 h-2 bg-[#0b090a] rounded-full mr-3"></div>
@@ -275,81 +292,140 @@ const Projects = () => {
               MAJOR PROJECTS
             </span>
           </div>
-          <h2 className="text-3xl font-bold text-[#0b090a] tracking-tight mb-3">
+          <h2 className="text-4xl font-bold text-[#0b090a] tracking-tight mb-3">
             Innovative{" "}
             <span className="text-[#ba181b]">AI & Cloud Solutions</span>
           </h2>
-          <p className="text-base text-[#161a1d] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-[#161a1d] max-w-3xl mx-auto leading-relaxed">
             A collection of cutting-edge projects showcasing expertise in AI,
             machine learning, cloud automation, and full-stack development.
           </p>
         </div>
 
-        {/* Auto-Sliding Carousel */}
-        <div className="relative mb-12 ">
-          <div ref={scrollRef} className="flex gap-6 overflow-x-hidden">
+        {/* Stats Bar - From code 2 */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
+              <FaLaptopCode className="text-3xl" />
+            </div>
+            <div className="text-3xl font-bold text-[#0b090a] mb-1">{projects.length}</div>
+            <div className="text-[#161a1d] text-sm font-medium">Total Projects</div>
+          </div>
+          
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
+              <FaRobot className="text-3xl" />
+            </div>
+            <div className="text-3xl font-bold text-[#0b090a] mb-1">10+</div>
+            <div className="text-[#161a1d] text-sm font-medium">AI Solutions</div>
+          </div>
+          
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
+              <FaCloud className="text-3xl" />
+            </div>
+            <div className="text-3xl font-bold text-[#0b090a] mb-1">5+</div>
+            <div className="text-[#161a1d] text-sm font-medium">Cloud Projects</div>
+          </div>
+          
+          <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 hover:border-[#ba181b] group">
+            <div className="text-[#ba181b] flex justify-center mb-3 group-hover:scale-110 transition-transform">
+              <FaAward className="text-3xl" />
+            </div>
+            <div className="text-3xl font-bold text-[#0b090a] mb-1">100%</div>
+            <div className="text-[#161a1d] text-sm font-medium">Success Rate</div>
+          </div>
+        </div>
+
+        {/* Auto-Sliding Projects Carousel - From code 2 */}
+        <div className="relative">
+          {/* Gradient Overlays */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#ffffff] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#ffffff] to-transparent z-10 pointer-events-none"></div>
+          
+          <div
+            ref={scrollRef}
+            className="flex gap-4 overflow-x-hidden py-6"
+          >
             {duplicatedProjects.map((project, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-[280px] bg-[#f5f3f4] border border-[#d3d3d3] rounded-lg p-4 hover:border-[#ba181b] hover:shadow-lg transition-all duration-300 group"
+                className="flex-shrink-0 w-[320px] bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 group hover:border-[#ba181b] hover:-translate-y-2"
               >
-                {/* Project Header */}
-                <div className="flex items-start justify-between mb-3 ">
-                  <div className="text-[#ba181b] group-hover:text-[#0b090a] transition-all duration-300">
-                    {project.icon}
+                {/* Card Header with Gradient */}
+                <div className={`bg-gradient-to-br ${project.color} p-4 relative overflow-hidden`}>
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-12 -mt-12"></div>
+                  <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/10 rounded-full -ml-10 -mb-10"></div>
+                  
+                  <div className="relative z-10 flex items-center justify-between mb-3">
+                    <div className="text-[#ffffff] group-hover:scale-110 transition-transform">
+                      {React.cloneElement(project.icon, { className: 'text-2xl' })}
+                    </div>
+                    <div className="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                      <span className="text-[#ffffff] text-xs font-semibold">{project.category}</span>
+                    </div>
                   </div>
-                  <span className="text-xs text-[#ffffff] bg-[#0b090a] border border-[#0b090a] px-2 py-1 rounded-full">
-                    {project.category}
-                  </span>
+                  
+                  <div className="relative z-10 flex items-center">
+                    <MdVerified className="text-[#ffffff] text-lg mr-2" />
+                    <span className="text-[#ffffff] text-xs font-medium">Production Ready</span>
+                  </div>
                 </div>
 
-                {/* Project Title & Description */}
-                <h3 className="text-lg font-semibold text-[#0b090a] mb-2 tracking-tight group-hover:text-[#161a1d] transition-colors line-clamp-2">
-                  {project.title}
-                </h3>
-                <p className="text-[#161a1d] text-xs leading-relaxed mb-3 tracking-wide line-clamp-3">
-                  {project.description}
-                </p>
+                {/* Card Body */}
+                <div className="p-4">
+                  <h3 className="text-[#0b090a] font-bold text-base mb-2 leading-tight min-h-[40px] group-hover:text-[#ba181b] transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-[#161a1d] text-xs leading-relaxed mb-3 line-clamp-3">
+                    {project.description}
+                  </p>
 
-                {/* Features List */}
-                <div className="space-y-1 mb-3">
-                  <h4 className="text-[#0b090a] text-xs font-medium">
-                    Key Features:
-                  </h4>
-                  <ul className="space-y-1">
-                    {project.features.slice(0, 3).map((feature, idx) => (
-                      <li key={idx} className="flex items-start space-x-1">
-                        <div className="w-1.5 h-1.5 bg-[#ba181b] rounded-full mt-1 flex-shrink-0"></div>
-                        <span className="text-[#161a1d] text-xs leading-relaxed line-clamp-1">
-                          {feature}
+                  {/* Key Features */}
+                  <div className="mb-3">
+                    <h4 className="text-[#0b090a] text-xs font-semibold mb-2 flex items-center">
+                      <FaCheckCircle className="text-[#ba181b] text-xs mr-1" />
+                      Key Features
+                    </h4>
+                    <ul className="space-y-1">
+                      {project.features.slice(0, 3).map((feature, idx) => (
+                        <li key={idx} className="flex items-start space-x-2 text-[#161a1d] text-xs">
+                          <div className="w-1 h-1 bg-[#ba181b] rounded-full mt-1.5 flex-shrink-0"></div>
+                          <span className="line-clamp-1">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Technologies */}
+                  <div className="pt-3 border-t border-[#d3d3d3]">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.technologies.slice(0, 3).map((tech, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs text-[#161a1d] bg-[#ffffff] border border-[#d3d3d3] px-2 py-1 rounded-md hover:bg-[#ba181b] hover:text-[#ffffff] hover:border-[#ba181b] transition-all duration-200"
+                        >
+                          {tech}
                         </span>
-                      </li>
-                    ))}
-                  </ul>
+                      ))}
+                      {project.technologies.length > 3 && (
+                        <span className="text-xs text-[#ffffff] bg-[#0b090a] border border-[#0b090a] px-2 py-1 rounded-md">
+                          +{project.technologies.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-1">
-                  {project.technologies.slice(0, 3).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs text-[#161a1d] bg-[#f5f3f4] border border-[#d3d3d3] px-1.5 py-0.5 rounded hover:bg-[#ba181b] hover:text-[#ffffff] hover:border-[#ba181b] transition-all duration-200"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="text-xs text-[#ffffff] bg-[#0b090a] border border-[#0b090a] px-1.5 py-0.5 rounded hover:bg-[#ba181b] hover:border-[#ba181b] transition-all duration-200">
-                      +{project.technologies.length - 3}
-                    </span>
-                  )}
-                </div>
+                {/* Hover Effect Border */}
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#ba181b] rounded-xl pointer-events-none transition-all duration-500"></div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Call to Action */}
+        {/* Call to Action - From code 1 */}
         <div className="text-center mt-12">          
           <div className="bg-[#0b090a] border border-[#0b090a] rounded-2xl p-6 max-w-2xl mx-auto hover:shadow-lg transition-all duration-300 group">            
             <h3 className="text-[#ffffff] font-semibold text-lg mb-4 flex items-center justify-center">              

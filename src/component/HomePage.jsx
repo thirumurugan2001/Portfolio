@@ -6,7 +6,7 @@ import About from './About';
 import Experience from './Experience';
 import Projects from './Projects';
 import Header from './Header';
-import Footer from './footer';
+import Footer from './Footer';
 import Contact from './Contact';
 
 // Typing Animation Component

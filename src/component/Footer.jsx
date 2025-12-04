@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaLinkedin, FaGithub, FaHackerrank, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { SiCodechef, SiLeetcode } from 'react-icons/si';
 import { useNavigate } from 'react-router-dom';

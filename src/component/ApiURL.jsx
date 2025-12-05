@@ -1,7 +1,7 @@
 
 // const BASE_URL ='http://localhost:8080';
 // const BASE_URL ='https://rag-using-singlestore-database-and-cohere.onrender.com';
-const BASE_URL ='https://rag-using-singlestore-database-and.vercel.app/';
+const BASE_URL ='https://rag-using-singlestore-database-and.vercel.app';
 // 
 
 

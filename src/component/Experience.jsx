@@ -21,6 +21,9 @@ import {
   SiUipath,
   SiHuggingface,
 } from "react-icons/si";
+import VP from "../assets/company1.png"
+import Avasoft from "../assets/company2.jfif"
+import claysys from "../assets/company3.jfif"
 
 const Experience = () => {
   const [expandedItems, setExpandedItems] = useState([]);
@@ -50,7 +53,7 @@ const Experience = () => {
         "Ollama",
         "Web Scraping",
       ],
-      logo: "src/assets/company1.png",
+      logo: VP,
       responsibilities: [
         "Specialized in developing cutting-edge AI applications and providing innovative solutions",
         "Worked closely with the development team to design and implement database structures and build APIs using Flask, Sanic, Django, and Fast API",
@@ -103,7 +106,7 @@ const Experience = () => {
         "Azure OpenAI",
         "AWS Bedrock",
       ],
-      logo: "src/assets/company2.jfif",
+      logo: Avasoft,
       responsibilities: [
         "Specialized in developing next-generation AI applications and delivering innovative solutions",
         "Integrated Azure OpenAI Service and AWS Bedrock to create advanced AI solutions",
@@ -176,7 +179,7 @@ const Experience = () => {
       period: "July 2023 - October 2023",
       role: "RPA Developer",
       technologies: ["UiPath", "RPA Genie"],
-      logo: "src/assets/company3.jfif",
+      logo: claysys,
       responsibilities: [
         "Created and maintained robotic automation workflows using UiPath and RPA Genie",
         "Tested and troubleshooted automation processes to ensure smooth operation",

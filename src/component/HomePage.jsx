@@ -404,7 +404,7 @@ const HomePage = () => {
                         key={index}
                         className="min-w-full px-2 "
                       >
-                        <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-xl p-8 hover:border-[#ba181b] hover:shadow-xl transition-all duration-300 group h-full">
+                        <div className="bg-[#fffff] border border-[#d3d3d3] rounded-xl p-8 hover:border-[#ba181b] hover:shadow-xl transition-all duration-300 group h-full">
                           <div className="text-[#0b090a] group-hover:text-[#ba181b] mb-6 transition-all duration-300 group-hover:scale-110 transform">
                             {tech.icon}
                           </div>
@@ -444,7 +444,7 @@ const HomePage = () => {
                 </div>
 
                 {/* Professional Network */}
-                <div className="bg-[#f5f3f4] border border-[#d3d3d3] rounded-2xl p-6 hover:border-[#ba181b] hover:shadow-xl transition-all duration-300">
+                <div className="bg-[#fffff] border border-[#d3d3d3] rounded-2xl p-6 hover:border-[#ba181b] hover:shadow-xl transition-all duration-300">
                   <h3 className="text-[#0b090a] font-semibold text-lg mb-6 tracking-tight flex items-center">
                     <div className="w-8 h-8 bg-[#0b090a] rounded-lg flex items-center justify-center mr-3">
                       <FaNetworkWired className="text-[#ba181b] text-sm" />

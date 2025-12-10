@@ -9,6 +9,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Contact from './Contact';
 import Certifications from './Certifications';
+import resumeCV from "../assets/Thirumurugan_Resume.pdf";
 
 // Typing Animation Component
 const TypingAnimation = ({ text, speed = 30, className = "", onComplete }) => {
@@ -93,8 +94,6 @@ const HomePage = () => {
   const [typingComplete, setTypingComplete] = useState(false);
   const timeoutRef = useRef(null);
   const canvasRef = useRef(null);
-
-  const resumeUrl = 'src/assets/Thirumurugan_Resume.pdf'; 
 
   // Neural Network Background Animation with New Color Palette
   useEffect(() => {
@@ -375,7 +374,7 @@ const HomePage = () => {
                 {/* CTA Buttons with PDF Download */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-6">
                   <a 
-                    href={resumeUrl}
+                    href={resumeCV}
                     download="Thirumurugan_Subramaniyan_Resume.pdf"
                     className="group bg-[#0b090a] text-[#ffffff] hover:bg-[#ba181b] hover:text-[#ffffff] border border-[#0b090a] px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3"
                   >

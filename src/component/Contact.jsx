@@ -2,6 +2,16 @@ import React, { useState, useRef } from 'react';
 import { FaEnvelope, FaPhone, FaWhatsapp, FaPaperPlane, FaUser, FaComment, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import API_URLS from './ApiURL';
 
+// Color Constants
+const COLORS = {
+  primary: '#8267ec',
+  black: '#000000',
+  white: '#ffffff',
+  grayLight: '#f5f5f5',
+  grayDark: '#1a1a1a',
+  grayBorder: '#333333'
+};
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     Name: '',
@@ -146,7 +156,7 @@ const Contact = () => {
     if (currentX >= threshold) {
       // Successfully swiped to the end
       swipeBtnRef.current.style.left = `${containerRect.width - buttonWidth}px`;
-      swipeBtnRef.current.style.backgroundColor = '#4CAF50'; // Green color for success
+      swipeBtnRef.current.style.backgroundColor = '#10b981'; // Success green
       
       setTimeout(() => {
         const phoneNumber = "7339225958";
@@ -158,7 +168,7 @@ const Contact = () => {
         setTimeout(() => {
           if (swipeBtnRef.current) {
             swipeBtnRef.current.style.left = '0px';
-            swipeBtnRef.current.style.backgroundColor = '#ba181b';
+            swipeBtnRef.current.style.backgroundColor = COLORS.primary;
             swipeBtnRef.current.style.transition = 'left 0.3s ease, background-color 0.3s ease';
           }
         }, 1000);
@@ -207,7 +217,7 @@ const Contact = () => {
     if (currentX >= threshold) {
       // Successfully swiped to the end
       swipeBtnRef.current.style.left = `${containerRect.width - buttonWidth}px`;
-      swipeBtnRef.current.style.backgroundColor = '#4CAF50'; // Green color for success
+      swipeBtnRef.current.style.backgroundColor = '#10b981'; // Success green
       
       setTimeout(() => {
         const phoneNumber = "7339225958";
@@ -219,7 +229,7 @@ const Contact = () => {
         setTimeout(() => {
           if (swipeBtnRef.current) {
             swipeBtnRef.current.style.left = '0px';
-            swipeBtnRef.current.style.backgroundColor = '#ba181b';
+            swipeBtnRef.current.style.backgroundColor = COLORS.primary;
             swipeBtnRef.current.style.transition = 'left 0.3s ease, background-color 0.3s ease';
           }
         }, 1000);
@@ -247,26 +257,26 @@ const Contact = () => {
   }, [isDragging]);
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
       <div className="max-w-6xl mx-auto">
         {/* Notification Toast */}
         {notification.show && (
           <div className={`fixed top-4 right-4 z-50 flex items-center space-x-3 p-4 rounded-lg border backdrop-blur-sm transition-all duration-300 transform ${
             notification.show ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
           }`} style={{
-            backgroundColor: notification.type === 'success' ? '#f5f3f4' : '#f5f3f4',
-            borderColor: '#0b090a',
-            color: '#0b090a'
+            backgroundColor: notification.type === 'success' ? '#111111' : '#111111',
+            borderColor: notification.type === 'success' ? '#10b981' : '#ef4444',
+            color: '#ffffff'
           }}>
             {notification.type === 'success' ? (
-              <FaCheckCircle className="w-5 h-5 text-[#ba181b]" />
+              <FaCheckCircle className="w-5 h-5 text-[#10b981]" />
             ) : (
-              <FaExclamationCircle className="w-5 h-5 text-[#ba181b]" />
+              <FaExclamationCircle className="w-5 h-5 text-[#ef4444]" />
             )}
             <span className="text-sm font-medium">{notification.message}</span>
             <button 
               onClick={() => setNotification({ show: false, message: '', type: '' })}
-              className="transition-opacity ml-2 text-[#0b090a]"
+              className="transition-opacity ml-2 text-gray-400 hover:text-white"
             >
               &times;
             </button>
@@ -275,25 +285,25 @@ const Contact = () => {
 
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-[#ba181b] border border-[#0b090a] rounded-full mb-6">
-            <div className="w-2 h-2 bg-[#0b090a] rounded-full mr-3"></div>
-            <span className="text-[#ffffff] text-sm font-medium tracking-wide">
+          <div className="inline-flex items-center px-4 py-2 bg-[#8267ec] border border-[#8267ec] rounded-full mb-6 group hover:shadow-[0_0_15px_rgba(130,103,236,0.5)] transition-all duration-300">
+            <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none"></div>
+            <span className="text-white text-sm font-medium tracking-wide">
               GET IN TOUCH
             </span>
           </div>
-          <h2 className="text-4xl font-bold text-[#0b090a] tracking-tight mb-4">
-            Let's <span className="text-[#ba181b]">Connect</span>
+          <h2 className="text-4xl font-bold text-white tracking-tight mb-4">
+            Let's <span className="text-[#8267ec]">Connect</span>
           </h2>
-          <p className="text-lg text-[#161a1d] max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
             For more information or inquiries about my skills and experience, please feel free to get in touch with me.
           </p>
-          <div className="mt-6 text-[#161a1d]">
+          <div className="mt-6 text-gray-300">
             <div className="flex items-center justify-center space-x-4 mb-2">
-              <FaEnvelope className="w-5 h-5 text-[#ba181b]" />
+              <FaEnvelope className="w-5 h-5 text-[#8267ec]" />
               <span title="drop a mail">thirusubramaniyan2001@gmail.com</span>
             </div>
             <div className="flex items-center justify-center space-x-4">
-              <FaPhone className="w-5 h-5 text-[#ba181b]" />
+              <FaPhone className="w-5 h-5 text-[#8267ec]" />
               <span title="Call on">+91- 73392 25958</span>
             </div>
           </div>
@@ -302,20 +312,20 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="rounded-2xl p-8 hover:shadow-xl transition-all duration-300 bg-[#f5f3f4] border border-[#d3d3d3]">
-              <h3 className="text-2xl font-semibold mb-6 text-[#0b090a]">Contact Information</h3>
+            <div className="rounded-2xl p-8 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 bg-[#111111] border border-[#333333]">
+              <h3 className="text-2xl font-semibold mb-6 text-white">Contact Information</h3>
               
               <div className="space-y-6">
                 {/* Email */}
                 <div className="flex items-center space-x-4 group">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center transition-colors group-hover:scale-105 bg-[#ffffff] border border-[#ba181b]">
-                    <FaEnvelope className="w-6 h-6 text-[#ba181b]" />
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center transition-all group-hover:scale-105 bg-black border border-[#8267ec] group-hover:bg-[#8267ec]">
+                    <FaEnvelope className="w-6 h-6 text-[#8267ec] group-hover:text-white transition-colors" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#0b090a] opacity-80">Email</p>
+                    <p className="text-sm text-gray-400">Email</p>
                     <a 
                       href="mailto:thirusubramaniyan2001@gmail.com"
-                      className="font-medium hover:opacity-70 transition-opacity text-[#0b090a]"
+                      className="font-medium hover:text-[#8267ec] transition-colors text-white"
                     >
                       thirusubramaniyan2001@gmail.com
                     </a>
@@ -324,14 +334,14 @@ const Contact = () => {
 
                 {/* Phone */}
                 <div className="flex items-center space-x-4 group">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center transition-colors group-hover:scale-105 bg-[#ffffff] border border-[#ba181b]">
-                    <FaPhone className="w-6 h-6 text-[#ba181b]" />
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center transition-all group-hover:scale-105 bg-black border border-[#8267ec] group-hover:bg-[#8267ec]">
+                    <FaPhone className="w-6 h-6 text-[#8267ec] group-hover:text-white transition-colors" />
                   </div>
                   <div>
-                    <p className="text-sm text-[#0b090a] opacity-80">Phone</p>
+                    <p className="text-sm text-gray-400">Phone</p>
                     <a 
                       href="tel:+917339225958"
-                      className="font-medium hover:opacity-70 transition-opacity text-[#0b090a]"
+                      className="font-medium hover:text-[#8267ec] transition-colors text-white"
                     >
                       +91 - 73392 25958
                     </a>
@@ -340,13 +350,13 @@ const Contact = () => {
 
                 {/* WhatsApp Swipe */}
                 <div className="mt-8">
-                  <p className="text-sm mb-4 text-[#0b090a] opacity-80">Quick connect on WhatsApp</p>
+                  <p className="text-sm mb-4 text-gray-400">Quick connect on WhatsApp</p>
                   <div 
                     ref={swipeContainerRef}
-                    className="relative rounded-full h-14 cursor-pointer overflow-hidden select-none bg-[#ffffff] border border-[#ba181b]"
+                    className="relative rounded-full h-14 cursor-pointer overflow-hidden select-none bg-black border border-[#8267ec]"
                   >
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-medium text-[#0b090a] opacity-80">
+                      <span className="text-sm font-medium text-gray-400">
                         Swipe to chat on WhatsApp
                       </span>
                     </div>
@@ -356,12 +366,12 @@ const Contact = () => {
                       onTouchStart={handleTouchStart}
                       onTouchMove={handleTouchMove}
                       onTouchEnd={handleTouchEnd}
-                      className="absolute left-0 top-0 w-16 h-14 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing transition-all shadow-lg bg-[#ba181b]"
+                      className="absolute left-0 top-0 w-16 h-14 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing transition-all shadow-lg bg-[#8267ec]"
                       style={{ 
                         transition: 'left 0.3s ease, background-color 0.3s ease'
                       }}
                     >
-                      <FaWhatsapp className="text-xl text-[#ffffff]" />
+                      <FaWhatsapp className="text-xl text-white" />
                     </div>
                   </div>
                 </div>
@@ -369,19 +379,19 @@ const Contact = () => {
             </div>
 
             {/* Quick Response */}
-            <div className="rounded-2xl p-6 hover:shadow-xl transition-all duration-300 bg-[#f5f3f4] border border-[#d3d3d3]">
-              <h4 className="font-semibold mb-3 text-[#0b090a]">Why Work With Me?</h4>
-              <ul className="space-y-2 text-sm text-[#0b090a] opacity-80">
+            <div className="rounded-2xl p-6 hover:shadow-[0_0_30px_rgba(130,103,236,0.1)] transition-all duration-300 bg-[#111111] border border-[#333333]">
+              <h4 className="font-semibold mb-3 text-white">Why Work With Me?</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
                 <li className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#ba181b]"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#8267ec]"></div>
                   <span>AI-powered solutions tailored to your needs</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#ba181b]"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#8267ec]"></div>
                   <span>Fast response time and clear communication</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#ba181b]"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#8267ec]"></div>
                   <span>Professional and reliable service delivery</span>
                 </li>
               </ul>
@@ -389,12 +399,12 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="rounded-2xl p-8 hover:shadow-xl transition-all duration-300 bg-[#ffffff] border border-[#d3d3d3]">
+          <div className="rounded-2xl p-8 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 bg-[#111111] border border-[#333333]">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
               <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center space-x-2 text-[#0b090a] opacity-80">
-                  <FaUser className="w-4 h-4 text-[#ba181b]" />
+                <label className="text-sm font-medium flex items-center space-x-2 text-gray-300">
+                  <FaUser className="w-4 h-4 text-[#8267ec]" />
                   <span>Your Name</span>
                 </label>
                 <input
@@ -403,7 +413,7 @@ const Contact = () => {
                   value={formData.Name}
                   onChange={handleInputChange}
                   placeholder="Enter your full name"
-                  className="w-full px-4 py-3 rounded-lg placeholder-opacity-50 focus:outline-none transition-colors bg-[#ffffff] border border-[#d3d3d3] text-[#0b090a]"
+                  className="w-full px-4 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all bg-black border border-[#333333] text-white focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]"
                   required
                 />
               </div>
@@ -412,8 +422,8 @@ const Contact = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Phone Field */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium flex items-center space-x-2 text-[#0b090a] opacity-80">
-                    <FaPhone className="w-4 h-4 text-[#ba181b]" />
+                  <label className="text-sm font-medium flex items-center space-x-2 text-gray-300">
+                    <FaPhone className="w-4 h-4 text-[#8267ec]" />
                     <span>Phone Number</span>
                   </label>
                   <input
@@ -422,15 +432,15 @@ const Contact = () => {
                     value={formData.Phone}
                     onChange={handleInputChange}
                     placeholder="Your phone number"
-                    className="w-full px-4 py-3 rounded-lg placeholder-opacity-50 focus:outline-none transition-colors bg-[#ffffff] border border-[#d3d3d3] text-[#0b090a]"
+                    className="w-full px-4 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all bg-black border border-[#333333] text-white focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]"
                     required
                   />
                 </div>
 
                 {/* Email Field */}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium flex items-center space-x-2 text-[#0b090a] opacity-80">
-                    <FaEnvelope className="w-4 h-4 text-[#ba181b]" />
+                  <label className="text-sm font-medium flex items-center space-x-2 text-gray-300">
+                    <FaEnvelope className="w-4 h-4 text-[#8267ec]" />
                     <span>Email Address</span>
                   </label>
                   <input
@@ -439,7 +449,7 @@ const Contact = () => {
                     value={formData.Email}
                     onChange={handleInputChange}
                     placeholder="your.email@example.com"
-                    className="w-full px-4 py-3 rounded-lg placeholder-opacity-50 focus:outline-none transition-colors bg-[#ffffff] border border-[#d3d3d3] text-[#0b090a]"
+                    className="w-full px-4 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all bg-black border border-[#333333] text-white focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]"
                     required
                   />
                 </div>
@@ -447,8 +457,8 @@ const Contact = () => {
 
               {/* Message Field */}
               <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center space-x-2 text-[#0b090a] opacity-80">
-                  <FaComment className="w-4 h-4 text-[#ba181b]" />
+                <label className="text-sm font-medium flex items-center space-x-2 text-gray-300">
+                  <FaComment className="w-4 h-4 text-[#8267ec]" />
                   <span>Your Message</span>
                 </label>
                 <textarea
@@ -457,7 +467,7 @@ const Contact = () => {
                   onChange={handleInputChange}
                   placeholder="Type your message here . . . ."
                   rows="5"
-                  className="w-full px-4 py-3 rounded-lg placeholder-opacity-50 focus:outline-none transition-colors resize-none bg-[#ffffff] border border-[#d3d3d3] text-[#0b090a]"
+                  className="w-full px-4 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all resize-none bg-black border border-[#333333] text-white focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]"
                   required
                 />
               </div>
@@ -468,20 +478,21 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform flex items-center justify-center space-x-2 border ${
+                  className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border ${
                     isSubmitting 
                       ? 'opacity-50 cursor-not-allowed scale-100' 
-                      : 'hover:scale-105'
-                  } bg-[#ba181b] text-[#ffffff] border-[#ba181b]`}
+                      : 'hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]'
+                  } bg-[#8267ec] text-white border-[#8267ec]`}
                   onMouseEnter={(e) => {
                     if (!isSubmitting) {
                       e.target.style.backgroundColor = '#ffffff';
-                      e.target.style.color = '#ba181b';
+                      e.target.style.color = '#8267ec';
+                      e.target.style.borderColor = '#8267ec';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isSubmitting) {
-                      e.target.style.backgroundColor = '#ba181b';
+                      e.target.style.backgroundColor = '#8267ec';
                       e.target.style.color = '#ffffff';
                     }
                   }}
@@ -503,14 +514,14 @@ const Contact = () => {
                 <button
                   type="button"
                   onClick={handleManualEmail}
-                  className="flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 hover:scale-105 bg-[#ffffff] text-[#0b090a] border-[#0b090a]"
+                  className="flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.3)] bg-black text-[#8267ec] border-[#8267ec]"
                   onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#0b090a';
+                    e.target.style.backgroundColor = '#8267ec';
                     e.target.style.color = '#ffffff';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = '#ffffff';
-                    e.target.style.color = '#0b090a';
+                    e.target.style.backgroundColor = 'black';
+                    e.target.style.color = '#8267ec';
                   }}
                 >
                   <FaEnvelope className="w-4 h-4" />

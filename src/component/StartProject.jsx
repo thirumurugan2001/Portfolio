@@ -280,10 +280,10 @@ const StartProject = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black">
     
       {/* Header - Updated with Color Pattern */}
-      <nav className="fixed top-0 w-full bg-[#ffffff] backdrop-blur-lg z-50 border-b border-[#d3d3d3] shadow-sm">
+      <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-lg z-50 border-b border-[#333333] shadow-sm shadow-[#8267ec]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -291,18 +291,18 @@ const StartProject = () => {
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <div 
-                    className="w-10 h-10 bg-gradient-to-br from-[#0b090a] to-[#161a1d] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-md"
+                    className="w-10 h-10 bg-[#8267ec] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.5)]"
                     onClick={() => navigate('/')}
                   >
-                    <div className="w-6 h-6 bg-[#ba181b] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="text-[#ffffff] font-bold text-[10px] tracking-tighter">TS</span>
+                    <div className="w-6 h-6 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="text-[#8267ec] font-bold text-[10px] tracking-tighter">TS</span>
                     </div>
-                    <span className="absolute text-[#ffffff] font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">TS</span>
+                    <span className="absolute text-white font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">TS</span>
                   </div>
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-[#0b090a] font-bold text-xl leading-tight tracking-tight">THIRUMURUGAN S</div>
-                  <div className="text-[#161a1d] text-xs font-medium tracking-wider opacity-90 uppercase">AI Research Engineer</div>
+                  <div className="text-white font-bold text-xl leading-tight tracking-tight">THIRUMURUGAN S</div>
+                  <div className="text-gray-300 text-xs font-medium tracking-wider opacity-90 uppercase">AI Research Engineer</div>
                 </div>
               </div>
             </div>
@@ -313,14 +313,14 @@ const StartProject = () => {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className="text-[#161a1d] hover:text-[#0b090a] font-medium text-sm transition-all duration-300 tracking-wide relative group capitalize"
+                  className="text-gray-300 hover:text-white font-medium text-sm transition-all duration-300 tracking-wide relative group capitalize"
                 >
                   {item === 'home' ? 'Home' : 
                    item === 'about' ? 'About' : 
                    item === 'projects' ? 'Projects' : 
                    item === 'experience' ? 'Experience' : 
                    item === 'contact' ? 'Contact' : item}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ba181b] to-[#e5383b] group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#8267ec] to-[#9d8aee] group-hover:w-full transition-all duration-300"></span>
                 </button>
               ))}
               
@@ -328,19 +328,19 @@ const StartProject = () => {
               <div className="flex items-center space-x-3 ml-4">
                 <button 
                   onClick={handleRNDClick}
-                  className="bg-gradient-to-r from-[#660708] to-[#a4161a] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#660708]/20"
+                  className="bg-gradient-to-r from-[#8267ec] to-[#9d8aee] text-white hover:from-white hover:to-gray-200 hover:text-[#8267ec] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] border border-[#8267ec]/20"
                 >
                   Research
                 </button>
                 <button 
                   onClick={handleAskAboutMeClick}
-                  className="bg-gradient-to-r from-[#0b090a] to-[#161a1d] text-white hover:from-[#ba181b] hover:to-[#e5383b] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#0b090a]/10"
+                  className="bg-gradient-to-r from-[#111111] to-[#333333] text-white hover:from-[#8267ec] hover:to-[#9d8aee] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] border border-[#111111]/10"
                 >
                   Ask About Me
                 </button>
                 <button 
                   onClick={handleHireMeClick}
-                  className="bg-[#0b090a] text-white hover:bg-[#ba181b] hover:text-white border border-[#0b090a] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                  className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] border border-[#8267ec] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
                 >
                   Hire Me
                 </button>
@@ -349,7 +349,7 @@ const StartProject = () => {
 
             {/* Mobile Menu Button */}
             <button 
-              className="md:hidden text-[#161a1d] hover:text-[#0b090a] p-2 transition-colors duration-300"
+              className="md:hidden text-gray-300 hover:text-white p-2 transition-colors duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,13 +362,13 @@ const StartProject = () => {
 
           {/* Mobile Navigation - Updated with Color Pattern */}
           {isMenuOpen && (
-            <div className="md:hidden absolute top-16 left-0 w-full bg-[#ffffff] backdrop-blur-lg border-b border-[#d3d3d3] shadow-lg">
+            <div className="md:hidden absolute top-16 left-0 w-full bg-black/95 backdrop-blur-lg border-b border-[#333333] shadow-lg shadow-[#8267ec]/10">
               <div className="flex flex-col space-y-1 p-4">
                 {['home', 'about', 'experience', 'projects', 'contact'].map((item) => (
                   <button
                     key={item}
                     onClick={() => handleNavClick(item)}
-                    className="text-[#161a1d] hover:text-[#0b090a] py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-[#ba181b] hover:bg-[#f5f3f4] rounded-r-lg text-left capitalize"
+                    className="text-gray-300 hover:text-white py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-[#8267ec] hover:bg-[#111111] rounded-r-lg text-left capitalize"
                   >
                     {item === 'home' ? 'Home' : 
                      item === 'about' ? 'About' : 
@@ -379,36 +379,36 @@ const StartProject = () => {
                 ))}
                 
                 {/* Mobile Action Buttons - Updated with Color Pattern */}
-                <div className="flex flex-col space-y-3 pt-4 border-t border-[#d3d3d3] mt-2">
+                <div className="flex flex-col space-y-3 pt-4 border-t border-[#333333] mt-2">
                   <button 
                     onClick={handleRNDClick}
-                    className="bg-gradient-to-r from-[#660708] to-[#a4161a] text-white hover:from-[#0b090a] hover:to-[#161a1d] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
+                    className="bg-gradient-to-r from-[#8267ec] to-[#9d8aee] text-white hover:from-white hover:to-gray-200 hover:text-[#8267ec] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
                   >
                     Research
                   </button>
                   <button 
                     onClick={handleAskAboutMeClick}
-                    className="bg-gradient-to-r from-[#0b090a] to-[#161a1d] text-white hover:from-[#ba181b] hover:to-[#e5383b] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
+                    className="bg-gradient-to-r from-[#111111] to-[#333333] text-white hover:from-[#8267ec] hover:to-[#9d8aee] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
                   >
                     Ask About Me
                   </button>
                   <button 
                     onClick={handleHireMeClick}
-                    className="bg-[#0b090a] text-white hover:bg-[#ba181b] py-3 rounded-lg font-semibold text-sm transition-colors duration-300"
+                    className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] py-3 rounded-lg font-semibold text-sm transition-colors duration-300"
                   >
                     Hire Me
                   </button>
                 </div>
                 
                 {/* Mobile Social Links - Updated with Color Pattern */}
-                <div className="flex justify-center space-x-6 pt-4 border-t border-[#d3d3d3] mt-4">
+                <div className="flex justify-center space-x-6 pt-4 border-t border-[#333333] mt-4">
                   {socialLinks.slice(0, 3).map((social, index) => (
                     <a
                       key={index}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#161a1d] hover:text-[#ba181b] transition-colors duration-300 p-2 rounded-full hover:bg-[#f5f3f4]"
+                      className="text-gray-300 hover:text-[#8267ec] transition-colors duration-300 p-2 rounded-full hover:bg-[#111111]"
                     >
                       {social.icon}
                     </a>
@@ -426,18 +426,18 @@ const StartProject = () => {
           notification.show ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
         } ${
           notification.type === 'success' 
-            ? 'bg-white border-gray-300 text-gray-900' 
-            : 'bg-white border-red-200 text-red-900'
+            ? 'bg-[#111111] border-[#10b981] text-white' 
+            : 'bg-[#111111] border-[#ef4444] text-white'
         }`}>
           {notification.type === 'success' ? (
-            <FaCheckCircle className="w-5 h-5 text-green-600" />
+            <FaCheckCircle className="w-5 h-5 text-[#10b981]" />
           ) : (
-            <FaExclamationCircle className="w-5 h-5 text-red-600" />
+            <FaExclamationCircle className="w-5 h-5 text-[#ef4444]" />
           )}
           <span className="text-sm font-medium">{notification.message}</span>
           <button 
             onClick={() => setNotification({ show: false, message: '', type: '' })}
-            className="text-gray-500 hover:text-gray-700 transition-colors ml-2"
+            className="text-gray-400 hover:text-white transition-colors ml-2"
           >
             &times;
           </button>
@@ -445,7 +445,7 @@ const StartProject = () => {
       )}
 
       {/* Main Content */}
-      <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-black">
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Top Section - Project Information & Contact */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -454,16 +454,16 @@ const StartProject = () => {
               {/* Professional Badge */}
               <div className="relative inline-block">
                 <div 
-                  className="professional-badge inline-flex items-center px-4 py-2.5 rounded-full border cursor-pointer transition-all duration-300 group bg-white"
+                  className="professional-badge inline-flex items-center px-4 py-2.5 rounded-full border cursor-pointer transition-all duration-300 group bg-black"
                   style={{ 
-                    borderColor: '#a4161a',
-                    color: '#a4161a'
+                    borderColor: '#8267ec',
+                    color: '#8267ec'
                   }}
                 >
                   <div 
                     className="badge-dot w-2 h-2 rounded-full mr-3 animate-pulse transition-all duration-300"
                     style={{ 
-                      backgroundColor: '#a4161a'
+                      backgroundColor: '#8267ec'
                     }}
                   ></div>
                   <span className="badge-text text-sm font-medium tracking-wide transition-colors duration-300">READY FOR PROJECTS</span>
@@ -472,7 +472,7 @@ const StartProject = () => {
                 {/* CSS for hover effect */}
                 <style jsx>{`
                   .professional-badge:hover {
-                    background-color: #a4161a !important;
+                    background-color: #8267ec !important;
                     color: #ffffff !important;
                   }
                   .professional-badge:hover .badge-dot {
@@ -489,29 +489,29 @@ const StartProject = () => {
               {/* Title Section with Split Colors */}
               <div className="space-y-4">
                 <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-                  <span style={{ color: '#0b090a' }}>Start </span>
-                  <span style={{ color: '#a4161a' }}>Project</span>
+                  <span className="text-white">Start </span>
+                  <span className="text-[#8267ec]">Project</span>
                 </h1>
                 <div className="flex items-center space-x-4">
-                  <div className="w-16 h-0.5 bg-gradient-to-r from-black to-red-800"></div>
-                  <p className="text-xl font-light tracking-wide text-gray-700">
+                  <div className="w-16 h-0.5 bg-gradient-to-r from-white to-[#8267ec]"></div>
+                  <p className="text-xl font-light tracking-wide text-gray-300">
                     Let's bring your vision to life
                   </p>
                 </div>
               </div>
 
               {/* Project Capabilities */}
-              <div className="bg-white rounded-xl p-4 hover:shadow-xl transition-all duration-300 border border-gray-200">
-                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-gray-900">
-                  <FaBuilding className="mr-2 text-red-600" />
+              <div className="bg-[#111111] rounded-xl p-4 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 border border-[#333333]">
+                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-white">
+                  <FaBuilding className="mr-2 text-[#8267ec]" />
                   Project Capabilities
                 </h3>
                 <div className="space-y-3">
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     {['AI/ML Solutions', 'Web Applications', 'Cloud Architecture', 'Data Analytics', 'API Development', 'Database Design'].map((capability, index) => (
                       <div key={index} className="flex items-center space-x-2">
-                        <div className="w-2 h-2 rounded-full bg-red-600"></div>
-                        <span className="text-gray-700">{capability}</span>
+                        <div className="w-2 h-2 rounded-full bg-[#8267ec]"></div>
+                        <span className="text-gray-300">{capability}</span>
                       </div>
                     ))}
                   </div>
@@ -519,9 +519,9 @@ const StartProject = () => {
               </div>
 
               {/* Development Process */}
-              <div className="bg-white rounded-xl p-4 hover:shadow-xl transition-all duration-300 border border-gray-200">
-                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-gray-900">
-                  <FaGlobe className="mr-2 text-red-600" />
+              <div className="bg-[#111111] rounded-xl p-4 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 border border-[#333333]">
+                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-white">
+                  <FaGlobe className="mr-2 text-[#8267ec]" />
                   Development Process
                 </h3>
                 <div className="space-y-3">
@@ -533,7 +533,7 @@ const StartProject = () => {
                       { phase: 'Testing & Deployment', duration: '1-2 weeks' }
                     ].map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-700">{item.phase}</span>
+                        <span className="text-sm text-gray-300">{item.phase}</span>
                         <span className="text-xs text-gray-500">{item.duration}</span>
                       </div>
                     ))}
@@ -542,9 +542,9 @@ const StartProject = () => {
               </div>
 
               {/* Professional Network */}
-              <div className="bg-white rounded-xl p-4 hover:shadow-xl transition-all duration-300 border border-gray-200">
-                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-gray-900">
-                  <FaNetworkWired className="mr-2 text-red-600" />
+              <div className="bg-[#111111] rounded-xl p-4 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 border border-[#333333]">
+                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-white">
+                  <FaNetworkWired className="mr-2 text-[#8267ec]" />
                   Professional Network
                 </h3>
                 <div className="grid grid-cols-3 gap-2">
@@ -554,12 +554,12 @@ const StartProject = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center justify-center p-2 bg-white rounded-lg border border-gray-200 transition-all duration-300 hover:bg-red-600 hover:border-red-600 group"
+                      className="flex flex-col items-center justify-center p-2 bg-black rounded-lg border border-[#333333] transition-all duration-300 hover:bg-[#8267ec] hover:border-[#8267ec] group"
                     >
-                      <div className="text-red-600 transition-colors group-hover:scale-110 transform duration-300 group-hover:text-white">
+                      <div className="text-[#8267ec] transition-colors group-hover:scale-110 transform duration-300 group-hover:text-white">
                         {social.icon}
                       </div>
-                      <span className="text-xs font-medium tracking-wide mt-1 text-gray-700 group-hover:text-white">
+                      <span className="text-xs font-medium tracking-wide mt-1 text-gray-300 group-hover:text-white">
                         {social.name}
                       </span>
                     </a>
@@ -568,35 +568,35 @@ const StartProject = () => {
               </div>
 
               {/* Contact Information */}
-              <div className="bg-white rounded-xl p-4 hover:shadow-xl transition-all duration-300 border border-gray-200">
-                <h3 className="font-semibold text-lg mb-3 tracking-tight text-gray-900">Contact Information</h3>
+              <div className="bg-[#111111] rounded-xl p-4 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 border border-[#333333]">
+                <h3 className="font-semibold text-lg mb-3 tracking-tight text-white">Contact Information</h3>
                 <div className="space-y-2">
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Email:</span> thirusubramaniyan2001@gmail.com
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Email:</span> thirusubramaniyan2001@gmail.com
                   </p>
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Phone:</span> +91 7339225958
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Phone:</span> +91 7339225958
                   </p>
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Current Location:</span> Velachery, Chennai, Tamil Nadu
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Current Location:</span> Velachery, Chennai, Tamil Nadu
                   </p>
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Permanent Location:</span> Salem, Tamil Nadu
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Permanent Location:</span> Salem, Tamil Nadu
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Right Side - Project Details Form */}
-            <div className="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 h-full border border-gray-200">
-              <h2 className="text-2xl font-semibold mb-2 tracking-tight text-gray-900">Project Details</h2>
-              <p className="mb-4 text-sm tracking-wide text-gray-700">Fill in your project requirements and I'll get back to you with a proposal</p>
+            <div className="bg-[#111111] rounded-xl p-6 hover:shadow-[0_0_40px_rgba(130,103,236,0.25)] transition-all duration-300 h-full border border-[#333333]">
+              <h2 className="text-2xl font-semibold mb-2 tracking-tight text-white">Project Details</h2>
+              <p className="mb-4 text-sm tracking-wide text-gray-400">Fill in your project requirements and I'll get back to you with a proposal</p>
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Client Information */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg flex items-center text-gray-900">
-                    <FaUser className="mr-2 text-red-600" />
+                  <h3 className="font-semibold text-lg flex items-center text-white">
+                    <FaUser className="mr-2 text-[#8267ec]" />
                     Client Information
                   </h3>
                   
@@ -607,9 +607,9 @@ const StartProject = () => {
                       placeholder="Client Name *" 
                       value={formData.clientName}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                        errors.clientName ? 'border-red-500' : 'border-gray-300'
-                      } text-gray-900 placeholder-gray-500`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                        errors.clientName ? 'border-red-500' : 'border-[#333333]'
+                      } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     />
                     {errors.clientName && (
                       <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.clientName}</p>
@@ -623,9 +623,9 @@ const StartProject = () => {
                       placeholder="Client Mobile Number *" 
                       value={formData.clientMobile}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                        errors.clientMobile ? 'border-red-500' : 'border-gray-300'
-                      } text-gray-900 placeholder-gray-500`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                        errors.clientMobile ? 'border-red-500' : 'border-[#333333]'
+                      } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     />
                     {errors.clientMobile && (
                       <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.clientMobile}</p>
@@ -639,9 +639,9 @@ const StartProject = () => {
                       placeholder="Client Email Address *" 
                       value={formData.clientEmail}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                        errors.clientEmail ? 'border-red-500' : 'border-gray-300'
-                      } text-gray-900 placeholder-gray-500`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                        errors.clientEmail ? 'border-red-500' : 'border-[#333333]'
+                      } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     />
                     {errors.clientEmail && (
                       <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.clientEmail}</p>
@@ -651,8 +651,8 @@ const StartProject = () => {
 
                 {/* Organization Information */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg flex items-center text-gray-900">
-                    <FaBuilding className="mr-2 text-red-600" />
+                  <h3 className="font-semibold text-lg flex items-center text-white">
+                    <FaBuilding className="mr-2 text-[#8267ec]" />
                     Organization Information
                   </h3>
 
@@ -661,20 +661,20 @@ const StartProject = () => {
                     <button
                       type="button"
                       onClick={() => setShowOrgTypes(!showOrgTypes)}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-left text-sm transition-all duration-300 border ${
-                        errors.organizationType ? 'border-red-500' : 'border-gray-300'
-                      } ${!formData.organizationType ? 'text-gray-500' : 'text-gray-900'}`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-left text-sm transition-all duration-300 border ${
+                        errors.organizationType ? 'border-red-500' : 'border-[#333333]'
+                      } ${!formData.organizationType ? 'text-gray-500' : 'text-white'} focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     >
                       {formData.organizationType || 'Select Organization Type *'}
                     </button>
                     {showOrgTypes && (
-                      <div className="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg max-h-60 overflow-y-auto border border-gray-200">
+                      <div className="absolute z-10 w-full mt-1 bg-[#111111] rounded-lg shadow-lg max-h-60 overflow-y-auto border border-[#333333]">
                         {organizationTypes.map((type) => (
                           <button
                             key={type}
                             type="button"
                             onClick={() => handleOrgTypeSelect(type)}
-                            className="w-full px-3 py-2 text-left text-sm transition-colors duration-200 hover:bg-red-600 hover:text-white text-gray-900"
+                            className="w-full px-3 py-2 text-left text-sm transition-colors duration-200 hover:bg-[#8267ec] hover:text-white text-gray-300"
                           >
                             {type}
                           </button>
@@ -693,9 +693,9 @@ const StartProject = () => {
                       placeholder="Organization Name *" 
                       value={formData.organizationName}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                        errors.organizationName ? 'border-red-500' : 'border-gray-300'
-                      } text-gray-900 placeholder-gray-500`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                        errors.organizationName ? 'border-red-500' : 'border-[#333333]'
+                      } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     />
                     {errors.organizationName && (
                       <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.organizationName}</p>
@@ -709,9 +709,9 @@ const StartProject = () => {
                       placeholder="Location *" 
                       value={formData.location}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                        errors.location ? 'border-red-500' : 'border-gray-300'
-                      } text-gray-900 placeholder-gray-500`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                        errors.location ? 'border-red-500' : 'border-[#333333]'
+                      } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     />
                     {errors.location && (
                       <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.location}</p>
@@ -721,7 +721,7 @@ const StartProject = () => {
 
                 {/* Project Details */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg text-gray-900">Project Details</h3>
+                  <h3 className="font-semibold text-lg text-white">Project Details</h3>
 
                   <div>
                     <textarea 
@@ -730,9 +730,9 @@ const StartProject = () => {
                       rows="4"
                       value={formData.businessDescription}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 resize-none border ${
-                        errors.businessDescription ? 'border-red-500' : 'border-gray-300'
-                      } text-gray-900 placeholder-gray-500`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 resize-none border ${
+                        errors.businessDescription ? 'border-red-500' : 'border-[#333333]'
+                      } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     />
                     {errors.businessDescription && (
                       <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.businessDescription}</p>
@@ -747,9 +747,9 @@ const StartProject = () => {
                     <button
                       type="button"
                       onClick={() => setShowTechStack(!showTechStack)}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-left text-sm transition-all duration-300 border ${
-                        errors.techStack ? 'border-red-500' : 'border-gray-300'
-                      } ${formData.techStack.length === 0 ? 'text-gray-500' : 'text-gray-900'}`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-left text-sm transition-all duration-300 border ${
+                        errors.techStack ? 'border-red-500' : 'border-[#333333]'
+                      } ${formData.techStack.length === 0 ? 'text-gray-500' : 'text-white'} focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     >
                       {formData.techStack.length > 0 
                         ? `${formData.techStack.length} technology stack selected` 
@@ -757,7 +757,7 @@ const StartProject = () => {
                       }
                     </button>
                     {showTechStack && (
-                      <div className="mt-2 p-3 bg-white rounded-lg space-y-2 border border-gray-200">
+                      <div className="mt-2 p-3 bg-[#111111] rounded-lg space-y-2 border border-[#333333]">
                         {techStackOptions.map((tech) => (
                           <label key={tech} className="flex items-center space-x-3 cursor-pointer">
                             <input
@@ -768,14 +768,14 @@ const StartProject = () => {
                             />
                             <div className={`w-4 h-4 border-2 rounded flex items-center justify-center transition-all duration-200 ${
                               formData.techStack.includes(tech) 
-                                ? 'bg-red-600 border-red-600' 
-                                : 'bg-transparent border-gray-300'
+                                ? 'bg-[#8267ec] border-[#8267ec]' 
+                                : 'bg-transparent border-[#333333]'
                             }`}>
                               {formData.techStack.includes(tech) && (
                                 <FaCheck className="w-3 h-3 text-white" />
                               )}
                             </div>
-                            <span className="text-sm text-gray-900">{tech}</span>
+                            <span className="text-sm text-gray-300">{tech}</span>
                           </label>
                         ))}
                       </div>
@@ -790,20 +790,20 @@ const StartProject = () => {
                     <button
                       type="button"
                       onClick={() => setShowTimeline(!showTimeline)}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-left text-sm transition-all duration-300 border ${
-                        errors.projectTimeline ? 'border-red-500' : 'border-gray-300'
-                      } ${!formData.projectTimeline ? 'text-gray-500' : 'text-gray-900'}`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-left text-sm transition-all duration-300 border ${
+                        errors.projectTimeline ? 'border-red-500' : 'border-[#333333]'
+                      } ${!formData.projectTimeline ? 'text-gray-500' : 'text-white'} focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     >
                       {formData.projectTimeline || 'Select Project Timeline *'}
                     </button>
                     {showTimeline && (
-                      <div className="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200">
+                      <div className="absolute z-10 w-full mt-1 bg-[#111111] rounded-lg shadow-lg border border-[#333333]">
                         {timelineOptions.map((option) => (
                           <button
                             key={option.value}
                             type="button"
                             onClick={() => handleTimelineSelect(option.value)}
-                            className="w-full px-3 py-2 text-left text-sm transition-colors duration-200 hover:bg-red-600 hover:text-white text-gray-900"
+                            className="w-full px-3 py-2 text-left text-sm transition-colors duration-200 hover:bg-[#8267ec] hover:text-white text-gray-300"
                           >
                             {option.label}
                           </button>
@@ -820,20 +820,20 @@ const StartProject = () => {
                     <button
                       type="button"
                       onClick={() => setShowBudget(!showBudget)}
-                      className={`w-full px-3 py-2.5 bg-white rounded-lg text-left text-sm transition-all duration-300 border ${
-                        errors.budgetRange ? 'border-red-500' : 'border-gray-300'
-                      } ${!formData.budgetRange ? 'text-gray-500' : 'text-gray-900'}`}
+                      className={`w-full px-3 py-2.5 bg-black rounded-lg text-left text-sm transition-all duration-300 border ${
+                        errors.budgetRange ? 'border-red-500' : 'border-[#333333]'
+                      } ${!formData.budgetRange ? 'text-gray-500' : 'text-white'} focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                     >
                       {formData.budgetRange || 'Select Budget Range *'}
                     </button>
                     {showBudget && (
-                      <div className="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200">
+                      <div className="absolute z-10 w-full mt-1 bg-[#111111] rounded-lg shadow-lg border border-[#333333]">
                         {budgetRanges.map((budget) => (
                           <button
                             key={budget}
                             type="button"
                             onClick={() => handleBudgetSelect(budget)}
-                            className="w-full px-3 py-2 text-left text-sm transition-colors duration-200 hover:bg-red-600 hover:text-white text-gray-900"
+                            className="w-full px-3 py-2 text-left text-sm transition-colors duration-200 hover:bg-[#8267ec] hover:text-white text-gray-300"
                           >
                             {budget}
                           </button>
@@ -849,7 +849,7 @@ const StartProject = () => {
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg hover:shadow-xl tracking-wide text-sm flex items-center justify-center space-x-2 border border-red-600 bg-red-600 text-white hover:bg-white hover:text-red-600 disabled:bg-gray-400 disabled:border-gray-400 disabled:hover:text-white"
+                  className="w-full py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg hover:shadow-[0_0_30px_rgba(130,103,236,0.5)] tracking-wide text-sm flex items-center justify-center space-x-2 border border-[#8267ec] bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] disabled:bg-gray-700 disabled:border-gray-700 disabled:hover:text-white"
                 >
                   {isSubmitting ? (
                     <>
@@ -867,13 +867,13 @@ const StartProject = () => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white">
+      <footer className="border-t border-[#333333] bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
-            <p className="text-sm tracking-wide font-light text-gray-700">
+            <p className="text-sm tracking-wide font-light text-gray-400">
               © 2025 THIRUMURUGAN SUBRAMANIYAN • AI RESEARCH ENGINEER • ALL RIGHTS RESERVED
             </p>
-            <p className="text-xs mt-1 tracking-wide text-gray-500">
+            <p className="text-xs mt-1 tracking-wide text-gray-600">
               READY FOR PROJECTS • FULL-STACK DEVELOPMENT • AI/ML SOLUTIONS
             </p>
           </div>

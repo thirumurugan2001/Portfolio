@@ -22,22 +22,13 @@ const ChatbotComponent = () => {
 
   // Color palette
   const colors = {
-    primary: {
-      dark: '#0b090a',      // Almost black
-      darker: '#161a1d',    // Dark charcoal
-      burgundy: {
-        dark: '#660708',    // Deep burgundy
-        medium: '#a4161a',  // Medium burgundy
-        light: '#ba181b',   // Light burgundy
-        bright: '#e5383b'   // Bright red
-      }
-    },
-    neutral: {
-      gray: '#b1a7a6',      // Warm gray
-      lightGray: '#d3d3d3', // Light gray
-      cream: '#f5f3f4',     // Off-white cream
-      white: '#ffffff'      // Pure white
-    }
+    primary: '#8267ec', // Purple
+    black: '#000000',
+    white: '#ffffff',
+    grayDark: '#1a1a1a',
+    grayMedium: '#333333',
+    grayLight: '#666666',
+    grayVeryLight: '#999999'
   };
 
   // Function to parse text and convert markdown-like syntax to HTML elements
@@ -45,7 +36,7 @@ const ChatbotComponent = () => {
     if (!text) return '';
     
     // Parse headers (### Header)
-    let parsedText = text.replace(/###\s+(.*?)(?=\n|$)/g, `<h3 class="text-lg font-bold mt-4 mb-2 text-[${colors.primary.dark}]">$1</h3>`);
+    let parsedText = text.replace(/###\s+(.*?)(?=\n|$)/g, `<h3 class="text-lg font-bold mt-4 mb-2 text-white">$1</h3>`);
     
     // Parse bold text (**text**)
     parsedText = parsedText.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
@@ -339,9 +330,9 @@ const ChatbotComponent = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-screen bg-black">
       {/* Header - Updated with Color Pattern */}
-      <nav className="fixed top-0 w-full bg-[#ffffff] backdrop-blur-lg z-50 border-b border-[#d3d3d3] shadow-sm">
+      <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-lg z-50 border-b border-[#333333] shadow-sm shadow-[#8267ec]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -349,18 +340,18 @@ const ChatbotComponent = () => {
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <div 
-                    className="w-10 h-10 bg-gradient-to-br from-[#0b090a] to-[#161a1d] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-md"
+                    className="w-10 h-10 bg-[#8267ec] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.5)]"
                     onClick={() => navigate('/')}
                   >
-                    <div className="w-6 h-6 bg-[#ba181b] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="text-[#ffffff] font-bold text-[10px] tracking-tighter">TS</span>
+                    <div className="w-6 h-6 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="text-[#8267ec] font-bold text-[10px] tracking-tighter">TS</span>
                     </div>
-                    <span className="absolute text-[#ffffff] font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">TS</span>
+                    <span className="absolute text-white font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">TS</span>
                   </div>
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-[#0b090a] font-bold text-xl leading-tight tracking-tight">THIRUMURUGAN S</div>
-                  <div className="text-[#161a1d] text-xs font-medium tracking-wider opacity-90 uppercase">AI Research Engineer</div>
+                  <div className="text-white font-bold text-xl leading-tight tracking-tight">THIRUMURUGAN S</div>
+                  <div className="text-gray-300 text-xs font-medium tracking-wider opacity-90 uppercase">AI Research Engineer</div>
                 </div>
               </div>
             </div>
@@ -371,14 +362,14 @@ const ChatbotComponent = () => {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className="text-[#161a1d] hover:text-[#0b090a] font-medium text-sm transition-all duration-300 tracking-wide relative group capitalize"
+                  className="text-gray-300 hover:text-white font-medium text-sm transition-all duration-300 tracking-wide relative group capitalize"
                 >
                   {item === 'home' ? 'Home' : 
                    item === 'about' ? 'About' : 
                    item === 'projects' ? 'Projects' : 
                    item === 'experience' ? 'Experience' : 
                    item === 'contact' ? 'Contact' : item}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ba181b] to-[#e5383b] group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#8267ec] to-[#9d8aee] group-hover:w-full transition-all duration-300"></span>
                 </button>
               ))}
               
@@ -386,19 +377,19 @@ const ChatbotComponent = () => {
               <div className="flex items-center space-x-3 ml-4">
                 <button 
                   onClick={handleRNDClick}
-                  className="bg-[#0b090a] text-white hover:bg-[#ba181b] hover:text-white border border-[#0b090a] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                  className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] border border-[#8267ec] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
                 >
                   Research
                 </button>
                 <button 
                   onClick={handleStartProjectClick}
-                  className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#ba181b]/20"
+                  className="bg-gradient-to-r from-[#8267ec] to-[#9d8aee] text-white hover:from-white hover:to-gray-200 hover:text-[#8267ec] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] border border-[#8267ec]/20"
                 >
                   Start Project
                 </button>
                 <button 
                   onClick={handleHireMeClick}
-                  className="bg-[#0b090a] text-white hover:bg-[#ba181b] hover:text-white border border-[#0b090a] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                  className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] border border-[#8267ec] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
                 >
                   Hire Me
                 </button>
@@ -407,7 +398,7 @@ const ChatbotComponent = () => {
 
             {/* Mobile Menu Button */}
             <button 
-              className="md:hidden text-[#161a1d] hover:text-[#0b090a] p-2 transition-colors duration-300"
+              className="md:hidden text-gray-300 hover:text-white p-2 transition-colors duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -420,13 +411,13 @@ const ChatbotComponent = () => {
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden absolute top-16 left-0 w-full bg-[#ffffff] backdrop-blur-lg border-b border-[#d3d3d3] shadow-lg">
+            <div className="md:hidden absolute top-16 left-0 w-full bg-black/95 backdrop-blur-lg border-b border-[#333333] shadow-lg shadow-[#8267ec]/10">
               <div className="flex flex-col space-y-1 p-4">
                 {['home', 'about', 'experience', 'projects', 'contact'].map((item) => (
                   <button
                     key={item}
                     onClick={() => handleNavClick(item)}
-                    className="text-[#161a1d] hover:text-[#0b090a] py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-[#ba181b] hover:bg-[#f5f3f4] rounded-r-lg text-left capitalize"
+                    className="text-gray-300 hover:text-white py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-[#8267ec] hover:bg-[#111111] rounded-r-lg text-left capitalize"
                   >
                     {item === 'home' ? 'Home' : 
                      item === 'about' ? 'About' : 
@@ -437,36 +428,36 @@ const ChatbotComponent = () => {
                 ))}
                 
                 {/* Mobile Action Buttons */}
-                <div className="flex flex-col space-y-3 pt-4 border-t border-[#d3d3d3] mt-2">
+                <div className="flex flex-col space-y-3 pt-4 border-t border-[#333333] mt-2">
                   <button 
                     onClick={handleRNDClick}
-                    className="bg-[#0b090a] text-white hover:bg-[#ba181b] py-3 rounded-lg font-semibold text-sm transition-colors duration-300"
+                    className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] py-3 rounded-lg font-semibold text-sm transition-colors duration-300"
                   >
                     Research
                   </button>
                   <button 
                     onClick={handleStartProjectClick}
-                    className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
+                    className="bg-gradient-to-r from-[#8267ec] to-[#9d8aee] text-white hover:from-white hover:to-gray-200 hover:text-[#8267ec] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
                   >
                     Start Project
                   </button>
                   <button 
                     onClick={handleHireMeClick}
-                    className="bg-[#0b090a] text-white hover:bg-[#ba181b] py-3 rounded-lg font-semibold text-sm transition-colors duration-300"
+                    className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] py-3 rounded-lg font-semibold text-sm transition-colors duration-300"
                   >
                     Hire Me
                   </button>
                 </div>
                 
                 {/* Mobile Social Links */}
-                <div className="flex justify-center space-x-6 pt-4 border-t border-[#d3d3d3] mt-4">
+                <div className="flex justify-center space-x-6 pt-4 border-t border-[#333333] mt-4">
                   {socialLinks.slice(0, 3).map((social, index) => (
                     <a
                       key={index}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#161a1d] hover:text-[#ba181b] transition-colors duration-300 p-2 rounded-full hover:bg-[#f5f3f4]"
+                      className="text-gray-300 hover:text-[#8267ec] transition-colors duration-300 p-2 rounded-full hover:bg-[#111111]"
                     >
                       {social.icon}
                     </a>
@@ -479,13 +470,13 @@ const ChatbotComponent = () => {
       </nav>
 
       {/* Add padding to account for fixed header */}
-      <div className="pt-16 flex-1 flex overflow-hidden bg-white">
+      <div className="pt-16 flex-1 flex overflow-hidden bg-black">
         {/* Chatbot Section */}
-        <div className="flex-1 w-full md:w-4/5 flex flex-col border-r border-[#d3d3d3] bg-white">
+        <div className="flex-1 w-full md:w-4/5 flex flex-col border-r border-[#333333] bg-black">
           {/* Messages Area */}
           <div 
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 scrollbar-hide bg-white"
+            className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 scrollbar-hide bg-black"
           >
             {/* Default Section - Only show if conversation hasn't started */}
             {!hasConversationStarted && showWelcome && (
@@ -495,11 +486,11 @@ const ChatbotComponent = () => {
                   <div className="flex justify-center mb-3">
                     <div className="relative">
                       <div 
-                        className="w-12 h-12 bg-gradient-to-br from-[#0b090a] to-[#161a1d] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-lg"
+                        className="w-12 h-12 bg-[#8267ec] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(130,103,236,0.5)]"
                         onClick={() => navigate('/')}
                       >
-                        <div className="w-7 h-7 bg-[#ba181b] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <span className="text-white font-bold text-[8px] tracking-tighter">TS</span>
+                        <div className="w-7 h-7 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <span className="text-[#8267ec] font-bold text-[8px] tracking-tighter">TS</span>
                         </div>
                         <span className="absolute text-white font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">TS</span>
                       </div>
@@ -508,15 +499,15 @@ const ChatbotComponent = () => {
                   
                   {/* Animated Welcome Text */}
                   <div className="min-h-[40px] flex items-center justify-center px-2">
-                    <h1 className="text-lg sm:text-xl font-bold text-center text-[#0b090a]">
+                    <h1 className="text-lg sm:text-xl font-bold text-center text-white">
                       {welcomeText}
                       {welcomeText.length > 0 && welcomeText.length < getTimeBasedGreeting().length + "How can I help you today?".length + 2 && (
-                        <span className="animate-pulse text-[#ba181b]">|</span>
+                        <span className="animate-pulse text-[#8267ec]">|</span>
                       )}
                     </h1>
                   </div>
                   
-                  <p className="text-sm mt-3 px-4 text-[#161a1d]">
+                  <p className="text-sm mt-3 px-4 text-gray-400">
                     Choose a quick action or type your message below
                   </p>
                 </div>
@@ -529,9 +520,9 @@ const ChatbotComponent = () => {
                         key={action.id}
                         onClick={() => handleQuickAction(action.text)}
                         disabled={isActionDisabled}
-                        className="rounded-lg p-3 text-left transition-all duration-300 group shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed border border-[#d3d3d3] bg-white hover:bg-[#ba181b] hover:border-[#ba181b]"
+                        className="rounded-lg p-3 text-left transition-all duration-300 group shadow-sm hover:shadow-[0_0_15px_rgba(130,103,236,0.2)] disabled:opacity-50 disabled:cursor-not-allowed border border-[#333333] bg-[#111111] hover:bg-[#8267ec] hover:border-[#8267ec]"
                       >
-                        <p className="text-xs sm:text-sm leading-relaxed text-[#161a1d] group-hover:text-white">
+                        <p className="text-xs sm:text-sm leading-relaxed text-gray-300 group-hover:text-white">
                           {action.text}
                         </p>
                       </button>
@@ -552,7 +543,7 @@ const ChatbotComponent = () => {
                 >
                   {/* TS Logo Icon - Show on left for bot messages */}
                   {!message.isUser && (
-                    <div className="flex-shrink-0 w-6 h-6 bg-[#ba181b] rounded-full flex items-center justify-center">
+                    <div className="flex-shrink-0 w-6 h-6 bg-[#8267ec] rounded-full flex items-center justify-center">
                       <span className="text-white font-bold text-[10px] tracking-tighter">TS</span>
                     </div>
                   )}
@@ -561,24 +552,24 @@ const ChatbotComponent = () => {
                   <div
                     className={`max-w-[85%] sm:max-w-[75%] rounded-lg px-3 py-2 ${
                       (message.showBorder || message.isUser) ? 'border' : ''
-                    } ${message.isUser ? 'bg-[#ba181b] text-white border-[#ba181b]' : 'bg-white text-[#0b090a] border-[#d3d3d3]'}`}
+                    } ${message.isUser ? 'bg-[#8267ec] text-white border-[#8267ec]' : 'bg-[#111111] text-white border-[#333333]'}`}
                   >
                     {message.isTyping ? (
                       <div className="flex space-x-1">
                         <div 
                           className={`w-1.5 h-1.5 rounded-full animate-bounce ${
-                            message.isUser ? 'bg-white' : 'bg-[#ba181b]'
+                            message.isUser ? 'bg-white' : 'bg-[#8267ec]'
                           }`}
                         ></div>
                         <div 
                           className={`w-1.5 h-1.5 rounded-full animate-bounce ${
-                            message.isUser ? 'bg-white' : 'bg-[#ba181b]'
+                            message.isUser ? 'bg-white' : 'bg-[#8267ec]'
                           }`}
                           style={{ animationDelay: '0.1s' }}
                         ></div>
                         <div 
                           className={`w-1.5 h-1.5 rounded-full animate-bounce ${
-                            message.isUser ? 'bg-white' : 'bg-[#ba181b]'
+                            message.isUser ? 'bg-white' : 'bg-[#8267ec]'
                           }`}
                           style={{ animationDelay: '0.2s' }}
                         ></div>
@@ -592,7 +583,7 @@ const ChatbotComponent = () => {
 
                   {/* User Icon - Show on right for user messages */}
                   {message.isUser && (
-                    <div className="flex-shrink-0 w-6 h-6 bg-[#ba181b] rounded-full flex items-center justify-center">
+                    <div className="flex-shrink-0 w-6 h-6 bg-[#8267ec] rounded-full flex items-center justify-center">
                       <FaUser className="w-3 h-3 text-white" />
                     </div>
                   )}
@@ -604,7 +595,7 @@ const ChatbotComponent = () => {
           </div>
 
           {/* Fixed Input Area */}
-          <div className="border-t border-[#d3d3d3] px-4 sm:px-6 py-4 bg-white">
+          <div className="border-t border-[#333333] px-4 sm:px-6 py-4 bg-black">
             <form onSubmit={handleSendMessage} className="flex space-x-2 sm:space-x-4">
               <div className="flex-1">
                 <input
@@ -613,13 +604,13 @@ const ChatbotComponent = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Message Thiru..."
                   disabled={isActionDisabled}
-                  className="w-full rounded-lg px-3 sm:px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#ba181b] disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base border border-[#d3d3d3] bg-white text-[#0b090a] placeholder-[#161a1d]"
+                  className="w-full rounded-lg px-3 sm:px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#8267ec] disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base border border-[#333333] bg-[#111111] text-white placeholder-gray-500"
                 />
               </div>
               <button
                 type="submit"
                 disabled={!inputValue.trim() || isActionDisabled}
-                className="px-4 sm:px-6 py-3 rounded-lg transition-all duration-300 font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base whitespace-nowrap border border-[#ba181b] bg-[#ba181b] text-white hover:bg-white hover:text-[#ba181b]"
+                className="px-4 sm:px-6 py-3 rounded-lg transition-all duration-300 font-medium shadow-lg hover:shadow-[0_0_20px_rgba(130,103,236,0.5)] disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base whitespace-nowrap border border-[#8267ec] bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec]"
               >
                 {isLoading ? 'Sending...' : 'Send'}
               </button>
@@ -627,7 +618,7 @@ const ChatbotComponent = () => {
             
             {/* Disclaimer */}
             <div className="mt-3 text-center">
-              <p className="text-xs text-[#161a1d] px-2">
+              <p className="text-xs text-gray-500 px-2">
                 AI can make mistakes. Consider checking important information.
               </p>
             </div>
@@ -635,26 +626,26 @@ const ChatbotComponent = () => {
         </div>
 
         {/* Recruiter Questions Section */}
-        <div className="hidden md:flex w-1/5 flex-col border-l border-[#d3d3d3] bg-white">
+        <div className="hidden md:flex w-1/5 flex-col border-l border-[#333333] bg-black">
           {/* Section Header - Fixed */}
-          <div className="p-4 border-b border-[#d3d3d3] bg-white">
+          <div className="p-4 border-b border-[#333333] bg-black">
             <div className="flex items-center space-x-2">
-              <FaQuestion className="w-4 h-4 text-[#ba181b]" />
-              <h2 className="text-lg font-bold text-[#0b090a]">Common Questions</h2>
+              <FaQuestion className="w-4 h-4 text-[#8267ec]" />
+              <h2 className="text-lg font-bold text-white">Common Questions</h2>
             </div>
           </div>
           
           {/* Questions List - Scrollable with Hidden Scrollbar */}
-          <div className="flex-1 overflow-y-auto scrollbar-hide bg-white">
+          <div className="flex-1 overflow-y-auto scrollbar-hide bg-black">
             <div className="p-4 space-y-3">
               {recruiterQuestions.map((question) => (
                 <button
                   key={question.id}
                   onClick={() => handleRecruiterQuestion(question.text)}
                   disabled={isActionDisabled}
-                  className="w-full rounded-lg p-3 text-left transition-all duration-300 group shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed border border-[#d3d3d3] bg-white hover:bg-[#ba181b] hover:border-[#ba181b]"
+                  className="w-full rounded-lg p-3 text-left transition-all duration-300 group shadow-sm hover:shadow-[0_0_15px_rgba(130,103,236,0.2)] disabled:opacity-50 disabled:cursor-not-allowed border border-[#333333] bg-[#111111] hover:bg-[#8267ec] hover:border-[#8267ec]"
                 >
-                  <p className="text-xs leading-relaxed text-[#161a1d] group-hover:text-white">
+                  <p className="text-xs leading-relaxed text-gray-300 group-hover:text-white">
                     {question.text}
                   </p>
                 </button>
@@ -662,10 +653,10 @@ const ChatbotComponent = () => {
             </div>
 
             {/* Info Section */}
-            <div className="p-4 border-t border-[#d3d3d3] bg-white">
-              <div className="p-3 rounded-lg border border-[#d3d3d3] bg-white">
-                <h3 className="text-sm font-bold mb-2 text-[#0b090a]">About Me</h3>
-                <p className="text-xs text-[#161a1d]">
+            <div className="p-4 border-t border-[#333333] bg-black">
+              <div className="p-3 rounded-lg border border-[#333333] bg-[#111111]">
+                <h3 className="text-sm font-bold mb-2 text-white">About Me</h3>
+                <p className="text-xs text-gray-400">
                   Ask me about my experience, skills, projects, or anything related to AI research and engineering.
                 </p>
               </div>

@@ -11,6 +11,15 @@ import Contact from './Contact';
 import Certifications from './Certifications';
 import resumeCV from "../assets/Thirumurugan_Resume.pdf";
 
+// Color Constants
+const COLORS = {
+  primary: '#8267ec', // Purple
+  black: '#000000',
+  white: '#ffffff',
+  grayLight: '#f5f5f5',
+  grayDark: '#1a1a1a'
+};
+
 // Typing Animation Component
 const TypingAnimation = ({ text, speed = 30, className = "", onComplete }) => {
   const [displayText, setDisplayText] = useState('');
@@ -95,7 +104,7 @@ const HomePage = () => {
   const timeoutRef = useRef(null);
   const canvasRef = useRef(null);
 
-  // Neural Network Background Animation with New Color Palette
+  // Neural Network Background Animation - Black, White & Purple Theme
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -124,8 +133,9 @@ const HomePage = () => {
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2 + 1,
-        pulse: Math.random() * Math.PI * 2
+        radius: Math.random() * 1.5 + 0.8,
+        pulse: Math.random() * Math.PI * 2,
+        color: Math.random() > 0.7 ? COLORS.primary : COLORS.white
       });
     }
 
@@ -141,14 +151,15 @@ const HomePage = () => {
             from: i,
             to: j,
             distance: distance,
-            opacity: 0.1
           });
         }
       }
     }
 
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear with black background
+      ctx.fillStyle = COLORS.black;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       // Update nodes
       nodes.forEach(node => {
@@ -164,46 +175,58 @@ const HomePage = () => {
         node.pulse += 0.02;
         const pulseSize = Math.sin(node.pulse) * 0.5 + 1;
         
-        // Draw node with #0b090a color
+        // Draw node with color
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius * pulseSize, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(11, 9, 10, ${0.1 + Math.sin(node.pulse) * 0.05})`;
+        if (node.color === COLORS.primary) {
+          ctx.fillStyle = `${COLORS.primary}${node.radius > 2 ? '80' : '40'}`;
+        } else {
+          ctx.fillStyle = `rgba(255, 255, 255, ${node.radius > 2 ? 0.4 : 0.2})`;
+        }
         ctx.fill();
+        
+        // Add glow effect for purple nodes
+        if (node.color === COLORS.primary) {
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.radius * pulseSize * 2, 0, Math.PI * 2);
+          ctx.fillStyle = `${COLORS.primary}20`;
+          ctx.fill();
+        }
       });
 
-      // Draw connections with #0b090a color
+      // Draw connections
       connections.forEach(connection => {
         const fromNode = nodes[connection.from];
         const toNode = nodes[connection.to];
         
-        const dx = fromNode.x - toNode.x;
-        const dy = fromNode.y - toNode.y;
-        const currentDistance = Math.sqrt(dx * dx + dy * dy);
-        
-        // Calculate opacity based on distance and pulse
-        const pulse = (Math.sin(fromNode.pulse) + Math.sin(toNode.pulse)) * 0.5;
-        const opacity = Math.max(0.02, 0.1 * (1 - currentDistance / 200) + pulse * 0.05);
+        // Determine connection color
+        const connectionColor = 
+          fromNode.color === COLORS.primary || toNode.color === COLORS.primary 
+            ? COLORS.primary 
+            : COLORS.white;
         
         // Draw connection line
         ctx.beginPath();
         ctx.moveTo(fromNode.x, fromNode.y);
         ctx.lineTo(toNode.x, toNode.y);
-        ctx.strokeStyle = `rgba(11, 9, 10, ${opacity})`;
-        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = `${connectionColor}${connectionColor === COLORS.primary ? '30' : '15'}`;
+        ctx.lineWidth = 0.8;
         ctx.stroke();
 
-        // Draw data flow dots with #ba181b color
+        // Draw data flow dots
         const progress = (Date.now() * 0.001) % 1;
         const dotX = fromNode.x + (toNode.x - fromNode.x) * progress;
         const dotY = fromNode.y + (toNode.y - fromNode.y) * progress;
         
         ctx.beginPath();
-        ctx.arc(dotX, dotY, 1, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(186, 24, 27, ${0.6})`;
+        ctx.arc(dotX, dotY, 1.2, 0, Math.PI * 2);
+        ctx.fillStyle = connectionColor === COLORS.primary 
+          ? `${COLORS.primary}${progress > 0.5 ? 'cc' : 'aa'}`
+          : `rgba(255, 255, 255, ${progress > 0.5 ? 0.9 : 0.7})`;
         ctx.fill();
       });
 
-      // Draw floating AI icons with #ba181b color
+      // Draw floating AI icons with purple accent
       const time = Date.now() * 0.001;
       const icons = ['🤖', '🧠', '⚡', '🔗', '🌐', '📊'];
       
@@ -211,10 +234,12 @@ const HomePage = () => {
         const x = (canvas.width / 2) + Math.cos(time * 0.5 + index) * 300;
         const y = (canvas.height / 2) + Math.sin(time * 0.7 + index) * 200;
         const scale = 0.8 + Math.sin(time + index) * 0.2;
-        const opacity = 0.1 + Math.sin(time * 0.3 + index) * 0.05;
+        const isPurple = index % 3 === 0;
         
         ctx.font = `${24 * scale}px Arial`;
-        ctx.fillStyle = `rgba(186, 24, 27, ${opacity})`;
+        ctx.fillStyle = isPurple 
+          ? `${COLORS.primary}15`
+          : `rgba(255, 255, 255, 0.08)`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(icon, x, y);
@@ -303,13 +328,13 @@ const HomePage = () => {
   const professionalSummary = "Specializing in Large Language Models, RAG Systems, and AI-powered applications. Transforming complex business challenges into scalable AI solutions using cutting-edge machine learning and cloud technologies.";
 
   return (
-    <div className="min-h-screen bg-[#ffffff] text-[#0b090a] font-sans antialiased relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white font-sans antialiased relative overflow-hidden">
 
       {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 bg-[#0b090a] text-[#ffffff] hover:bg-[#ba181b] hover:text-[#ffffff] border border-[#0b090a] w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+          className="fixed bottom-8 right-8 z-50 bg-[#8267ec] text-white border border-[#8267ec] w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-[0_0_20px_rgba(130,103,236,0.6)]"
           aria-label="Scroll to top"
         >
           <FaArrowUp className="w-5 h-5" />
@@ -319,30 +344,30 @@ const HomePage = () => {
       {/* Content */}
       <div className="relative z-10">
         <Header />
-        <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-black">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               {/* Left Content */}
               <div className="space-y-8">
                 <div className="space-y-6">
                   {/* Professional Badge */}
-                  <div className="inline-flex items-center px-4 py-2.5 bg-[#0b090a] rounded-full group hover:bg-[#ba181b] transition-all duration-300">
-                    <div className="w-2 h-2 bg-[#ba181b] rounded-full mr-3 animate-pulse group-hover:animate-none group-hover:scale-110 group-hover:bg-[#0b090a]"></div>
-                    <span className="text-[#ffffff] text-sm font-medium tracking-wide group-hover:text-[#ffffff]">AI RESEARCH ENGINEER</span>
+                  <div className="inline-flex items-center px-4 py-2.5 bg-[#8267ec] border border-[#8267ec] rounded-full group hover:shadow-[0_0_15px_rgba(130,103,236,0.5)] transition-all duration-300">
+                    <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none group-hover:scale-110"></div>
+                    <span className="text-white text-sm font-medium tracking-wide">AI RESEARCH ENGINEER</span>
                   </div>
 
                   {/* Name and Title */}
                   <div className="space-y-4">
                     <h1 className="text-5xl sm:text-6xl font-bold tracking-tight">
-                      <span className="text-[#0b090a]">
+                      <span className="text-white">
                         Thirumurugan
                       </span>
                       <br />
-                      <span className="text-[#161a1d]">Subramaniyan</span>
+                      <span className="text-[#8267ec]">Subramaniyan</span>
                     </h1>
                     <div className="flex items-center space-x-4">
-                      <div className="w-16 h-0.5 bg-[#ba181b]"></div>
-                      <p className="text-xl text-[#161a1d] font-light tracking-wide">
+                      <div className="w-16 h-0.5 bg-[#8267ec]"></div>
+                      <p className="text-xl text-white font-light tracking-wide">
                         Artificial Intelligence Engineer
                       </p>
                     </div>
@@ -350,7 +375,7 @@ const HomePage = () => {
                 </div>
 
                 {/* Professional Summary with Typing Animation */}
-                <div className="text-lg text-[#161a1d] leading-relaxed max-w-2xl tracking-wide min-h-[120px]">
+                <div className="text-lg text-gray-300 leading-relaxed max-w-2xl tracking-wide min-h-[120px]">
                   <TypingAnimation 
                     text={professionalSummary}
                     speed={20}
@@ -364,8 +389,8 @@ const HomePage = () => {
                   <div className="grid grid-cols-2 gap-4 text-sm animate-fadeIn">
                     {['LLM Fine-tuning', 'Vector Databases', 'Cloud AI Services', 'MLOps & Deployment'].map((skill, index) => (
                       <div key={index} className="flex items-center space-x-2 group">
-                        <div className="w-2 h-2 bg-[#ba181b] rounded-full animate-pulse group-hover:scale-125 transition-transform"></div>
-                        <span className="text-[#161a1d] group-hover:text-[#0b090a] transition-colors">{skill}</span>
+                        <div className={`w-2 h-2 rounded-full ${index % 2 === 0 ? 'bg-[#8267ec]' : 'bg-white'} animate-pulse group-hover:scale-125 transition-transform`}></div>
+                        <span className="text-gray-300 group-hover:text-white transition-colors">{skill}</span>
                       </div>
                     ))}
                   </div>
@@ -376,14 +401,14 @@ const HomePage = () => {
                   <a 
                     href={resumeCV}
                     download="Thirumurugan_Subramaniyan_Resume.pdf"
-                    className="group bg-[#0b090a] text-[#ffffff] hover:bg-[#ba181b] hover:text-[#ffffff] border border-[#0b090a] px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3"
+                    className="group bg-[#8267ec] text-white border border-[#8267ec] px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] flex items-center justify-center space-x-3"
                   >
                     <FaDownload className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     <span className="tracking-wide">Download Research CV</span>
                   </a>
                   <button 
                     onClick={scrollToProjects}
-                    className="group border-2 border-[#0b090a] text-[#0b090a] hover:bg-[#0b090a] hover:text-[#ffffff] px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-3"
+                    className="group border-2 border-[#8267ec] text-[#8267ec] hover:bg-[#8267ec] hover:text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-3 hover:shadow-[0_0_20px_rgba(130,103,236,0.3)]"
                   >
                     <span className="tracking-wide">Explore Projects</span>
                     <FaArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -394,7 +419,7 @@ const HomePage = () => {
               {/* Right Content with Infinite Carousel */}
               <div className="space-y-8">
                 {/* Infinite Auto-Sliding Carousel */}
-                <div className="relative overflow-hidden rounded-2xl ">
+                <div className="relative overflow-hidden rounded-2xl">
                   <div 
                     className={`flex ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
                     style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -402,21 +427,21 @@ const HomePage = () => {
                     {[...techStack, techStack[0]].map((tech, index) => (
                       <div
                         key={index}
-                        className="min-w-full px-2 "
+                        className="min-w-full px-2"
                       >
-                        <div className="bg-[#fffff] border border-[#d3d3d3] rounded-xl p-8 hover:border-[#ba181b] hover:shadow-xl transition-all duration-300 group h-full">
-                          <div className="text-[#0b090a] group-hover:text-[#ba181b] mb-6 transition-all duration-300 group-hover:scale-110 transform">
+                        <div className="bg-black border border-gray-800 rounded-xl p-8 hover:border-[#8267ec] hover:shadow-[0_0_30px_rgba(130,103,236,0.2)] transition-all duration-300 group h-full">
+                          <div className="text-[#8267ec] mb-6 transition-all duration-300 group-hover:scale-110 transform">
                             {tech.icon}
                           </div>
-                          <h3 className="font-semibold text-[#0b090a] text-2xl mb-3 tracking-tight">
+                          <h3 className="font-semibold text-white text-2xl mb-3 tracking-tight">
                             {tech.title}
                           </h3>
-                          <p className="text-[#161a1d] text-base leading-relaxed tracking-wide mb-4">
+                          <p className="text-gray-400 text-base leading-relaxed tracking-wide mb-4">
                             {tech.description}
                           </p>
                           <div className="flex flex-wrap gap-2">
                             {tech.features.map((feature, idx) => (
-                              <span key={idx} className="text-sm text-[#161a1d] bg-[#ba181b]/10 border border-[#ba181b]/20 px-3 py-1.5 rounded-lg">
+                              <span key={idx} className="text-sm text-[#8267ec] bg-[#8267ec]/10 border border-[#8267ec]/30 px-3 py-1.5 rounded-lg hover:bg-[#8267ec] hover:text-white transition-all duration-300">
                                 {feature}
                               </span>
                             ))}
@@ -434,8 +459,8 @@ const HomePage = () => {
                         onClick={() => handleIndicatorClick(index)}
                         className={`h-2 rounded-full transition-all duration-300 ${
                           currentSlide % techStack.length === index 
-                            ? 'w-8 bg-[#ba181b]' 
-                            : 'w-2 bg-[#0b090a] opacity-30 hover:opacity-60'
+                            ? 'w-8 bg-[#8267ec]' 
+                            : 'w-2 bg-gray-600 hover:bg-[#8267ec] opacity-60 hover:opacity-100'
                         }`}
                         aria-label={`Go to slide ${index + 1}`}
                       />
@@ -444,10 +469,10 @@ const HomePage = () => {
                 </div>
 
                 {/* Professional Network */}
-                <div className="bg-[#fffff] border border-[#d3d3d3] rounded-2xl p-6 hover:border-[#ba181b] hover:shadow-xl transition-all duration-300">
-                  <h3 className="text-[#0b090a] font-semibold text-lg mb-6 tracking-tight flex items-center">
-                    <div className="w-8 h-8 bg-[#0b090a] rounded-lg flex items-center justify-center mr-3">
-                      <FaNetworkWired className="text-[#ba181b] text-sm" />
+                <div className="bg-black border border-gray-800 rounded-2xl p-6 hover:border-[#8267ec] hover:shadow-[0_0_30px_rgba(130,103,236,0.15)] transition-all duration-300">
+                  <h3 className="text-white font-semibold text-lg mb-6 tracking-tight flex items-center">
+                    <div className="w-8 h-8 bg-[#8267ec] rounded-lg flex items-center justify-center mr-3">
+                      <FaNetworkWired className="text-white text-sm" />
                     </div>
                     Professional Network
                   </h3>
@@ -458,12 +483,12 @@ const HomePage = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex flex-col items-center justify-center p-3 bg-[#ffffff] border border-[#d3d3d3] rounded-lg hover:bg-[#0b090a] hover:border-[#0b090a] hover:text-[#ffffff] transition-all duration-300 group"
+                        className="flex flex-col items-center justify-center p-3 bg-gray-900 border border-gray-800 rounded-lg hover:bg-[#8267ec] hover:border-[#8267ec] transition-all duration-300 group"
                       >
-                        <div className="text-[#0b090a] group-hover:text-[#ba181b] transition-all duration-300 group-hover:scale-110 transform">
+                        <div className="text-gray-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 transform">
                           {social.icon}
                         </div>
-                        <span className="text-[#161a1d] text-xs font-medium tracking-wide group-hover:text-[#ffffff] mt-2">
+                        <span className="text-gray-400 text-xs font-medium tracking-wide group-hover:text-white mt-2">
                           {social.name}
                         </span>
                       </a>
@@ -481,24 +506,6 @@ const HomePage = () => {
         <Contact />
         <Footer />
       </div>
-
-      {/* Add custom CSS for animations */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-float {
-          animation: float linear infinite;
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out forwards;
-        }
-      `}</style>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   FaCalendarAlt,
   FaCode,
@@ -8,6 +8,13 @@ import {
   FaRobot,
   FaBuilding,
   FaSpider,
+  FaBriefcase,
+  FaLaptopCode,
+  FaMicrochip,
+  FaRocket,
+  FaFilePdf,
+  FaFileExcel,
+  FaFileWord,
 } from "react-icons/fa";
 import {
   SiPython,
@@ -20,20 +27,31 @@ import {
   SiFastapi,
   SiUipath,
   SiHuggingface,
+  SiOpenai,
+  SiGooglegemini,
+  SiAmazon,
+  SiZoho,
 } from "react-icons/si";
-import VP from "../assets/company1.png"
-import Avasoft from "../assets/company2.jfif"
-import claysys from "../assets/company3.jfif"
 
 const Experience = () => {
-  const [expandedItems, setExpandedItems] = useState([]);
+  const [expandedItem, setExpandedItem] = useState(null);
+  const contentRef = useRef(null);
+  const experienceCardsRef = useRef([]);
 
   const toggleDetails = (index) => {
-    setExpandedItems((prev) =>
-      prev.includes(index)
-        ? prev.filter((item) => item !== index)
-        : [...prev, index]
-    );
+    if (expandedItem === index) {
+      setExpandedItem(null);
+    } else {
+      setExpandedItem(index);
+      setTimeout(() => {
+        if (experienceCardsRef.current[index]) {
+          experienceCardsRef.current[index].scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
   };
 
   const experiences = [
@@ -49,11 +67,23 @@ const Experience = () => {
         "HTML",
         "CSS",
         "PostgreSQL",
-        "Hugging Face",
-        "Ollama",
+        "OpenAI GPT",
+        "AWS Bedrock",
+        "Google Gemini",
+        "MCP",
+        "OCR",
         "Web Scraping",
+        "Zoho CRM",
+        "LLaMA",
+        "Tesseract",
+        "Poppler",
+        "React.js",
+        "Fast API",
       ],
-      logo: VP,
+      icon: <FaLaptopCode className="w-6 h-6" />,
+      iconColor: "text-purple-400",
+      bgColor: "bg-purple-500/10",
+      borderColor: "border-purple-500/30",
       responsibilities: [
         "Specialized in developing cutting-edge AI applications and providing innovative solutions",
         "Worked closely with the development team to design and implement database structures and build APIs using Flask, Sanic, Django, and Fast API",
@@ -64,28 +94,83 @@ const Experience = () => {
       ],
       projects: [
         {
-          name: "LangTech",
-          period: "January 2024 - Present (Milestone 2)",
+          name: "AI Warehouses",
+          period: "August 2025 – Present",
           description:
-            "LangTech is a cutting-edge platform that leverages advanced AI models to provide seamless and accurate translation services for users uploading content.",
+            "Designed and developed AI Warehouses (Chatbot), a PaaS web application capable of creating and retrieving data from the end-user database using MCP through a conversational interface, while leveraging advanced AI models including OpenAI GPT, AWS Bedrock and Google Gemini models.",
           technologies: [
-            "HTML",
-            "CSS",
-            "JavaScript",
+            "React.js",
+            "Fast API",
+            "Python",
             "OpenAI GPT",
+            "AWS Bedrock",
             "Google Gemini",
-            "Llama",
-            "OCR",
-            "Hugging Face",
-            "Ollama",
-            "Playwright",
+            "MCP",
+            "PostgreSQL",
+            "MongoDB",
           ],
           features: [
-            "Created the front-end user interface using HTML, CSS, and JavaScript",
-            "Developed AI-powered OCR solutions using OpenAI's GPT, Google Gemini, and Llama models for text recognition across multiple languages, including Vietnamese",
-            "Integrated Hugging Face transformer models for enhanced NLP capabilities",
-            "Implemented Ollama for local LLM deployment and inference",
-            "Utilized Playwright for automated browser testing and web scraping operations",
+            "Developed a conversational interface using React.js for seamless user interactions",
+            "Implemented MCP (Model Context Protocol) for efficient data operations on end-user databases",
+            "Integrated multiple AI models including OpenAI GPT, AWS Bedrock, and Google Gemini for intelligent responses",
+            "Built RESTful APIs using Fast API and Python for backend operations",
+            "Designed scalable database architecture with PostgreSQL and MongoDB",
+            "Created a PaaS platform allowing users to manage their database operations through natural language",
+          ],
+        },
+        {
+          name: "DTPC",
+          period: "April 2025 – June 2025",
+          description:
+            "Designed and developed a desktop application for web scraping and extracting specific stamp details from PDFs using OCR technologies (Tesseract and Poppler) and AI models, including OpenAI GPT. Integrated Zoho CRM APIs to automatically push the processed data into the CRM system with Auto mailing.",
+          technologies: [
+            "Python",
+            "Tesseract OCR",
+            "Poppler",
+            "OpenAI GPT",
+            "Zoho CRM API",
+            "Web Scraping",
+            "PDF Processing",
+            "Desktop Application",
+            "Auto Mailing",
+          ],
+          features: [
+            "Developed a desktop application for automated stamp detail extraction from PDF documents",
+            "Implemented OCR using Tesseract and Poppler for accurate text recognition from scanned documents",
+            "Integrated OpenAI GPT for intelligent data processing and validation",
+            "Built web scraping functionality to collect additional stamp information",
+            "Automated Zoho CRM integration for seamless data synchronization",
+            "Implemented auto-mailing system for notifications and report distribution",
+            "Created a user-friendly interface for batch PDF processing",
+          ],
+        },
+        {
+          name: "Lang Tech",
+          period: "January 2025 – April 2025",
+          description:
+            "Designed and developed Lang Tech, a PaaS web application capable of translating Excel, Word, PDF, and text files, integrating OCR for text extraction, and leveraging AI models including OpenAI's GPT, Google Gemini, and LLaMA to ensure accurate multilingual text recognition and translation.",
+          technologies: [
+            "React.js",
+            "Python",
+            "OpenAI GPT",
+            "Google Gemini",
+            "LLaMA",
+            "OCR",
+            "PDF Processing",
+            "Excel Processing",
+            "Word Processing",
+            "Fast API",
+            "PostgreSQL",
+          ],
+          features: [
+            "Created a PaaS web application for multilingual document translation",
+            "Supported multiple file formats including Excel, Word, PDF, and plain text",
+            "Integrated OCR technology for extracting text from scanned documents and images",
+            "Leveraged multiple AI models (OpenAI GPT, Google Gemini, LLaMA) for accurate translations",
+            "Implemented batch processing for handling multiple documents simultaneously",
+            "Built responsive front-end using React.js for optimal user experience",
+            "Developed REST APIs using Fast API for backend operations",
+            "Implemented secure file upload and storage system",
           ],
         },
       ],
@@ -106,7 +191,10 @@ const Experience = () => {
         "Azure OpenAI",
         "AWS Bedrock",
       ],
-      logo: Avasoft,
+      icon: <FaMicrochip className="w-6 h-6" />,
+      iconColor: "text-blue-400",
+      bgColor: "bg-blue-500/10",
+      borderColor: "border-blue-500/30",
       responsibilities: [
         "Specialized in developing next-generation AI applications and delivering innovative solutions",
         "Integrated Azure OpenAI Service and AWS Bedrock to create advanced AI solutions",
@@ -179,7 +267,10 @@ const Experience = () => {
       period: "July 2023 - October 2023",
       role: "RPA Developer",
       technologies: ["UiPath", "RPA Genie"],
-      logo: claysys,
+      icon: <FaRobot className="w-6 h-6" />,
+      iconColor: "text-green-400",
+      bgColor: "bg-green-500/10",
+      borderColor: "border-green-500/30",
       responsibilities: [
         "Created and maintained robotic automation workflows using UiPath and RPA Genie",
         "Tested and troubleshooted automation processes to ensure smooth operation",
@@ -201,284 +292,465 @@ const Experience = () => {
       Django: <SiDjango className="w-4 h-4" />,
       "Fast API": <SiFastapi className="w-4 h-4" />,
       "Azure OpenAI": <FaCloud className="w-4 h-4" />,
-      "AWS Bedrock": <FaCloud className="w-4 h-4" />,
+      "AWS Bedrock": <SiAmazon className="w-4 h-4" />,
+      "OpenAI GPT": <SiOpenai className="w-4 h-4" />,
+      "Google Gemini": <SiGooglegemini className="w-4 h-4" />,
       UiPath: <SiUipath className="w-4 h-4" />,
       "RPA Genie": <FaRobot className="w-4 h-4" />,
       HTML: <FaCode className="w-4 h-4" />,
       CSS: <FaCode className="w-4 h-4" />,
-      OCR: <FaCode className="w-4 h-4" />,
+      OCR: <FaFilePdf className="w-4 h-4" />,
       "REST API": <FaCode className="w-4 h-4" />,
       Terraform: <FaCloud className="w-4 h-4" />,
       WSL: <FaCode className="w-4 h-4" />,
-      "OpenAI GPT": <FaCloud className="w-4 h-4" />,
-      "Google Gemini": <FaCloud className="w-4 h-4" />,
-      Llama: <FaCloud className="w-4 h-4" />,
+      LLaMA: <FaRobot className="w-4 h-4" />,
       "Hugging Face": <SiHuggingface className="w-4 h-4" />,
       Ollama: <FaRobot className="w-4 h-4" />,
       "Web Scraping": <FaSpider className="w-4 h-4" />,
+      MCP: <FaRobot className="w-4 h-4" />,
+      Tesseract: <FaFilePdf className="w-4 h-4" />,
+      Poppler: <FaFilePdf className="w-4 h-4" />,
+      "Zoho CRM": <SiZoho className="w-4 h-4" />,
+      "PDF Processing": <FaFilePdf className="w-4 h-4" />,
+      "Excel Processing": <FaFileExcel className="w-4 h-4" />,
+      "Word Processing": <FaFileWord className="w-4 h-4" />,
+      "Desktop Application": <FaLaptopCode className="w-4 h-4" />,
+      "Auto Mailing": <FaCode className="w-4 h-4" />,
+      "Zoho CRM API": <SiZoho className="w-4 h-4" />,
     };
     return techIcons[tech] || <FaCode className="w-4 h-4" />;
   };
 
+  // Set initial refs
+  useEffect(() => {
+    experienceCardsRef.current = experienceCardsRef.current.slice(
+      0,
+      experiences.length
+    );
+  }, []);
+
   return (
-    <section
-      id="experience"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-[#ffffff]"
-    >
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-[#ba181b] border border-[#0b090a] rounded-full mb-6">
-            <div className="w-2 h-2 bg-[#0b090a] rounded-full mr-3"></div>
-            <span className="text-[#ffffff] text-sm font-medium tracking-wide">
-              PROFESSIONAL JOURNEY
-            </span>
-          </div>
-          <h2 className="text-4xl font-bold text-[#0b090a] tracking-tight mb-4">
-            Professional <span className="text-[#ba181b]">Experience</span>
-          </h2>
-          <p className="text-lg text-[#161a1d] max-w-3xl mx-auto leading-relaxed">
-            A chronological progression through my career, demonstrating
-            expertise in AI development, cloud technologies, and software
-            engineering across diverse industries and complex projects.
-          </p>
-        </div>
+    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
+      <div className="max-w-7xl mx-auto">
+        {/* Main layout with 40/60 split */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left Section - 40% width */}
+          <div className="lg:w-2/5">
+            <div className="space-y-8">
+              {/* Header Section */}
+              <div className="space-y-6">
+                <div className="inline-flex items-center px-4 py-2 bg-[#8267ec] rounded-full group hover:shadow-[0_0_15px_rgba(130,103,236,0.5)] transition-all duration-300">
+                  <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none"></div>
+                  <span className="text-white text-sm font-medium tracking-wide">
+                    PROFESSIONAL JOURNEY
+                  </span>
+                </div>
 
-        {/* Experience Timeline */}
-        <div className="relative">
-          {/* Vertical Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-[#ba181b] opacity-30"></div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+                  My <span className="text-[#8267ec]">Experience</span>
+                </h2>
 
-          {/* Experience Items */}
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative">
-                {/* Timeline Dot */}
-                <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 -translate-y-4 w-4 h-4 bg-[#ba181b] rounded-full border-2 border-[#ffffff] z-10 shadow-lg"></div>
+                <p className="text-lg text-gray-300 leading-relaxed tracking-wide">
+                  A chronological progression through my career, demonstrating
+                  expertise in AI development, cloud technologies, and software
+                  engineering across diverse industries and complex projects.
+                </p>
+              </div>
 
-                {/* Experience Card */}
-                <div
-                  className={`ml-16 md:ml-0 ${
-                    index % 2 === 0 ? "md:mr-1/2 md:pr-8" : "md:ml-1/2 md:pl-8"
-                  }`}
-                >
-                  <div
-                    className="group bg-[#ffffff] border border-[#d3d3d3] rounded-xl p-6 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-[1.02]"
-                    onClick={() => toggleDetails(index)}
-                  >
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-start space-x-4">
-                        {/* Company Logo */}
-                        <div className="flex-shrink-0">
-                          <div className="w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <img
-                              src={exp.logo}
-                              alt={`${exp.company} logo`}
-                              className="w-full h-full object-contain"
-                              onError={(e) => {
-                                e.target.style.display = "none";
-                                e.target.nextSibling.style.display = "flex";
-                              }}
-                            />
-                            <div className="hidden w-full h-full items-center justify-center bg-[#0b090a] text-[#ffffff] rounded-lg">
-                              <FaBuilding className="w-8 h-8" />
-                            </div>
+              {/* Quick Navigation */}
+              <div className="bg-[#111111] border border-[#333333] rounded-2xl p-6 hover:border-[#8267ec] transition-all duration-300">
+                <h3 className="text-white font-semibold text-lg mb-4">
+                  Quick Navigation
+                </h3>
+                <div className="space-y-3">
+                  {experiences.map((exp, index) => (
+                    <button
+                      key={index}
+                      onClick={() => toggleDetails(index)}
+                      className={`w-full flex items-center justify-between p-4 rounded-lg transition-all duration-300 hover:scale-[1.02] ${
+                        expandedItem === index
+                          ? `${exp.bgColor} ${exp.borderColor} border`
+                          : expandedItem !== null
+                          ? "opacity-50 hover:opacity-70"
+                          : "hover:bg-[#1a1a1a]"
+                      }`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div
+                          className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                            exp.iconColor
+                          } ${
+                            expandedItem === index
+                              ? "bg-white/10"
+                              : "bg-[#1a1a1a]"
+                          }`}
+                        >
+                          {exp.icon}
+                        </div>
+                        <div className="text-left">
+                          <div
+                            className={`font-medium ${
+                              expandedItem === index
+                                ? "text-white"
+                                : "text-white"
+                            }`}
+                          >
+                            {exp.company}
+                          </div>
+                          <div className="text-gray-400 text-sm">
+                            {exp.period}
                           </div>
                         </div>
+                      </div>
+                      <div
+                        className={`${
+                          expandedItem === index
+                            ? "text-white"
+                            : "text-[#8267ec]"
+                        }`}
+                      >
+                        {expandedItem === index ? (
+                          <FaChevronUp className="w-5 h-5" />
+                        ) : (
+                          <FaChevronDown className="w-5 h-5" />
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
-                        {/* Company Info */}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-xl font-semibold text-[#0b090a] mb-1 group-hover:text-[#161a1d] transition-colors duration-300">
-                            {exp.title}
-                          </h3>
-                          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 mb-2">
-                            <p className="text-[#0b090a] font-medium text-sm">
-                              {exp.company}
-                            </p>
-                            <span className="hidden sm:block text-[#ba181b]">
-                              •
-                            </span>
-                            <p className="text-[#161a1d] opacity-80 text-sm">
-                              {exp.location}
-                            </p>
+          {/* Right Section - 60% width */}
+          <div className="lg:w-3/5">
+            <div className="space-y-6">
+              {/* Only show the expanded item, hide others */}
+              {experiences.map((exp, index) => (
+                <div
+                  key={index}
+                  className={`transition-all duration-300 ${
+                    expandedItem === index ? "block" : "hidden"
+                  }`}
+                >
+                  {/* Experience Card - Always visible when this is the expanded item */}
+                  <div
+                    className={`bg-[#111111] border border-[#333333] rounded-xl overflow-hidden ${
+                      expandedItem === index
+                        ? `${exp.bgColor} ${exp.borderColor}`
+                        : ""
+                    }`}
+                  >
+                    {/* Static Header Section */}
+                    <div
+                      className="p-6 cursor-pointer"
+                      onClick={() => toggleDetails(index)}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-4 mb-4">
+                            <div
+                              className={`w-12 h-12 rounded-xl flex items-center justify-center border ${exp.borderColor} ${exp.iconColor}`}
+                            >
+                              {exp.icon}
+                            </div>
+                            <div>
+                              <h3 className="text-xl font-semibold text-white mb-1">
+                                {exp.title}
+                              </h3>
+                              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                                <p className="font-medium text-white">
+                                  {exp.company}
+                                </p>
+                                <span className="hidden sm:block text-[#8267ec]">
+                                  •
+                                </span>
+                                <p className="text-gray-400">{exp.location}</p>
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex flex-wrap items-center gap-4 text-sm">
-                            <div className="flex items-center space-x-2 text-[#161a1d] opacity-80">
-                              <FaCalendarAlt className="w-3 h-3 text-[#ba181b]" />
+
+                          <div className="flex flex-wrap items-center gap-4">
+                            <div className="flex items-center space-x-2 text-gray-400">
+                              <FaCalendarAlt className="w-4 h-4 text-[#8267ec]" />
                               <span>{exp.period}</span>
                             </div>
-                            <div className="flex items-center space-x-2 text-[#161a1d] opacity-80">
-                              <FaBuilding className="w-3 h-3 text-[#ba181b]" />
+                            <div className="flex items-center space-x-2 text-gray-400">
+                              <FaBuilding className="w-4 h-4 text-[#8267ec]" />
                               <span>{exp.role}</span>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Expand/Collapse Icon */}
-                      <div className="text-[#ba181b] group-hover:text-[#0b090a] transition-colors duration-300 flex-shrink-0 ml-4 transform group-hover:scale-110">
-                        {expandedItems.includes(index) ? (
-                          <FaChevronUp />
-                        ) : (
-                          <FaChevronDown />
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {exp.technologies.map((tech, idx) => (
+                        {/* Expand/Collapse Icon */}
                         <div
-                          key={idx}
-                          className="flex items-center space-x-2 bg-[#f5f3f4] hover:bg-[#ba181b] hover:text-[#ffffff] border border-[#d3d3d3] px-3 py-1.5 rounded-md transition-all duration-200 group/tech transform hover:scale-105"
+                          className={`flex-shrink-0 ml-4 transform transition-transform ${
+                            expandedItem === index
+                              ? "text-white rotate-180"
+                              : "text-[#8267ec]"
+                          }`}
                         >
-                          <div className="text-[#0b090a] group-hover/tech:text-[#ffffff] transition-colors">
-                            {getTechIcon(tech)}
-                          </div>
-                          <span className="text-[#161a1d] text-xs font-medium group-hover/tech:text-[#ffffff]">
-                            {tech}
-                          </span>
+                          {expandedItem === index ? (
+                            <FaChevronUp className="w-5 h-5" />
+                          ) : (
+                            <FaChevronDown className="w-5 h-5" />
+                          )}
                         </div>
-                      ))}
+                      </div>
+
+                      {/* Technologies */}
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {exp.technologies.map((tech, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-center space-x-2 px-3 py-1.5 bg-[#1a1a1a] border border-[#333333] rounded-md hover:bg-[#8267ec] hover:border-[#8267ec] transition-all duration-200"
+                          >
+                            <div className="text-gray-400">
+                              {getTechIcon(tech)}
+                            </div>
+                            <span className="text-gray-400 text-sm font-medium">
+                              {tech}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Expanded Details */}
-                    {expandedItems.includes(index) && (
-                      <div className="mt-6 space-y-6 border-t border-[#d3d3d3] pt-6">
-                        {/* Responsibilities */}
-                        <div>
-                          <h4 className="text-[#0b090a] font-semibold mb-3 text-sm uppercase tracking-wider flex items-center">
-                            <div className="w-2 h-2 bg-[#ba181b] rounded-full mr-2"></div>
-                            Key Responsibilities
-                          </h4>
-                          <ul className="space-y-3">
-                            {exp.responsibilities.map((resp, idx) => (
-                              <li
-                                key={idx}
-                                className="flex items-start space-x-3"
-                              >
-                                <div className="w-1.5 h-1.5 bg-[#ba181b] rounded-full mt-2 flex-shrink-0"></div>
-                                <span className="text-[#161a1d] text-sm leading-relaxed">
-                                  {resp}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                    {/* Scrollable Expanded Content */}
+                    <div
+                      ref={(el) => (experienceCardsRef.current[index] = el)}
+                      className="px-6 pb-6 border-t border-[#333333] pt-6 space-y-6"
+                      style={{
+                        maxHeight: "400px",
+                        overflowY: "auto",
+                        scrollBehavior: "smooth",
+                      }}
+                    >
+                      {/* Hide scrollbar */}
+                      <style jsx>{`
+                        div::-webkit-scrollbar {
+                          display: none;
+                        }
+                        div {
+                          -ms-overflow-style: none;
+                          scrollbar-width: none;
+                        }
+                      `}</style>
 
-                        {/* Projects */}
-                        {exp.projects.length > 0 && (
-                          <div>
-                            <h4 className="text-[#0b090a] font-semibold mb-4 text-sm uppercase tracking-wider flex items-center">
-                              <div className="w-2 h-2 bg-[#ba181b] rounded-full mr-2"></div>
-                              Key Projects
-                            </h4>
-                            <div className="space-y-4">
-                              {exp.projects.map((project, pIdx) => (
-                                <div
-                                  key={pIdx}
-                                  className="group/project bg-[#f5f3f4] border border-[#d3d3d3] rounded-lg p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
-                                >
-                                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
-                                    <h5 className="text-[#0b090a] font-semibold text-base group-hover/project:text-[#161a1d] transition-colors duration-300">
-                                      {project.name}
-                                    </h5>
-                                    <span className="text-[#ffffff] bg-[#ba181b] border border-transparent px-3 py-1 rounded-md flex-shrink-0 text-xs font-medium transform group-hover/project:scale-105 transition-transform duration-300">
-                                      {project.period}
-                                    </span>
-                                  </div>
-                                  <p className="text-[#161a1d] text-sm mb-4 leading-relaxed">
-                                    {project.description}
-                                  </p>
-                                  <div className="flex flex-wrap gap-2 mb-3">
-                                    {project.technologies.map((tech, tIdx) => (
-                                      <div
-                                        key={tIdx}
-                                        className="flex items-center space-x-1 bg-[#ffffff] border border-[#d3d3d3] px-2 py-1 rounded-md hover:border-[#ba181b] transition-all duration-200 transform hover:scale-105"
-                                      >
-                                        <div className="text-[#0b090a]">
-                                          {getTechIcon(tech)}
-                                        </div>
-                                        <span className="text-[#161a1d] text-xs">
-                                          {tech}
-                                        </span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                  <ul className="space-y-2">
-                                    {project.features.map((feature, fIdx) => (
-                                      <li
-                                        key={fIdx}
-                                        className="flex items-start space-x-2 text-[#161a1d] text-sm"
-                                      >
-                                        <div className="w-1 h-1 bg-[#ba181b] rounded-full mt-2 flex-shrink-0"></div>
-                                        <span className="leading-relaxed">
-                                          {feature}
-                                        </span>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+                      {/* Responsibilities */}
+                      <div>
+                        <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider flex items-center">
+                          <div className="w-2 h-2 bg-[#8267ec] rounded-full mr-2"></div>
+                          Key Responsibilities
+                        </h4>
+                        <ul className="space-y-3">
+                          {exp.responsibilities.map((resp, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start space-x-3"
+                            >
+                              <div className="w-1.5 h-1.5 bg-[#8267ec] rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-gray-300 leading-relaxed">
+                                {resp}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    )}
+
+                      {/* Projects */}
+                      {exp.projects.length > 0 && (
+                        <div>
+                          <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider flex items-center">
+                            <div className="w-2 h-2 bg-[#8267ec] rounded-full mr-2"></div>
+                            Key Projects
+                          </h4>
+                          <div className="space-y-4">
+                            {exp.projects.map((project, pIdx) => (
+                              <div
+                                key={pIdx}
+                                className="bg-black/50 border border-[#333333] rounded-lg p-4 hover:shadow-[0_0_20px_rgba(130,103,236,0.1)] transition-all duration-300"
+                              >
+                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
+                                  <h5 className="text-white font-semibold">
+                                    {project.name}
+                                  </h5>
+                                  <span className="text-white bg-[#8267ec] border border-transparent px-3 py-1 rounded-md flex-shrink-0 text-sm font-medium">
+                                    {project.period}
+                                  </span>
+                                </div>
+                                <p className="text-gray-300 mb-4 leading-relaxed">
+                                  {project.description}
+                                </p>
+                                <div className="flex flex-wrap gap-2 mb-3">
+                                  {project.technologies.map((tech, tIdx) => (
+                                    <div
+                                      key={tIdx}
+                                      className="flex items-center space-x-1 bg-[#111111] border border-[#333333] px-2 py-1 rounded-md hover:border-[#8267ec] hover:bg-[#8267ec]/10 transition-all duration-200"
+                                    >
+                                      <div className="text-[#8267ec]">
+                                        {getTechIcon(tech)}
+                                      </div>
+                                      <span className="text-gray-300 text-sm">
+                                        {tech}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
+                                <ul className="space-y-2">
+                                  {project.features.map((feature, fIdx) => (
+                                    <li
+                                      key={fIdx}
+                                      className="flex items-start space-x-2 text-gray-300"
+                                    >
+                                      <div className="w-1 h-1 bg-[#8267ec] rounded-full mt-2 flex-shrink-0"></div>
+                                      <span className="leading-relaxed">
+                                        {feature}
+                                      </span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
+              ))}
 
-        {/* Career Summary */}
-        <div className="text-center mt-10">
-          <div className="bg-[#0b090a] border border-[#0b090a] rounded-2xl p-6 max-w-5xl mx-auto hover:shadow-lg transition-all duration-300 group">
-            <h3 className="text-[#ffffff] font-semibold text-2xl mb-6 flex items-center justify-center">
-              <div className="w-12 h-12 bg-[#ba181b] rounded-xl flex items-center justify-center mr-4 group-hover:scale-105 transition-transform">
-                <svg
-                  className="w-5 h-5 text-[#0b090a]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24 "
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z italic"
-                  />
-                </svg>
-              </div> <span className="italic">Career Summary</span>
-            </h3>
-            <p className="text-[#d3d3d3] mb-8 leading-relaxed text-base italic">
-             
-              From foundational RPA development to advanced AI engineering and
-              cloud solutions, my career demonstrates continuous growth in
-              technical expertise and project complexity, consistently
-              delivering innovative solutions that create tangible business
-              value.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-           
-              <span className="text-[#0b090a] bg-[#ba181b] border border-transparent px-4 py-2 rounded-lg font-medium hover:bg-[#ffffff] hover:text-[#0b090a] transition-all duration-300 transform hover:scale-105">
-                AI Engineering
-              </span>
-              <span className="text-[#0b090a] bg-[#ba181b] border border-transparent px-4 py-2 rounded-lg font-medium hover:bg-[#ffffff] hover:text-[#0b090a] transition-all duration-300 transform hover:scale-105">
-                Cloud Architecture
-              </span>
-              <span className="text-[#0b090a] bg-[#ba181b] border border-transparent px-4 py-2 rounded-lg font-medium hover:bg-[#ffffff] hover:text-[#0b090a] transition-all duration-300 transform hover:scale-105">
-                Full-Stack Development
-              </span>
-              <span className="text-[#0b090a] bg-[#ba181b] border border-transparent px-4 py-2 rounded-lg font-medium hover:bg-[#ffffff] hover:text-[#0b090a] transition-all duration-300 transform hover:scale-105">
-                Process Automation
-              </span>
+              {/* When no item is expanded, show all companies collapsed */}
+              {expandedItem === null && (
+                <div className="space-y-6">
+                  {experiences.map((exp, index) => (
+                    <div
+                      key={index}
+                      className="transition-all duration-300 bg-[#111111] border border-[#333333] rounded-xl overflow-hidden hover:shadow-[0_0_30px_rgba(130,103,236,0.15)] hover:border-[#8267ec]"
+                    >
+                      {/* Collapsed Company Card */}
+                      <div
+                        className="p-6 cursor-pointer"
+                        onClick={() => toggleDetails(index)}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-4 mb-4">
+                              <div
+                                className={`w-12 h-12 rounded-xl flex items-center justify-center border ${exp.borderColor} ${exp.iconColor}`}
+                              >
+                                {exp.icon}
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-semibold text-white mb-1">
+                                  {exp.title}
+                                </h3>
+                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                                  <p className="font-medium text-white">
+                                    {exp.company}
+                                  </p>
+                                  <span className="hidden sm:block text-[#8267ec]">
+                                    •
+                                  </span>
+                                  <p className="text-gray-400">
+                                    {exp.location}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-wrap items-center gap-4">
+                              <div className="flex items-center space-x-2 text-gray-400">
+                                <FaCalendarAlt className="w-4 h-4 text-[#8267ec]" />
+                                <span>{exp.period}</span>
+                              </div>
+                              <div className="flex items-center space-x-2 text-gray-400">
+                                <FaBuilding className="w-4 h-4 text-[#8267ec]" />
+                                <span>{exp.role}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Expand Icon */}
+                          <div className="flex-shrink-0 ml-4 text-[#8267ec]">
+                            <FaChevronDown className="w-5 h-5" />
+                          </div>
+                        </div>
+
+                        {/* Technologies (limited display) */}
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {exp.technologies.slice(0, 4).map((tech, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-center space-x-2 px-3 py-1.5 bg-[#1a1a1a] border border-[#333333] rounded-md hover:bg-[#8267ec] hover:border-[#8267ec] transition-all duration-200"
+                            >
+                              <div className="text-gray-400">
+                                {getTechIcon(tech)}
+                              </div>
+                              <span className="text-gray-400 text-sm font-medium">
+                                {tech}
+                              </span>
+                            </div>
+                          ))}
+                          {exp.technologies.length > 4 && (
+                            <div className="flex items-center space-x-2 bg-[#1a1a1a] border border-[#333333] px-3 py-1.5 rounded-md">
+                              <span className="text-gray-400 text-sm font-medium">
+                                +{exp.technologies.length - 4} more
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
+      <section className="pt-10">
+        <div className="flex items-center justify-center">
+          <div
+            className="bg-black border border-[#8267ec] rounded-2xl p-6 
+        hover:shadow-[0_0_30px_rgba(130,103,236,0.25)] 
+        transition-all duration-300 group max-w-lg text-center"
+          >
+            <h3
+              className="text-white font-semibold text-lg mb-4 flex items-center 
+          justify-center"
+            >
+              <div
+                className="w-10 h-10 bg-[#8267ec] rounded-lg flex items-center 
+            justify-center mr-3 group-hover:scale-105 transition-transform"
+              >
+                <FaBriefcase className="text-white text-lg" />
+              </div>
+              Career Summary
+            </h3>
+
+            <p className="text-gray-400 mb-4 leading-relaxed text-sm italic">
+              From foundational RPA development to advanced AI engineering and
+              cloud solutions, my career demonstrates continuous growth in
+              technical expertise and project complexity.
+            </p>
+
+            <div
+              className="flex flex-col sm:flex-row gap-3 justify-center 
+          items-center text-gray-300 text-sm"
+            >
+              <div className="flex items-center space-x-2">
+                <FaRocket className="w-4 h-4 text-[#8267ec]" />
+                <span>20+ Projects</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FaMicrochip className="w-4 h-4 text-[#8267ec]" />
+                <span>10+ AI Solutions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
   );
 };

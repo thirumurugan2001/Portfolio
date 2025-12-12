@@ -1,53 +1,78 @@
-import React, { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  FaLaptopCode, 
-  FaAward, 
-  FaMicrochip, 
-  FaRocket, 
-  FaShieldAlt, 
-  FaBrain, 
-  FaCloud, 
-  FaRobot, 
-  FaCogs, 
+import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaLaptopCode,
+  FaAward,
+  FaMicrochip,
+  FaRocket,
+  FaShieldAlt,
+  FaBrain,
+  FaCloud,
+  FaRobot,
+  FaCogs,
   FaNetworkWired,
   FaEye,
   FaLanguage,
   FaServer,
   FaGraduationCap,
   FaUsers,
-  FaLightbulb
-} from 'react-icons/fa';
-import { MdWork, MdSchool, MdPrecisionManufacturing, MdApi } from 'react-icons/md';
-import { SiTensorflow, SiOpenai } from 'react-icons/si';
+  FaLightbulb,
+} from "react-icons/fa";
+import {
+  MdWork,
+  MdSchool,
+  MdPrecisionManufacturing,
+  MdApi,
+} from "react-icons/md";
+import { SiTensorflow, SiOpenai } from "react-icons/si";
 
 // Color Constants
 const COLORS = {
-  primary: '#8267ec',
-  black: '#000000',
-  white: '#ffffff',
-  grayLight: '#f5f5f5',
-  grayDark: '#1a1a1a',
-  grayBorder: '#333333'
+  primary: "#8267ec",
+  black: "#000000",
+  white: "#ffffff",
+  grayLight: "#f5f5f5",
+  grayDark: "#1a1a1a",
+  grayBorder: "#333333",
 };
 
 const About = () => {
   const scrollRef = useRef(null);
-  const navigate = useNavigate(); 
-  
+  const navigate = useNavigate();
+
   const achievements = [
-    { number: '2+', label: 'Years Experience', icon: <MdWork className="text-2xl" /> },
-    { number: '20+', label: 'Projects Completed', icon: <FaRocket className="text-2xl" /> },
-    { number: '10+', label: 'AI Solutions', icon: <FaMicrochip className="text-2xl" /> },
-    { number: '100%', label: 'Client Satisfaction', icon: <FaShieldAlt className="text-2xl" /> },
-    { number: '50K+', label: 'Lines of Clean Code', icon: <FaLaptopCode className="text-2xl" /> }
+    {
+      number: "2+",
+      label: "Years Experience",
+      icon: <MdWork className="text-2xl" />,
+    },
+    {
+      number: "20+",
+      label: "Projects Completed",
+      icon: <FaRocket className="text-2xl" />,
+    },
+    {
+      number: "10+",
+      label: "AI Solutions",
+      icon: <FaMicrochip className="text-2xl" />,
+    },
+    {
+      number: "100%",
+      label: "Client Satisfaction",
+      icon: <FaShieldAlt className="text-2xl" />,
+    },
+    {
+      number: "50K+",
+      label: "Lines of Clean Code",
+      icon: <FaLaptopCode className="text-2xl" />,
+    },
   ];
 
   const duplicatedAchievements = [...achievements, ...achievements];
 
   // Navigation handler
   const handleGetInTouch = () => {
-    navigate('/hire-me');
+    navigate("/hire-me");
   };
 
   useEffect(() => {
@@ -78,13 +103,9 @@ const About = () => {
   return (
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
       <div className="max-w-7xl mx-auto">
-
         {/* Auto-Sliding Achievements Carousel */}
         <div className="relative mb-20">
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-hidden py-6"
-          >
+          <div ref={scrollRef} className="flex gap-6 overflow-x-hidden py-6">
             {duplicatedAchievements.map((achievement, index) => (
               <div
                 key={index}
@@ -93,31 +114,51 @@ const About = () => {
                 <div className="text-[#8267ec] flex justify-center mb-3 group-hover:scale-110 transition-transform">
                   {achievement.icon}
                 </div>
-                <div className="text-2xl font-bold text-white mb-2">{achievement.number}</div>
-                <div className="text-gray-300 text-sm font-medium">{achievement.label}</div>
+                <div className="text-2xl font-bold text-white mb-2">
+                  {achievement.number}
+                </div>
+                <div className="text-gray-300 text-sm font-medium">
+                  {achievement.label}
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Left Section */}
           <div className="lg:col-span-2 space-y-10">
             <div className="space-y-6">
-              <div className="inline-flex items-center px-4 py-2 bg-[#8267ec] rounded-full group hover:shadow-[0_0_15px_rgba(130,103,236,0.5)] transition-all duration-300">
-                <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none"></div>
-                <span className="text-white text-sm font-medium tracking-wide">PROFESSIONAL PROFILE</span>
+              <div
+                className="group inline-flex items-center px-4 py-2 bg-[#8267ec] text-white 
+             border border-[#8267ec] rounded-full mb-6 
+             hover:bg-white hover:text-black 
+             transition-all duration-300 transform hover:scale-105 
+             shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
+              >
+                <div
+                  className="w-2 h-2 bg-white rounded-full mr-3 
+               transition-colors duration-300 group-hover:bg-black"
+                ></div>
+
+                <span className="text-sm font-medium tracking-wide transition-colors duration-300">
+                  PROFESSIONAL PROFILE
+                </span>
               </div>
-              
+
               <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
-                Transforming Ideas into <span className="text-[#8267ec]">Intelligent Solutions</span>
+                Transforming Ideas into{" "}
+                <span className="bg-gradient-to-r from-[#5f5297ff] to-violet-900 text-transparent bg-clip-text">
+                  Intelligent Solutions
+                </span>
               </h2>
-              
+
               <p className="text-lg text-gray-300 leading-relaxed tracking-wide max-w-3xl">
-                A dedicated Software Engineer from Chennai with a strong foundation in AI-powered software development.
-                Passionate about building intelligent and impactful digital systems that solve real-world problems through
-                innovative technology and clean, scalable code.
+                A dedicated Software Engineer from Chennai with a strong
+                foundation in AI-powered software development. Passionate about
+                building intelligent and impactful digital systems that solve
+                real-world problems through innovative technology and clean,
+                scalable code.
               </p>
             </div>
 
@@ -137,18 +178,41 @@ const About = () => {
                     <div className="w-12 h-12 bg-[#8267ec] rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
                       <FaBrain className="text-white text-xl" />
                     </div>
-                    <h4 className="text-white font-semibold text-lg">AI & Machine Learning</h4>
+                    <h4 className="text-white font-semibold text-lg">
+                      AI & Machine Learning
+                    </h4>
                   </div>
                   <div className="space-y-4">
                     {[
-                      { skill: 'AI Agents & Autonomous Systems', icon: <FaRobot className="w-4 h-4" /> },
-                      { skill: 'LLM Fine-tuning', icon: <SiOpenai className="w-4 h-4" /> },
-                      { skill: 'RAG Systems', icon: <FaNetworkWired className="w-4 h-4" /> },
-                      { skill: 'Computer Vision', icon: <FaEye className="w-4 h-4" /> },
-                      { skill: 'Natural Language Processing', icon: <FaLanguage className="w-4 h-4" /> },
-                      { skill: 'PyTorch & TensorFlow', icon: <SiTensorflow className="w-4 h-4" /> }
+                      {
+                        skill: "AI Agents & Autonomous Systems",
+                        icon: <FaRobot className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "LLM Fine-tuning",
+                        icon: <SiOpenai className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "RAG Systems",
+                        icon: <FaNetworkWired className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "Computer Vision",
+                        icon: <FaEye className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "Natural Language Processing",
+                        icon: <FaLanguage className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "PyTorch & TensorFlow",
+                        icon: <SiTensorflow className="w-4 h-4" />,
+                      },
                     ].map((item, idx) => (
-                      <div key={idx} className="flex items-center space-x-4 text-gray-300 text-sm group hover:text-white transition-colors p-2 rounded-lg hover:bg-[#8267ec]/10">
+                      <div
+                        key={idx}
+                        className="flex items-center space-x-4 text-gray-300 text-sm group hover:text-white transition-colors p-2 rounded-lg hover:bg-[#8267ec]/10"
+                      >
                         <div className="text-[#8267ec] group-hover:scale-110 transition-transform">
                           {item.icon}
                         </div>
@@ -164,18 +228,41 @@ const About = () => {
                     <div className="w-12 h-12 bg-[#8267ec] rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
                       <FaCloud className="text-white text-xl" />
                     </div>
-                    <h4 className="text-white font-semibold text-lg">Development & Cloud</h4>
+                    <h4 className="text-white font-semibold text-lg">
+                      Development & Cloud
+                    </h4>
                   </div>
                   <div className="space-y-4">
                     {[
-                      { skill: 'Python & JavaScript', icon: <FaLaptopCode className="w-4 h-4" /> },
-                      { skill: 'Azure OpenAI Services', icon: <FaServer className="w-4 h-4" /> },
-                      { skill: 'AWS Bedrock & SageMaker', icon: <FaCloud className="w-4 h-4" /> },
-                      { skill: 'FastAPI & React.js', icon: <MdApi className="w-4 h-4" /> },
-                      { skill: 'CI/CD Pipelines', icon: <FaCogs className="w-4 h-4" /> },
-                      { skill: 'Microservices Architecture', icon: <FaNetworkWired className="w-4 h-4" /> }
+                      {
+                        skill: "Python & JavaScript",
+                        icon: <FaLaptopCode className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "Azure OpenAI Services",
+                        icon: <FaServer className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "AWS Bedrock & SageMaker",
+                        icon: <FaCloud className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "FastAPI & React.js",
+                        icon: <MdApi className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "CI/CD Pipelines",
+                        icon: <FaCogs className="w-4 h-4" />,
+                      },
+                      {
+                        skill: "Microservices Architecture",
+                        icon: <FaNetworkWired className="w-4 h-4" />,
+                      },
                     ].map((item, idx) => (
-                      <div key={idx} className="flex items-center space-x-4 text-gray-300 text-sm group hover:text-white transition-colors p-2 rounded-lg hover:bg-[#8267ec]/10">
+                      <div
+                        key={idx}
+                        className="flex items-center space-x-4 text-gray-300 text-sm group hover:text-white transition-colors p-2 rounded-lg hover:bg-[#8267ec]/10"
+                      >
                         <div className="text-[#8267ec] group-hover:scale-110 transition-transform">
                           {item.icon}
                         </div>
@@ -203,9 +290,15 @@ const About = () => {
                   <MdSchool className="text-white text-sm" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">B.E Computer Science and Engineering</h4>
-                  <p className="text-gray-300 text-sm">Karpagam Academy of Higher Education</p>
-                  <p className="text-gray-400 text-sm">Coimbatore, Tamil Nadu</p>
+                  <h4 className="text-white font-semibold mb-1">
+                    B.E Computer Science and Engineering
+                  </h4>
+                  <p className="text-gray-300 text-sm">
+                    Karpagam Academy of Higher Education
+                  </p>
+                  <p className="text-gray-400 text-sm">
+                    Coimbatore, Tamil Nadu
+                  </p>
                 </div>
               </div>
             </div>
@@ -224,8 +317,9 @@ const About = () => {
                 </div>
                 <div>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Former NCC Cadet with demonstrated leadership abilities and strong team collaboration experience.
-                    Proven track record of leading projects and mentoring junior developers.
+                    Former NCC Cadet with demonstrated leadership abilities and
+                    strong team collaboration experience. Proven track record of
+                    leading projects and mentoring junior developers.
                   </p>
                 </div>
               </div>
@@ -245,8 +339,10 @@ const About = () => {
                 </div>
                 <div>
                   <p className="text-gray-300 text-sm leading-relaxed italic">
-                    "I believe in solving complex problems by combining analytical thinking with creative innovation, 
-                    designing solutions that not only scale efficiently but also inspire meaningful change."
+                    "I believe in solving complex problems by combining
+                    analytical thinking with creative innovation, designing
+                    solutions that not only scale efficiently but also inspire
+                    meaningful change."
                   </p>
                 </div>
               </div>
@@ -254,11 +350,14 @@ const About = () => {
 
             {/* Contact CTA */}
             <div className="bg-gradient-to-br from-[#8267ec] to-[#9d8aee] rounded-2xl p-6 text-center hover:shadow-[0_0_30px_rgba(130,103,236,0.3)] transition-all duration-300">
-              <h3 className="text-white font-semibold text-lg mb-3">Ready to Collaborate?</h3>
+              <h3 className="text-white font-semibold text-lg mb-3">
+                Ready to Collaborate?
+              </h3>
               <p className="text-white/90 text-sm mb-4">
-                Let's discuss how we can transform your ideas into intelligent solutions.
+                Let's discuss how we can transform your ideas into intelligent
+                solutions.
               </p>
-              <button 
+              <button
                 className="bg-black text-white px-6 py-2 rounded-lg font-medium hover:bg-white hover:text-black border border-transparent hover:border-black transition-all duration-300 hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
                 onClick={handleGetInTouch}
               >
@@ -267,7 +366,6 @@ const About = () => {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

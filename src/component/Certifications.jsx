@@ -209,7 +209,7 @@ const Certifications = () => {
           </div>
           
           <h2 className="text-5xl font-bold text-white tracking-tight mb-3">
-            Professional <span className="text-[#8267ec]">Certifications</span>
+            Professional <span className="bg-gradient-to-r from-[#5f5297ff] to-violet-900 text-transparent bg-clip-text">Certifications</span>
           </h2>
           
           <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">

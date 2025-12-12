@@ -1,27 +1,40 @@
-import React, { useState, useRef } from 'react';
-import { FaEnvelope, FaPhone, FaWhatsapp, FaPaperPlane, FaUser, FaComment, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
-import API_URLS from './ApiURL';
+import React, { useState, useRef } from "react";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaWhatsapp,
+  FaPaperPlane,
+  FaUser,
+  FaComment,
+  FaCheckCircle,
+  FaExclamationCircle,
+} from "react-icons/fa";
+import API_URLS from "./ApiURL";
 
 // Color Constants
 const COLORS = {
-  primary: '#8267ec',
-  black: '#000000',
-  white: '#ffffff',
-  grayLight: '#f5f5f5',
-  grayDark: '#1a1a1a',
-  grayBorder: '#333333'
+  primary: "#8267ec",
+  black: "#000000",
+  white: "#ffffff",
+  grayLight: "#f5f5f5",
+  grayDark: "#1a1a1a",
+  grayBorder: "#333333",
 };
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    Name: '',
-    Email: '',
-    Phone: '',
-    Message: ''
+    Name: "",
+    Email: "",
+    Phone: "",
+    Message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [notification, setNotification] = useState({ show: false, message: '', type: '' });
-  
+  const [notification, setNotification] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
+
   const swipeBtnRef = useRef(null);
   const swipeContainerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -31,32 +44,32 @@ const Contact = () => {
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const showNotification = (message, type = 'success') => {
+  const showNotification = (message, type = "success") => {
     setNotification({ show: true, message, type });
     setTimeout(() => {
-      setNotification({ show: false, message: '', type: '' });
+      setNotification({ show: false, message: "", type: "" });
     }, 5000);
   };
 
   const validateForm = () => {
     if (!formData.Name.trim()) {
-      showNotification('Please enter your name.', 'error');
+      showNotification("Please enter your name.", "error");
       return false;
     }
     if (!formData.Email.trim()) {
-      showNotification('Please enter your email address.', 'error');
+      showNotification("Please enter your email address.", "error");
       return false;
     }
     if (!formData.Phone.trim()) {
-      showNotification('Please enter your phone number.', 'error');
+      showNotification("Please enter your phone number.", "error");
       return false;
     }
     if (!formData.Message.trim()) {
-      showNotification('Please enter your message.', 'error');
+      showNotification("Please enter your message.", "error");
       return false;
     }
     return true;
@@ -64,7 +77,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -76,29 +89,39 @@ const Contact = () => {
         Name: formData.Name,
         ContactNumber: formData.Phone,
         ContactMail: formData.Email,
-        Query: formData.Message
+        Query: formData.Message,
       };
 
       const response = await fetch(API_URLS.CONTACT.MESSAGE, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
 
       if (response.ok && result.Status) {
-        showNotification(result.message || 'Thank you for reaching out! Your message has been successfully sent.', 'success');
-        setFormData({ Name: '', Email: '', Phone: '', Message: '' });
+        showNotification(
+          result.message ||
+            "Thank you for reaching out! Your message has been successfully sent.",
+          "success"
+        );
+        setFormData({ Name: "", Email: "", Phone: "", Message: "" });
       } else {
-        showNotification(result.message || 'Failed to send your message. Please try again later.', 'error');
+        showNotification(
+          result.message ||
+            "Failed to send your message. Please try again later.",
+          "error"
+        );
       }
-      
     } catch (error) {
-      console.error('Error:', error);
-      showNotification('Network error. Please check your connection and try again.', 'error');
+      console.error("Error:", error);
+      showNotification(
+        "Network error. Please check your connection and try again.",
+        "error"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -119,7 +142,9 @@ const Contact = () => {
       Message: ${formData.Message}
       Looking forward to your response.`;
 
-    const mailtoLink = `mailto:thirusubramaniyan2001@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `mailto:thirusubramaniyan2001@gmail.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
   };
 
@@ -127,27 +152,29 @@ const Contact = () => {
     setIsDragging(true);
     setStartX(e.touches[0].clientX);
     if (swipeBtnRef.current) {
-      swipeBtnRef.current.style.cursor = 'grabbing';
-      swipeBtnRef.current.style.transition = 'none';
+      swipeBtnRef.current.style.cursor = "grabbing";
+      swipeBtnRef.current.style.transition = "none";
     }
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current) return;
+    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current)
+      return;
 
     const touchX = e.touches[0].clientX;
     const containerRect = swipeContainerRef.current.getBoundingClientRect();
     const buttonWidth = swipeBtnRef.current.offsetWidth;
-    
-    let x = touchX - containerRect.left - (buttonWidth / 2);
+
+    let x = touchX - containerRect.left - buttonWidth / 2;
     x = Math.max(0, Math.min(x, containerRect.width - buttonWidth));
-    
+
     swipeBtnRef.current.style.left = `${x}px`;
     setCurrentX(x);
   };
 
   const handleTouchEnd = () => {
-    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current) return;
+    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current)
+      return;
 
     const containerRect = swipeContainerRef.current.getBoundingClientRect();
     const buttonWidth = swipeBtnRef.current.offsetWidth;
@@ -156,32 +183,35 @@ const Contact = () => {
     if (currentX >= threshold) {
       // Successfully swiped to the end
       swipeBtnRef.current.style.left = `${containerRect.width - buttonWidth}px`;
-      swipeBtnRef.current.style.backgroundColor = '#10b981'; // Success green
-      
+      swipeBtnRef.current.style.backgroundColor = "#10b981"; // Success green
+
       setTimeout(() => {
         const phoneNumber = "7339225958";
-        const message = encodeURIComponent("Hi! I'd like to contact you about your AI and development services.");
+        const message = encodeURIComponent(
+          "Hi! I'd like to contact you about your AI and development services."
+        );
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
         window.open(whatsappURL, "_blank", "noopener,noreferrer");
-        
+
         // Reset after a delay
         setTimeout(() => {
           if (swipeBtnRef.current) {
-            swipeBtnRef.current.style.left = '0px';
+            swipeBtnRef.current.style.left = "0px";
             swipeBtnRef.current.style.backgroundColor = COLORS.primary;
-            swipeBtnRef.current.style.transition = 'left 0.3s ease, background-color 0.3s ease';
+            swipeBtnRef.current.style.transition =
+              "left 0.3s ease, background-color 0.3s ease";
           }
         }, 1000);
       }, 300);
     } else {
       // Not swiped enough, reset position
-      swipeBtnRef.current.style.left = '0px';
-      swipeBtnRef.current.style.transition = 'left 0.3s ease';
+      swipeBtnRef.current.style.left = "0px";
+      swipeBtnRef.current.style.transition = "left 0.3s ease";
     }
 
     setIsDragging(false);
     if (swipeBtnRef.current) {
-      swipeBtnRef.current.style.cursor = 'grab';
+      swipeBtnRef.current.style.cursor = "grab";
     }
   };
 
@@ -189,26 +219,28 @@ const Contact = () => {
     setIsDragging(true);
     setStartX(e.clientX);
     if (swipeBtnRef.current) {
-      swipeBtnRef.current.style.cursor = 'grabbing';
-      swipeBtnRef.current.style.transition = 'none';
+      swipeBtnRef.current.style.cursor = "grabbing";
+      swipeBtnRef.current.style.transition = "none";
     }
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current) return;
+    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current)
+      return;
 
     const containerRect = swipeContainerRef.current.getBoundingClientRect();
     const buttonWidth = swipeBtnRef.current.offsetWidth;
-    
-    let x = e.clientX - containerRect.left - (buttonWidth / 2);
+
+    let x = e.clientX - containerRect.left - buttonWidth / 2;
     x = Math.max(0, Math.min(x, containerRect.width - buttonWidth));
-    
+
     swipeBtnRef.current.style.left = `${x}px`;
     setCurrentX(x);
   };
 
   const handleMouseUp = () => {
-    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current) return;
+    if (!isDragging || !swipeBtnRef.current || !swipeContainerRef.current)
+      return;
 
     const containerRect = swipeContainerRef.current.getBoundingClientRect();
     const buttonWidth = swipeBtnRef.current.offsetWidth;
@@ -217,42 +249,45 @@ const Contact = () => {
     if (currentX >= threshold) {
       // Successfully swiped to the end
       swipeBtnRef.current.style.left = `${containerRect.width - buttonWidth}px`;
-      swipeBtnRef.current.style.backgroundColor = '#10b981'; // Success green
-      
+      swipeBtnRef.current.style.backgroundColor = "#10b981"; // Success green
+
       setTimeout(() => {
         const phoneNumber = "7339225958";
-        const message = encodeURIComponent("Hi! I'd like to contact you about your AI and development services.");
+        const message = encodeURIComponent(
+          "Hi! I'd like to contact you about your AI and development services."
+        );
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
         window.open(whatsappURL, "_blank", "noopener,noreferrer");
-        
+
         // Reset after a delay
         setTimeout(() => {
           if (swipeBtnRef.current) {
-            swipeBtnRef.current.style.left = '0px';
+            swipeBtnRef.current.style.left = "0px";
             swipeBtnRef.current.style.backgroundColor = COLORS.primary;
-            swipeBtnRef.current.style.transition = 'left 0.3s ease, background-color 0.3s ease';
+            swipeBtnRef.current.style.transition =
+              "left 0.3s ease, background-color 0.3s ease";
           }
         }, 1000);
       }, 300);
     } else {
       // Not swiped enough, reset position
-      swipeBtnRef.current.style.left = '0px';
-      swipeBtnRef.current.style.transition = 'left 0.3s ease';
+      swipeBtnRef.current.style.left = "0px";
+      swipeBtnRef.current.style.transition = "left 0.3s ease";
     }
 
     setIsDragging(false);
     if (swipeBtnRef.current) {
-      swipeBtnRef.current.style.cursor = 'grab';
+      swipeBtnRef.current.style.cursor = "grab";
     }
   };
 
   React.useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isDragging]);
 
@@ -261,21 +296,30 @@ const Contact = () => {
       <div className="max-w-6xl mx-auto">
         {/* Notification Toast */}
         {notification.show && (
-          <div className={`fixed top-4 right-4 z-50 flex items-center space-x-3 p-4 rounded-lg border backdrop-blur-sm transition-all duration-300 transform ${
-            notification.show ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
-          }`} style={{
-            backgroundColor: notification.type === 'success' ? '#111111' : '#111111',
-            borderColor: notification.type === 'success' ? '#10b981' : '#ef4444',
-            color: '#ffffff'
-          }}>
-            {notification.type === 'success' ? (
+          <div
+            className={`fixed top-4 right-4 z-50 flex items-center space-x-3 p-4 rounded-lg border backdrop-blur-sm transition-all duration-300 transform ${
+              notification.show
+                ? "translate-x-0 opacity-100"
+                : "translate-x-full opacity-0"
+            }`}
+            style={{
+              backgroundColor:
+                notification.type === "success" ? "#111111" : "#111111",
+              borderColor:
+                notification.type === "success" ? "#10b981" : "#ef4444",
+              color: "#ffffff",
+            }}
+          >
+            {notification.type === "success" ? (
               <FaCheckCircle className="w-5 h-5 text-[#10b981]" />
             ) : (
               <FaExclamationCircle className="w-5 h-5 text-[#ef4444]" />
             )}
             <span className="text-sm font-medium">{notification.message}</span>
-            <button 
-              onClick={() => setNotification({ show: false, message: '', type: '' })}
+            <button
+              onClick={() =>
+                setNotification({ show: false, message: "", type: "" })
+              }
               className="transition-opacity ml-2 text-gray-400 hover:text-white"
             >
               &times;
@@ -285,17 +329,32 @@ const Contact = () => {
 
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-[#8267ec] border border-[#8267ec] rounded-full mb-6 group hover:shadow-[0_0_15px_rgba(130,103,236,0.5)] transition-all duration-300">
-            <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none"></div>
-            <span className="text-white text-sm font-medium tracking-wide">
+          <div
+            className="group inline-flex items-center px-4 py-2 bg-[#8267ec] text-white 
+             border border-[#8267ec] rounded-full mb-6 
+             hover:bg-white hover:text-black 
+             transition-all duration-300 transform hover:scale-105 
+             shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
+          >
+            <div
+              className="w-2 h-2 bg-white rounded-full mr-3 
+               transition-colors duration-300 group-hover:bg-black"
+            ></div>
+
+            <span className="text-sm font-medium tracking-wide transition-colors duration-300">
               GET IN TOUCH
             </span>
           </div>
+
           <h2 className="text-4xl font-bold text-white tracking-tight mb-4">
-            Let's <span className="text-[#8267ec]">Connect</span>
+            Let's{" "}
+            <span className="bg-gradient-to-r from-[#5f5297ff] to-violet-900 text-transparent bg-clip-text">
+              Connect
+            </span>
           </h2>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            For more information or inquiries about my skills and experience, please feel free to get in touch with me.
+            For more information or inquiries about my skills and experience,
+            please feel free to get in touch with me.
           </p>
           <div className="mt-6 text-gray-300">
             <div className="flex items-center justify-center space-x-4 mb-2">
@@ -313,8 +372,10 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="rounded-2xl p-8 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 bg-[#111111] border border-[#333333]">
-              <h3 className="text-2xl font-semibold mb-6 text-white">Contact Information</h3>
-              
+              <h3 className="text-2xl font-semibold mb-6 text-white">
+                Contact Information
+              </h3>
+
               <div className="space-y-6">
                 {/* Email */}
                 <div className="flex items-center space-x-4 group">
@@ -323,7 +384,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email</p>
-                    <a 
+                    <a
                       href="mailto:thirusubramaniyan2001@gmail.com"
                       className="font-medium hover:text-[#8267ec] transition-colors text-white"
                     >
@@ -339,7 +400,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Phone</p>
-                    <a 
+                    <a
                       href="tel:+917339225958"
                       className="font-medium hover:text-[#8267ec] transition-colors text-white"
                     >
@@ -350,8 +411,10 @@ const Contact = () => {
 
                 {/* WhatsApp Swipe */}
                 <div className="mt-8">
-                  <p className="text-sm mb-4 text-gray-400">Quick connect on WhatsApp</p>
-                  <div 
+                  <p className="text-sm mb-4 text-gray-400">
+                    Quick connect on WhatsApp
+                  </p>
+                  <div
                     ref={swipeContainerRef}
                     className="relative rounded-full h-14 cursor-pointer overflow-hidden select-none bg-black border border-[#8267ec]"
                   >
@@ -367,8 +430,9 @@ const Contact = () => {
                       onTouchMove={handleTouchMove}
                       onTouchEnd={handleTouchEnd}
                       className="absolute left-0 top-0 w-16 h-14 rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing transition-all shadow-lg bg-[#8267ec]"
-                      style={{ 
-                        transition: 'left 0.3s ease, background-color 0.3s ease'
+                      style={{
+                        transition:
+                          "left 0.3s ease, background-color 0.3s ease",
                       }}
                     >
                       <FaWhatsapp className="text-xl text-white" />
@@ -380,7 +444,9 @@ const Contact = () => {
 
             {/* Quick Response */}
             <div className="rounded-2xl p-6 hover:shadow-[0_0_30px_rgba(130,103,236,0.1)] transition-all duration-300 bg-[#111111] border border-[#333333]">
-              <h4 className="font-semibold mb-3 text-white">Why Work With Me?</h4>
+              <h4 className="font-semibold mb-3 text-white">
+                Why Work With Me?
+              </h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#8267ec]"></div>
@@ -479,21 +545,21 @@ const Contact = () => {
                   type="submit"
                   disabled={isSubmitting}
                   className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border ${
-                    isSubmitting 
-                      ? 'opacity-50 cursor-not-allowed scale-100' 
-                      : 'hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]'
+                    isSubmitting
+                      ? "opacity-50 cursor-not-allowed scale-100"
+                      : "hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
                   } bg-[#8267ec] text-white border-[#8267ec]`}
                   onMouseEnter={(e) => {
                     if (!isSubmitting) {
-                      e.target.style.backgroundColor = '#ffffff';
-                      e.target.style.color = '#8267ec';
-                      e.target.style.borderColor = '#8267ec';
+                      e.target.style.backgroundColor = "#ffffff";
+                      e.target.style.color = "#8267ec";
+                      e.target.style.borderColor = "#8267ec";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isSubmitting) {
-                      e.target.style.backgroundColor = '#8267ec';
-                      e.target.style.color = '#ffffff';
+                      e.target.style.backgroundColor = "#8267ec";
+                      e.target.style.color = "#ffffff";
                     }
                   }}
                 >
@@ -516,12 +582,12 @@ const Contact = () => {
                   onClick={handleManualEmail}
                   className="flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.3)] bg-black text-[#8267ec] border-[#8267ec]"
                   onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#8267ec';
-                    e.target.style.color = '#ffffff';
+                    e.target.style.backgroundColor = "#8267ec";
+                    e.target.style.color = "#ffffff";
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = 'black';
-                    e.target.style.color = '#8267ec';
+                    e.target.style.backgroundColor = "black";
+                    e.target.style.color = "#8267ec";
                   }}
                 >
                   <FaEnvelope className="w-4 h-4" />

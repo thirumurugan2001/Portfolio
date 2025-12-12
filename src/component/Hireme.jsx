@@ -1,28 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
-import { FaHome, FaLinkedin, FaGithub, FaHackerrank, FaNetworkWired, FaFileUpload, FaCheck, FaTimes, FaRobot, FaSync, FaBars, FaTimes as FaClose, FaUser, FaBuilding, FaGlobe } from 'react-icons/fa';
+import { FaHome, FaLinkedin, FaGithub, FaHackerrank, FaNetworkWired, FaFileUpload, FaCheck, FaTimes, FaRobot, FaSync, FaBars, FaTimes as FaClose, FaUser, FaBuilding, FaGlobe, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
 import { SiCodechef, SiLeetcode, SiHackerrank } from 'react-icons/si';
 import API_URLS from './ApiURL';
 
-// Toast Component
+// Toast Component - Updated with new color pattern
 const Toast = ({ message, type, onClose }) => {
-  const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-  const borderColor = type === 'success' ? 'border-green-400' : 'border-red-400';
+  const bgColor = type === 'success' ? 'bg-[#111111]' : 'bg-[#111111]';
+  const borderColor = type === 'success' ? 'border-[#10b981]' : 'border-[#ef4444]';
   
   return (
     <div className={`fixed top-20 right-4 z-50 ${bgColor} border ${borderColor} text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out animate-slideIn`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           {type === 'success' ? (
-            <FaCheck className="w-5 h-5 mr-2" />
+            <FaCheckCircle className="w-5 h-5 mr-2 text-[#10b981]" />
           ) : (
-            <FaTimes className="w-5 h-5 mr-2" />
+            <FaExclamationCircle className="w-5 h-5 mr-2 text-[#ef4444]" />
           )}
           <span className="font-medium">{message}</span>
         </div>
         <button 
           onClick={onClose}
-          className="ml-4 text-white hover:text-gray-200 transition-colors"
+          className="ml-4 text-gray-400 hover:text-white transition-colors"
         >
           <FaTimes className="w-4 h-4" />
         </button>
@@ -31,7 +31,7 @@ const Toast = ({ message, type, onClose }) => {
   );
 };
 
-// Text extraction utility functions
+// Text extraction utility functions (same as before)
 class TextExtractionUtils {
   // Extract text from PDF file
   static async extractTextFromPDF(file, organizationName = '') {
@@ -39,8 +39,6 @@ class TextExtractionUtils {
       const reader = new FileReader();
       reader.onload = async (e) => {
         try {
-          // For PDF files, we'll use a simulated extraction since actual PDF parsing requires libraries
-          // In a real implementation, you would use pdf.js or similar library
           const simulatedText = await this.simulatePDFExtraction(file, organizationName);
           resolve(simulatedText);
         } catch (error) {
@@ -52,14 +50,11 @@ class TextExtractionUtils {
     });
   }
 
-  // Extract text from Word document
   static async extractTextFromWord(file, organizationName = '') {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
-          // For Word documents, simulate text extraction
-          // In a real implementation, you would use mammoth.js or similar library
           const simulatedText = this.simulateWordExtraction(file, organizationName);
           resolve(simulatedText);
         } catch (error) {
@@ -71,13 +66,11 @@ class TextExtractionUtils {
     });
   }
 
-  // Extract text from text file
   static async extractTextFromText(file, organizationName = '') {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const content = e.target.result;
-        // Enhance text content with organization name if provided
         const enhancedContent = organizationName ? 
           content.replace(/\[Organization\]/g, organizationName) : 
           content;
@@ -88,9 +81,7 @@ class TextExtractionUtils {
     });
   }
 
-  // Simulate PDF text extraction (replace with actual PDF.js implementation)
   static async simulatePDFExtraction(file, organizationName = '') {
-    // Simulate processing time
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     return `
@@ -121,12 +112,9 @@ Qualifications:
 - Bachelor's or Master's degree in Computer Science or related field
 - 2+ years of experience in AI/ML development
 - Strong problem-solving skills and analytical thinking
-
-This is a sample extracted text from the uploaded PDF file. The actual content would be extracted using PDF parsing libraries.
     `.trim();
   }
 
-  // Simulate Word document text extraction
   static simulateWordExtraction(file, organizationName = '') {
     return `
 EXTRACTED JOB DESCRIPTION FROM WORD DOCUMENT
@@ -158,12 +146,9 @@ Education and Experience:
 - Degree in Computer Science, AI, or related field
 - 3+ years of professional experience in AI development
 - Portfolio of successful AI projects
-
-This content was extracted from the uploaded Word document. Actual implementation would use proper Word document parsing.
     `.trim();
   }
 
-  // Main extraction function that routes to appropriate method
   static async extractTextFromFile(file, organizationName = '') {
     const fileType = file.type;
     
@@ -185,7 +170,7 @@ This content was extracted from the uploaded Word document. Actual implementatio
   }
 }
 
-// AI Analysis Service
+// AI Analysis Service (same as before)
 class AIAnalysisService {
   constructor() {
     this.endpoint = "https://models.inference.ai.azure.com";
@@ -400,26 +385,6 @@ const Hireme = () => {
   const [toast, setToast] = useState({ show: false, message: '', type: '' });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Color palette matching StartProject
-  const colors = {
-    primary: {
-      dark: '#0b090a',      // Almost black
-      darker: '#161a1d',    // Dark charcoal
-      burgundy: {
-        dark: '#a80b0dff',    // Deep burgundy
-        medium: '#a4161a',  // Medium burgundy
-        light: '#ba181b',   // Light burgundy
-        bright: '#e5383b'   // Bright red
-      }
-    },
-    neutral: {
-      gray: '#6b7280',      // Gray for text
-      lightGray: '#d3d3d3', // Light gray
-      cream: '#ffffff',     // White background
-      white: '#ffffff'      // Pure white
-    }
-  };
-
   const socialLinks = [
     { icon: <FaLinkedin className="w-5 h-5" />, name: 'LinkedIn', url: 'https://www.linkedin.com/in/thirumurugan-subramaniyan-a62351212/' },
     { icon: <FaGithub className="w-5 h-5" />, name: 'GitHub', url: 'https://github.com/thirumurugan2001' },
@@ -540,7 +505,6 @@ const Hireme = () => {
     setIsAnalyzing(true);
 
     try {
-      // Extract text from the uploaded file with organization name
       const extractedContent = await TextExtractionUtils.extractTextFromFile(
         file, 
         formData.organizationName
@@ -552,14 +516,12 @@ const Hireme = () => {
         jobDescription: extractedContent
       }));
       
-      // Analyze skills with the extracted content
       analyzeSkills(extractedContent);
       showToast('File uploaded and content extracted successfully!', 'success');
     } catch (error) {
       console.error('File processing error:', error);
       showToast(`Failed to process file: ${error.message}`, 'error');
       
-      // Fallback to simulated content if extraction fails
       const fallbackContent = `Unable to extract text from ${file.name}. Please manually enter the job description below.`;
       setExtractedText(fallbackContent);
       setFormData(prev => ({
@@ -659,7 +621,6 @@ const Hireme = () => {
       if (result.statusCode === 200 && result.Status === true) {
         showToast(result.message || 'Thank you for your interest! I will get back to you soon.', 'success');
         
-        // Reset form
         setFormData({
           recruiterName: '',
           recruiterPhone: '',
@@ -716,7 +677,7 @@ const Hireme = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black">
       {/* Toast Message */}
       {toast.show && (
         <Toast 
@@ -726,8 +687,8 @@ const Hireme = () => {
         />
       )}
 
-      {/* Header - Updated with Research Button */}
-      <nav className="fixed top-0 w-full bg-white backdrop-blur-lg z-50 border-b border-gray-300 shadow-sm">
+      {/* Header - Updated with new color pattern */}
+      <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-lg z-50 border-b border-[#333333] shadow-sm shadow-[#8267ec]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -735,18 +696,18 @@ const Hireme = () => {
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <div 
-                    className="w-10 h-10 bg-gradient-to-br from-gray-900 to-gray-800 rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-md"
+                    className="w-10 h-10 bg-[#8267ec] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.5)]"
                     onClick={() => navigate('/')}
                   >
-                    <div className="w-6 h-6 bg-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="text-white font-bold text-[10px] tracking-tighter">TS</span>
+                    <div className="w-6 h-6 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="text-[#8267ec] font-bold text-[10px] tracking-tighter">TS</span>
                     </div>
                     <span className="absolute text-white font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">TS</span>
                   </div>
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-gray-900 font-bold text-xl leading-tight tracking-tight">THIRUMURUGAN S</div>
-                  <div className="text-gray-700 text-xs font-medium tracking-wider opacity-90 uppercase">AI Research Engineer</div>
+                  <div className="text-white font-bold text-xl leading-tight tracking-tight">THIRUMURUGAN S</div>
+                  <div className="text-gray-300 text-xs font-medium tracking-wider opacity-90 uppercase">AI Research Engineer</div>
                 </div>
               </div>
             </div>
@@ -757,34 +718,34 @@ const Hireme = () => {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className="text-gray-700 hover:text-gray-900 font-medium text-sm transition-all duration-300 tracking-wide relative group capitalize"
+                  className="text-gray-300 hover:text-white font-medium text-sm transition-all duration-300 tracking-wide relative group capitalize"
                 >
                   {item === 'home' ? 'Home' : 
                    item === 'about' ? 'About' : 
                    item === 'projects' ? 'Projects' : 
                    item === 'experience' ? 'Experience' : 
                    item === 'contact' ? 'Contact' : item}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-red-600 to-red-500 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#8267ec] to-[#9d8aee] group-hover:w-full transition-all duration-300"></span>
                 </button>
               ))}
               
-              {/* Action Buttons - Updated with Research Button */}
+              {/* Action Buttons - Updated with new color pattern */}
               <div className="flex items-center space-x-3 ml-4">
                 <button 
                   onClick={handleRNDClick}
-                  className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#ba181b]/20"
+                  className="bg-gradient-to-r from-[#8267ec] to-[#9d8aee] text-white hover:from-white hover:to-gray-200 hover:text-[#8267ec] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] border border-[#8267ec]/20"
                 >
                   Research
                 </button>
                 <button 
                   onClick={handleAskAboutMeClick}
-                  className="bg-gradient-to-r from-[#0b090a] to-[#161a1d] text-white hover:from-[#ba181b] hover:to-[#e5383b] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#0b090a]/10"
+                  className="bg-gradient-to-r from-[#111111] to-[#333333] text-white hover:from-[#8267ec] hover:to-[#9d8aee] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] border border-[#111111]/10"
                 >
                   Ask About Me
                 </button>
                 <button 
                   onClick={handleStartProjectClick}
-                  className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg border border-[#ba181b]/20"
+                  className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] border border-[#8267ec] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
                 >
                   Start Project
                 </button>
@@ -793,7 +754,7 @@ const Hireme = () => {
 
             {/* Mobile Menu Button */}
             <button 
-              className="md:hidden text-gray-700 hover:text-gray-900 p-2 transition-colors duration-300"
+              className="md:hidden text-gray-300 hover:text-white p-2 transition-colors duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -804,15 +765,15 @@ const Hireme = () => {
             </button>
           </div>
 
-          {/* Mobile Navigation */}
+          {/* Mobile Navigation - Updated with new color pattern */}
           {isMenuOpen && (
-            <div className="md:hidden absolute top-16 left-0 w-full bg-white backdrop-blur-lg border-b border-gray-300 shadow-lg">
+            <div className="md:hidden absolute top-16 left-0 w-full bg-black/95 backdrop-blur-lg border-b border-[#333333] shadow-lg shadow-[#8267ec]/10">
               <div className="flex flex-col space-y-1 p-4">
                 {['home', 'about', 'experience', 'projects', 'contact'].map((item) => (
                   <button
                     key={item}
                     onClick={() => handleNavClick(item)}
-                    className="text-gray-700 hover:text-gray-900 py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-red-600 hover:bg-gray-50 rounded-r-lg text-left capitalize"
+                    className="text-gray-300 hover:text-white py-3 px-4 font-medium text-sm transition-all duration-300 border-l-2 border-transparent hover:border-[#8267ec] hover:bg-[#111111] rounded-r-lg text-left capitalize"
                   >
                     {item === 'home' ? 'Home' : 
                      item === 'about' ? 'About' : 
@@ -822,37 +783,37 @@ const Hireme = () => {
                   </button>
                 ))}
                 
-                {/* Mobile Action Buttons - Updated with Research Button */}
-                <div className="flex flex-col space-y-3 pt-4 border-t border-gray-300 mt-2">
+                {/* Mobile Action Buttons - Updated with new color pattern */}
+                <div className="flex flex-col space-y-3 pt-4 border-t border-[#333333] mt-2">
                   <button 
                     onClick={handleRNDClick}
-                    className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
+                    className="bg-gradient-to-r from-[#8267ec] to-[#9d8aee] text-white hover:from-white hover:to-gray-200 hover:text-[#8267ec] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
                   >
                     Research
                   </button>
                   <button 
                     onClick={handleAskAboutMeClick}
-                    className="bg-gradient-to-r from-[#0b090a] to-[#161a1d] text-white hover:from-[#ba181b] hover:to-[#e5383b] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
+                    className="bg-gradient-to-r from-[#111111] to-[#333333] text-white hover:from-[#8267ec] hover:to-[#9d8aee] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
                   >
                     Ask About Me
                   </button>
                   <button 
                     onClick={handleStartProjectClick}
-                    className="bg-gradient-to-r from-[#ba181b] to-[#e5383b] text-white hover:from-[#0b090a] hover:to-[#161a1d] py-3 rounded-lg font-semibold text-sm transition-all duration-300"
+                    className="bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] py-3 rounded-lg font-semibold text-sm transition-colors duration-300"
                   >
                     Start Project
                   </button>
                 </div>
                 
-                {/* Mobile Social Links */}
-                <div className="flex justify-center space-x-6 pt-4 border-t border-gray-300 mt-4">
+                {/* Mobile Social Links - Updated with new color pattern */}
+                <div className="flex justify-center space-x-6 pt-4 border-t border-[#333333] mt-4">
                   {socialLinks.slice(0, 3).map((social, index) => (
                     <a
                       key={index}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-700 hover:text-red-600 transition-colors duration-300 p-2 rounded-full hover:bg-gray-50"
+                      className="text-gray-300 hover:text-[#8267ec] transition-colors duration-300 p-2 rounded-full hover:bg-[#111111]"
                     >
                       {social.icon}
                     </a>
@@ -865,7 +826,7 @@ const Hireme = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-black">
         <div className="max-w-7xl mx-auto space-y-12">
           {/* Top Section - Contact Information & Job Opportunity */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -874,34 +835,33 @@ const Hireme = () => {
               {/* Professional Badge */}
               <div className="relative inline-block">
                 <div 
-                  className="professional-badge inline-flex items-center px-4 py-2.5 rounded-full border cursor-pointer transition-all duration-300 group bg-white"
+                  className="professional-badge inline-flex items-center px-4 py-2.5 rounded-full border cursor-pointer transition-all duration-300 group bg-black"
                   style={{ 
-                    borderColor: colors.primary.burgundy.medium,
-                    color: colors.primary.burgundy.medium
+                    borderColor: '#8267ec',
+                    color: '#8267ec'
                   }}
                 >
                   <div 
                     className="badge-dot w-2 h-2 rounded-full mr-3 animate-pulse transition-all duration-300"
                     style={{ 
-                      backgroundColor: colors.primary.burgundy.medium 
+                      backgroundColor: '#8267ec'
                     }}
                   ></div>
                   <span className="badge-text text-sm font-medium tracking-wide transition-colors duration-300">OPEN TO WORK</span>
                 </div>
                 
-                {/* CSS for hover effect */}
                 <style jsx>{`
                   .professional-badge:hover {
-                    background-color: ${colors.primary.burgundy.medium} !important;
-                    color: ${colors.neutral.white} !important;
+                    background-color: #8267ec !important;
+                    color: #ffffff !important;
                   }
                   .professional-badge:hover .badge-dot {
-                    background-color: ${colors.neutral.white} !important;
+                    background-color: #ffffff !important;
                     animation: none !important;
                     transform: scale(1.1);
                   }
                   .professional-badge:hover .badge-text {
-                    color: ${colors.neutral.white} !important;
+                    color: #ffffff !important;
                   }
                 `}</style>
               </div>
@@ -909,28 +869,28 @@ const Hireme = () => {
               {/* Title Section with Split Colors */}
               <div className="space-y-4">
                 <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-                  <span style={{ color: colors.primary.dark }}>Hire </span>
-                  <span style={{ color: colors.primary.burgundy.dark }}>Me</span>
+                  <span className="text-white">Hire </span>
+                  <span className="text-[#8267ec]">Me</span>
                 </h1>
                 <div className="flex items-center space-x-4">
-                  <div className="w-16 h-0.5 bg-gradient-to-r from-black to-red-800"></div>
-                  <p className="text-xl font-light tracking-wide text-gray-700">
+                  <div className="w-16 h-0.5 bg-gradient-to-r from-white to-[#8267ec]"></div>
+                  <p className="text-xl font-light tracking-wide text-gray-300">
                     Let's build something amazing together
                   </p>
                 </div>
               </div>
 
               {/* Availability Notice */}
-              <div className="bg-white rounded-xl p-4 hover:shadow-xl transition-all duration-300 border border-gray-200">
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  <span className="font-semibold text-gray-900">Note:</span> I'm currently open to work opportunities and available to join within a month. I'm also ready to relocate for the right opportunity.
+              <div className="bg-[#111111] rounded-xl p-4 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 border border-[#333333]">
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  <span className="font-semibold text-white">Note:</span> I'm currently open to work opportunities and available to join within a month. I'm also ready to relocate for the right opportunity.
                 </p>
               </div>
 
               {/* Professional Network */}
-              <div className="bg-white rounded-xl p-4 hover:shadow-xl transition-all duration-300 border border-gray-200">
-                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-gray-900">
-                  <FaNetworkWired className="mr-2 text-red-600" />
+              <div className="bg-[#111111] rounded-xl p-4 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 border border-[#333333]">
+                <h3 className="font-semibold text-lg mb-4 tracking-tight flex items-center text-white">
+                  <FaNetworkWired className="mr-2 text-[#8267ec]" />
                   Professional Network
                 </h3>
                 <div className="grid grid-cols-3 gap-2">
@@ -940,12 +900,12 @@ const Hireme = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center justify-center p-2 bg-white rounded-lg border border-gray-200 transition-all duration-300 hover:bg-red-600 hover:border-red-600 group"
+                      className="flex flex-col items-center justify-center p-2 bg-black rounded-lg border border-[#333333] transition-all duration-300 hover:bg-[#8267ec] hover:border-[#8267ec] group"
                     >
-                      <div className="text-red-600 transition-colors group-hover:scale-110 transform duration-300 group-hover:text-white">
+                      <div className="text-[#8267ec] transition-colors group-hover:scale-110 transform duration-300 group-hover:text-white">
                         {social.icon}
                       </div>
-                      <span className="text-xs font-medium tracking-wide mt-1 text-gray-700 group-hover:text-white">
+                      <span className="text-xs font-medium tracking-wide mt-1 text-gray-300 group-hover:text-white">
                         {social.name}
                       </span>
                     </a>
@@ -954,29 +914,29 @@ const Hireme = () => {
               </div>
 
               {/* Contact Information */}
-              <div className="bg-white rounded-xl p-4 hover:shadow-xl transition-all duration-300 border border-gray-200">
-                <h3 className="font-semibold text-lg mb-3 tracking-tight text-gray-900">Contact Information</h3>
+              <div className="bg-[#111111] rounded-xl p-4 hover:shadow-[0_0_40px_rgba(130,103,236,0.15)] transition-all duration-300 border border-[#333333]">
+                <h3 className="font-semibold text-lg mb-3 tracking-tight text-white">Contact Information</h3>
                 <div className="space-y-2">
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Email:</span> thirusubramaniyan2001@gmail.com
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Email:</span> thirusubramaniyan2001@gmail.com
                   </p>
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Phone:</span> +91 7339225958
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Phone:</span> +91 7339225958
                   </p>
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Current Location:</span> Velachery, Chennai, Tamil Nadu
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Current Location:</span> Velachery, Chennai, Tamil Nadu
                   </p>
-                  <p className="text-sm tracking-wide text-gray-700">
-                    <span className="font-medium text-gray-900">Permanent Location:</span> Salem, Tamil Nadu
+                  <p className="text-sm tracking-wide text-gray-300">
+                    <span className="font-medium text-white">Permanent Location:</span> Salem, Tamil Nadu
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Right Side - Job Opportunity Details */}
-            <div className="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 h-full border border-gray-200">
-              <h2 className="text-2xl font-semibold mb-2 tracking-tight text-gray-900">Job Opportunity Details</h2>
-              <p className="text-gray-700 mb-4 text-sm tracking-wide">Fill in the details below and I'll get back to you soon</p>
+            <div className="bg-[#111111] rounded-xl p-6 hover:shadow-[0_0_40px_rgba(130,103,236,0.25)] transition-all duration-300 h-full border border-[#333333]">
+              <h2 className="text-2xl font-semibold mb-2 tracking-tight text-white">Job Opportunity Details</h2>
+              <p className="text-gray-400 mb-4 text-sm tracking-wide">Fill in the details below and I'll get back to you soon</p>
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -986,9 +946,9 @@ const Hireme = () => {
                     placeholder="Recruiter Name *" 
                     value={formData.recruiterName}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                      errors.recruiterName ? 'border-red-500' : 'border-gray-300'
-                    } text-gray-900 placeholder-gray-500`}
+                    className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                      errors.recruiterName ? 'border-red-500' : 'border-[#333333]'
+                    } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                   />
                   {errors.recruiterName && (
                     <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.recruiterName}</p>
@@ -1002,9 +962,9 @@ const Hireme = () => {
                     placeholder="Recruiter Contact Number *" 
                     value={formData.recruiterPhone}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                      errors.recruiterPhone ? 'border-red-500' : 'border-gray-300'
-                    } text-gray-900 placeholder-gray-500`}
+                    className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                      errors.recruiterPhone ? 'border-red-500' : 'border-[#333333]'
+                    } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                   />
                   {errors.recruiterPhone && (
                     <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.recruiterPhone}</p>
@@ -1018,9 +978,9 @@ const Hireme = () => {
                     placeholder="Recruiter Email Address *" 
                     value={formData.recruiterEmail}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                      errors.recruiterEmail ? 'border-red-500' : 'border-gray-300'
-                    } text-gray-900 placeholder-gray-500`}
+                    className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                      errors.recruiterEmail ? 'border-red-500' : 'border-[#333333]'
+                    } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                   />
                   {errors.recruiterEmail && (
                     <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.recruiterEmail}</p>
@@ -1034,9 +994,9 @@ const Hireme = () => {
                     placeholder="Organization Name *" 
                     value={formData.organizationName}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                      errors.organizationName ? 'border-red-500' : 'border-gray-300'
-                    } text-gray-900 placeholder-gray-500`}
+                    className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                      errors.organizationName ? 'border-red-500' : 'border-[#333333]'
+                    } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                   />
                   {errors.organizationName && (
                     <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.organizationName}</p>
@@ -1050,9 +1010,9 @@ const Hireme = () => {
                     placeholder="Designation *" 
                     value={formData.designation}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 border ${
-                      errors.designation ? 'border-red-500' : 'border-gray-300'
-                    } text-gray-900 placeholder-gray-500`}
+                    className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 border ${
+                      errors.designation ? 'border-red-500' : 'border-[#333333]'
+                    } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                   />
                   {errors.designation && (
                     <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.designation}</p>
@@ -1062,14 +1022,14 @@ const Hireme = () => {
                 {/* File Upload Section */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-gray-700 text-xs font-medium tracking-wide">
+                    <label className="text-gray-300 text-xs font-medium tracking-wide">
                       Upload Job Description (PDF/Word/TXT)
                     </label>
                     {uploadedFile && (
                       <button
                         type="button"
                         onClick={handleRemoveFile}
-                        className="text-gray-600 hover:text-gray-900 text-xs transition-all duration-300"
+                        className="text-gray-400 hover:text-white text-xs transition-all duration-300"
                       >
                         Remove
                       </button>
@@ -1078,11 +1038,11 @@ const Hireme = () => {
 
                   {!uploadedFile ? (
                     <div 
-                      className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-red-600 transition-all duration-300 cursor-pointer"
+                      className="border-2 border-dashed border-[#333333] rounded-lg p-4 text-center hover:border-[#8267ec] transition-all duration-300 cursor-pointer"
                       onClick={() => fileInputRef.current?.click()}
                     >
-                      <FaFileUpload className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                      <p className="text-gray-600 text-xs mb-1">Click to upload job description file</p>
+                      <FaFileUpload className="w-6 h-6 text-gray-600 mx-auto mb-2" />
+                      <p className="text-gray-400 text-xs mb-1">Click to upload job description file</p>
                       <p className="text-gray-500 text-xs">Supports: PDF, DOC, DOCX, TXT (Max 5MB)</p>
                       <input
                         type="file"
@@ -1093,24 +1053,24 @@ const Hireme = () => {
                       />
                     </div>
                   ) : (
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                    <div className="bg-black border border-[#333333] rounded-lg p-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <FaFileUpload className="w-4 h-4 text-gray-600" />
+                          <FaFileUpload className="w-4 h-4 text-gray-400" />
                           <div>
-                            <p className="text-gray-900 text-xs font-medium">{uploadedFile.name}</p>
-                            <p className="text-gray-600 text-xs">
+                            <p className="text-white text-xs font-medium">{uploadedFile.name}</p>
+                            <p className="text-gray-400 text-xs">
                               {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB • {uploadedFile.type}
                             </p>
                           </div>
                         </div>
                         {isAnalyzing ? (
                           <div className="flex items-center space-x-1">
-                            <div className="animate-spin rounded-full h-3 w-3 border-2 border-red-600 border-t-transparent"></div>
-                            <span className="text-gray-600 text-xs">Extracting text...</span>
+                            <div className="animate-spin rounded-full h-3 w-3 border-2 border-[#8267ec] border-t-transparent"></div>
+                            <span className="text-gray-400 text-xs">Extracting text...</span>
                           </div>
                         ) : (
-                          <span className="text-green-600 text-xs font-medium">✓ Extracted</span>
+                          <span className="text-[#10b981] text-xs font-medium">✓ Extracted</span>
                         )}
                       </div>
                     </div>
@@ -1124,9 +1084,9 @@ const Hireme = () => {
                     rows="6"
                     value={formData.jobDescription}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2.5 bg-white rounded-lg text-sm transition-all duration-300 resize-none border ${
-                      errors.jobDescription ? 'border-red-500' : 'border-gray-300'
-                    } text-gray-900 placeholder-gray-500`}
+                    className={`w-full px-3 py-2.5 bg-black rounded-lg text-sm transition-all duration-300 resize-none border ${
+                      errors.jobDescription ? 'border-red-500' : 'border-[#333333]'
+                    } text-white placeholder-gray-500 focus:outline-none focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]`}
                   />
                   {errors.jobDescription && (
                     <p className="text-red-500 text-xs mt-1 tracking-wide">{errors.jobDescription}</p>
@@ -1139,7 +1099,7 @@ const Hireme = () => {
                 <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg hover:shadow-xl tracking-wide text-sm flex items-center justify-center space-x-2 border border-red-600 bg-red-600 text-white hover:bg-white hover:text-red-600 disabled:bg-gray-400 disabled:border-gray-400 disabled:hover:text-white"
+                  className="w-full py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg hover:shadow-[0_0_30px_rgba(130,103,236,0.5)] tracking-wide text-sm flex items-center justify-center space-x-2 border border-[#8267ec] bg-[#8267ec] text-white hover:bg-white hover:text-[#8267ec] disabled:bg-gray-700 disabled:border-gray-700 disabled:hover:text-white"
                 >
                   {isSubmitting ? (
                     <>
@@ -1155,13 +1115,13 @@ const Hireme = () => {
           </div>
 
           {/* Bottom Section - Analysis (Full Width) */}
-          <div className="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-gray-200">
+          <div className="bg-[#111111] rounded-xl p-6 hover:shadow-[0_0_40px_rgba(130,103,236,0.25)] transition-all duration-300 border border-[#333333]">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-semibold text-gray-900 tracking-tight">Skills Analysis</h2>
+              <h2 className="text-2xl font-semibold text-white tracking-tight">Skills Analysis</h2>
               <button
                 onClick={handleAIAnalysis}
                 disabled={isAIAnalyzing || (!formData.jobDescription && !extractedText)}
-                className="flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-red-600 border border-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center space-x-2 bg-[#333333] text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-[#8267ec] border border-[#333333] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
               >
                 {isAIAnalyzing ? (
                   <FaSync className="w-4 h-4 animate-spin" />
@@ -1173,13 +1133,13 @@ const Hireme = () => {
             </div>
 
             {/* Analysis Tabs */}
-            <div className="flex space-x-4 mb-6 border-b border-gray-200">
+            <div className="flex space-x-4 mb-6 border-b border-[#333333]">
               <button
                 onClick={() => setActiveTab('basic')}
                 className={`pb-3 px-4 font-medium text-sm transition-all duration-300 ${
                   activeTab === 'basic' 
-                    ? 'text-gray-900 border-b-2 border-red-600' 
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'text-white border-b-2 border-[#8267ec]' 
+                    : 'text-gray-400 hover:text-white'
                 }`}
               >
                 Basic Analysis
@@ -1188,8 +1148,8 @@ const Hireme = () => {
                 onClick={() => setActiveTab('ai')}
                 className={`pb-3 px-4 font-medium text-sm transition-all duration-300 flex items-center space-x-2 ${
                   activeTab === 'ai' 
-                    ? 'text-gray-900 border-b-2 border-red-600' 
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'text-white border-b-2 border-[#8267ec]' 
+                    : 'text-gray-400 hover:text-white'
                 }`}
               >
                 <FaRobot className="w-4 h-4" />
@@ -1204,21 +1164,21 @@ const Hireme = () => {
                   <>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* Match Overview */}
-                      <div className="bg-white border border-gray-200 rounded-xl p-4">
-                        <h3 className="text-gray-900 font-semibold text-lg mb-4">Match Overview</h3>
+                      <div className="bg-black border border-[#333333] rounded-xl p-4">
+                        <h3 className="text-white font-semibold text-lg mb-4">Match Overview</h3>
                         <div className="space-y-4">
                           <div>
                             <div className="flex items-center justify-between mb-2">
-                              <span className="text-gray-700 text-sm">Overall Match Rate</span>
-                              <span className="text-gray-900 font-semibold">{skillMatches.matchPercentage}%</span>
+                              <span className="text-gray-300 text-sm">Overall Match Rate</span>
+                              <span className="text-white font-semibold">{skillMatches.matchPercentage}%</span>
                             </div>
-                            <div className="w-full bg-gray-100 rounded-full h-3">
+                            <div className="w-full bg-[#333333] rounded-full h-3">
                               <div 
-                                className="bg-red-600 h-3 rounded-full transition-all duration-1000 ease-out"
+                                className="bg-[#8267ec] h-3 rounded-full transition-all duration-1000 ease-out"
                                 style={{ width: `${skillMatches.matchPercentage}%` }}
                               ></div>
                             </div>
-                            <p className="text-gray-600 text-xs mt-2">
+                            <p className="text-gray-400 text-xs mt-2">
                               {skillMatches.matchedCount} out of {skillMatches.totalSkills} skills matched
                             </p>
                           </div>
@@ -1226,19 +1186,19 @@ const Hireme = () => {
                       </div>
 
                       {/* Matched Skills by Category */}
-                      <div className="bg-white border border-gray-200 rounded-xl p-4">
-                        <h3 className="text-gray-900 font-semibold text-lg mb-4">Matched Skills by Category</h3>
+                      <div className="bg-black border border-[#333333] rounded-xl p-4">
+                        <h3 className="text-white font-semibold text-lg mb-4">Matched Skills by Category</h3>
                         <div className="space-y-3 max-h-60 overflow-y-auto">
                           {Object.entries(skillMatches.matchedSkills).map(([category, skills]) => (
                             <div key={category} className="space-y-2">
-                              <h4 className="text-gray-700 text-sm font-medium">{category}</h4>
+                              <h4 className="text-gray-300 text-sm font-medium">{category}</h4>
                               <div className="flex flex-wrap gap-1">
                                 {skills.map((skill, index) => (
                                   <span
                                     key={index}
-                                    className="bg-gray-50 text-gray-900 border border-gray-200 px-2 py-1 rounded text-xs flex items-center space-x-1"
+                                    className="bg-[#111111] text-white border border-[#333333] px-2 py-1 rounded text-xs flex items-center space-x-1"
                                   >
-                                    <FaCheck className="w-2 h-2 text-red-600" />
+                                    <FaCheck className="w-2 h-2 text-[#8267ec]" />
                                     <span>{skill}</span>
                                   </span>
                                 ))}
@@ -1251,13 +1211,13 @@ const Hireme = () => {
 
                     {/* Missing Skills */}
                     {skillMatches.missingSkills.length > 0 && (
-                      <div className="bg-white border border-gray-200 rounded-xl p-4">
-                        <h3 className="text-gray-900 font-semibold text-lg mb-4">Potential Skill Gaps</h3>
+                      <div className="bg-black border border-[#333333] rounded-xl p-4">
+                        <h3 className="text-white font-semibold text-lg mb-4">Potential Skill Gaps</h3>
                         <div className="flex flex-wrap gap-2">
                           {skillMatches.missingSkills.map((skill, index) => (
                             <span
                               key={index}
-                              className="bg-gray-50 text-gray-900 border border-gray-200 px-3 py-2 rounded text-sm flex items-center space-x-1"
+                              className="bg-[#111111] text-white border border-[#333333] px-3 py-2 rounded text-sm flex items-center space-x-1"
                             >
                               <FaTimes className="w-3 h-3 text-red-500" />
                               <span>{skill}</span>
@@ -1269,7 +1229,7 @@ const Hireme = () => {
                   </>
                 ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-400 text-sm">
                       Upload a job description or enter one above to see the basic skills analysis.
                     </p>
                   </div>
@@ -1282,36 +1242,36 @@ const Hireme = () => {
               <div className="space-y-6">
                 {isAIAnalyzing ? (
                   <div className="text-center py-12">
-                    <FaSync className="w-8 h-8 text-red-600 opacity-50 animate-spin mx-auto mb-4" />
-                    <p className="text-gray-700 text-sm">AI is analyzing the job description...</p>
+                    <FaSync className="w-8 h-8 text-[#8267ec] opacity-50 animate-spin mx-auto mb-4" />
+                    <p className="text-gray-300 text-sm">AI is analyzing the job description...</p>
                     <p className="text-gray-500 text-xs mt-2">This may take a few moments</p>
                   </div>
                 ) : aiAnalysis ? (
                   <div className="space-y-6">
                     {/* AI Match Overview */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                      <div className="bg-white border border-gray-200 rounded-xl p-4 lg:col-span-1">
-                        <h3 className="text-gray-900 font-semibold text-lg mb-4">AI Match Score</h3>
+                      <div className="bg-black border border-[#333333] rounded-xl p-4 lg:col-span-1">
+                        <h3 className="text-white font-semibold text-lg mb-4">AI Match Score</h3>
                         <div className="text-center">
-                          <div className="text-4xl font-bold text-gray-900 mb-2">{aiAnalysis.matchPercentage}%</div>
-                          <p className="text-gray-700 text-sm">{aiAnalysis.summary}</p>
+                          <div className="text-4xl font-bold text-white mb-2">{aiAnalysis.matchPercentage}%</div>
+                          <p className="text-gray-300 text-sm">{aiAnalysis.summary}</p>
                         </div>
                       </div>
 
-                      <div className="bg-white border border-gray-200 rounded-xl p-4 lg:col-span-2">
-                        <h3 className="text-gray-900 font-semibold text-lg mb-4">Category Analysis</h3>
+                      <div className="bg-black border border-[#333333] rounded-xl p-4 lg:col-span-2">
+                        <h3 className="text-white font-semibold text-lg mb-4">Category Analysis</h3>
                         <div className="space-y-3">
                           {Object.entries(aiAnalysis.categoryAnalysis).map(([category, data]) => (
                             <div key={category} className="flex items-center justify-between">
-                              <span className="text-gray-700 text-sm flex-1">{category}</span>
+                              <span className="text-gray-300 text-sm flex-1">{category}</span>
                               <div className="flex items-center space-x-3 flex-1">
-                                <div className="w-full bg-gray-100 rounded-full h-2">
+                                <div className="w-full bg-[#333333] rounded-full h-2">
                                   <div 
-                                    className="bg-red-600 h-2 rounded-full"
+                                    className="bg-[#8267ec] h-2 rounded-full"
                                     style={{ width: `${data.match}%` }}
                                   ></div>
                                 </div>
-                                <span className="text-gray-700 text-sm w-12 text-right">{data.match}%</span>
+                                <span className="text-gray-300 text-sm w-12 text-right">{data.match}%</span>
                               </div>
                             </div>
                           ))}
@@ -1321,13 +1281,13 @@ const Hireme = () => {
 
                     {/* AI Strengths & Recommendations */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      <div className="bg-white border border-gray-200 rounded-xl p-4">
-                        <h3 className="text-gray-900 font-semibold text-lg mb-4">Key Strengths</h3>
+                      <div className="bg-black border border-[#333333] rounded-xl p-4">
+                        <h3 className="text-white font-semibold text-lg mb-4">Key Strengths</h3>
                         <div className="flex flex-wrap gap-2">
                           {aiAnalysis.strengths.map((strength, index) => (
                             <span
                               key={index}
-                              className="bg-gray-50 text-gray-900 border border-gray-200 px-3 py-2 rounded text-sm"
+                              className="bg-[#111111] text-white border border-[#333333] px-3 py-2 rounded text-sm"
                             >
                               {strength}
                             </span>
@@ -1335,12 +1295,12 @@ const Hireme = () => {
                         </div>
                       </div>
 
-                      <div className="bg-white border border-gray-200 rounded-xl p-4">
-                        <h3 className="text-gray-900 font-semibold text-lg mb-4">AI Recommendations</h3>
-                        <ul className="text-gray-700 text-sm space-y-2">
+                      <div className="bg-black border border-[#333333] rounded-xl p-4">
+                        <h3 className="text-white font-semibold text-lg mb-4">AI Recommendations</h3>
+                        <ul className="text-gray-300 text-sm space-y-2">
                           {aiAnalysis.recommendations.map((rec, index) => (
                             <li key={index} className="flex items-start space-x-2">
-                              <FaCheck className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                              <FaCheck className="w-4 h-4 text-[#8267ec] mt-0.5 flex-shrink-0" />
                               <span>{rec}</span>
                             </li>
                           ))}
@@ -1350,15 +1310,15 @@ const Hireme = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <FaRobot className="w-12 h-12 text-red-600 opacity-50 mx-auto mb-4" />
-                    <h3 className="text-gray-900 font-semibold text-lg mb-2">AI-Powered Analysis</h3>
-                    <p className="text-gray-700 text-sm mb-4">
+                    <FaRobot className="w-12 h-12 text-[#8267ec] opacity-50 mx-auto mb-4" />
+                    <h3 className="text-white font-semibold text-lg mb-2">AI-Powered Analysis</h3>
+                    <p className="text-gray-300 text-sm mb-4">
                       Get detailed insights about skills match, category analysis, and personalized recommendations.
                     </p>
                     <button
                       onClick={handleAIAnalysis}
                       disabled={!formData.jobDescription && !extractedText}
-                      className="bg-gray-900 text-white px-6 py-2 rounded-lg font-medium text-sm hover:bg-red-600 border border-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-[#333333] text-white px-6 py-2 rounded-lg font-medium text-sm hover:bg-[#8267ec] border border-[#333333] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
                     >
                       Run AI Analysis
                     </button>
@@ -1371,13 +1331,13 @@ const Hireme = () => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white">
+      <footer className="border-t border-[#333333] bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
-            <p className="text-gray-700 text-sm tracking-wide font-light">
+            <p className="text-sm tracking-wide font-light text-gray-400">
               © 2025 THIRUMURUGAN SUBRAMANIYAN • AI RESEARCH ENGINEER • ALL RIGHTS RESERVED
             </p>
-            <p className="text-gray-500 text-xs mt-1 tracking-wide">
+            <p className="text-xs mt-1 tracking-wide text-gray-600">
               OPEN TO OPPORTUNITIES • AVAILABLE IN 1 MONTH • READY TO RELOCATE
             </p>
           </div>

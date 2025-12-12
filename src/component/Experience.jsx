@@ -339,15 +339,28 @@ const Experience = () => {
             <div className="space-y-8">
               {/* Header Section */}
               <div className="space-y-6">
-                <div className="inline-flex items-center px-4 py-2 bg-[#8267ec] rounded-full group hover:shadow-[0_0_15px_rgba(130,103,236,0.5)] transition-all duration-300">
-                  <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none"></div>
-                  <span className="text-white text-sm font-medium tracking-wide">
+                <div
+                  className="group inline-flex items-center px-4 py-2 bg-[#8267ec] text-white 
+             border border-[#8267ec] rounded-full mb-6 
+             hover:bg-white hover:text-black 
+             transition-all duration-300 transform hover:scale-105 
+             shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
+                >
+                  <div
+                    className="w-2 h-2 bg-white rounded-full mr-3 
+               transition-colors duration-300 group-hover:bg-black"
+                  ></div>
+
+                  <span className="text-sm font-medium tracking-wide transition-colors duration-300">
                     PROFESSIONAL JOURNEY
                   </span>
                 </div>
 
                 <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
-                  My <span className="text-[#8267ec]">Experience</span>
+                  My{" "}
+                  <span className="bg-gradient-to-r from-[#5f5297ff] to-violet-900 text-transparent bg-clip-text">
+                    Experience
+                  </span>
                 </h2>
 
                 <p className="text-lg text-gray-300 leading-relaxed tracking-wide">

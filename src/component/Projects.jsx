@@ -1,5 +1,4 @@
-import React, { useRef } from "react";
-import Slider from "react-slick";
+import React, { useState, useEffect } from "react";
 import {
   FaCloud,
   FaRobot,
@@ -14,17 +13,16 @@ import {
   FaLaptopCode,
   FaAward,
   FaArrowRight,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import { MdApi, MdSmartToy, MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-// Import slick carousel CSS
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 const Projects = () => {
   const navigate = useNavigate();
-  const sliderRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const projects = [
     {
@@ -125,48 +123,59 @@ const Projects = () => {
     },
   ];
 
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    speed: 800,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    pauseOnHover: true,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: true,
-          centerPadding: "40px",
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: true,
-          centerPadding: "20px",
-        },
-      },
-    ],
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [currentIndex, isMobile]);
 
   const handleStartProjectClick = () => {
     navigate("/start-project");
   };
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === projects.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? projects.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  // Calculate slides per view based on screen size
+  const getSlidesPerView = () => {
+    if (typeof window === 'undefined') return 3;
+    if (window.innerWidth < 640) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
+
+  const slidesPerView = getSlidesPerView();
+  const visibleProjects = isMobile 
+    ? [projects[currentIndex]]
+    : projects.slice(currentIndex, currentIndex + slidesPerView);
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
@@ -254,147 +263,107 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Auto-scrolling Carousel with Slider - Mobile Optimized */}
-        <div className="relative mb-10 px-1 sm:px-2 md:px-8">
-          <Slider ref={sliderRef} {...sliderSettings}>
-            {projects.map((project, index) => (
-              <div key={index} className="px-1 sm:px-2 md:px-3">
-                <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 hover:border-[#8267ec] hover:shadow-[0_0_25px_rgba(130,103,236,0.2)] transition-all duration-300 group h-full mx-1">
-                  {/* Card Header with Gradient */}
-                  <div
-                    className={`bg-gradient-to-br ${project.color} p-3 rounded-md mb-3 relative overflow-hidden`}
-                  >
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mr-8 -mt-8"></div>
+        {/* Custom Carousel Container */}
+        <div className="relative mb-10">
+          {/* Desktop Grid View */}
+          {!isMobile && (
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
+              {visibleProjects.map((project, index) => (
+                <ProjectCard key={index} project={project} />
+              ))}
+            </div>
+          )}
 
-                    <div className="relative z-10 flex items-center justify-between mb-2">
-                      <div className="text-white group-hover:scale-110 transition-transform">
-                        {React.cloneElement(project.icon, {
-                          className: "text-xl",
-                        })}
-                      </div>
-                      <div className="bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                        <span className="text-white text-xs font-semibold">
-                          {project.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="relative z-10 flex items-center">
-                      <MdVerified className="text-white text-sm mr-1" />
-                      <span className="text-white text-xs font-medium">
-                        Production Ready
-                      </span>
-                    </div>
+          {/* Mobile Carousel View */}
+          {isMobile && (
+            <div className="md:hidden relative overflow-hidden px-12">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                {projects.map((project, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-2">
+                    <ProjectCard project={project} />
                   </div>
-
-                  {/* Card Body */}
-                  <div>
-                    <h3 className="text-white font-bold text-base sm:text-sm mb-2 leading-tight min-h-[40px] group-hover:text-[#8267ec] transition-colors">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-gray-300 text-sm sm:text-xs leading-relaxed mb-3 line-clamp-3">
-                      {project.description}
-                    </p>
-
-                    {/* Key Features */}
-                    <div className="mb-3">
-                      <h4 className="text-white text-xs font-semibold mb-2 flex items-center">
-                        <FaCheckCircle className="text-[#8267ec] text-xs mr-1" />
-                        Features
-                      </h4>
-                      <ul className="space-y-1">
-                        {project.features.map((feature, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start space-x-2 text-gray-300 text-xs"
-                          >
-                            <div className="w-1 h-1 bg-[#8267ec] rounded-full mt-1.5 flex-shrink-0"></div>
-                            <span className="line-clamp-1">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Technologies */}
-                    <div className="pt-3 border-t border-[#333333]">
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.technologies.slice(0, 2).map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="text-xs text-gray-300 bg-[#1a1a1a] border border-[#333333] px-2 py-1 rounded-md hover:bg-[#8267ec] hover:text-white hover:border-[#8267ec] transition-all duration-200"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {project.technologies.length > 2 && (
-                          <span className="text-xs text-white bg-[#8267ec] border border-[#8267ec] px-2 py-1 rounded-md hover:bg-[#9d8aee] transition-colors">
-                            +{project.technologies.length - 2}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </Slider>
-        </div>
+              
+              {/* Mobile Navigation Arrows */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)] z-10"
+                aria-label="Previous slide"
+              >
+                <FaChevronLeft className="w-4 h-4" />
+              </button>
+              
+              <button
+                onClick={nextSlide}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)] z-10"
+                aria-label="Next slide"
+              >
+                <FaChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
 
-        {/* Navigation Arrows - Mobile Optimized */}
-        <div className="flex justify-center items-center space-x-4 mb-10 px-4">
-          <button
-            onClick={() => sliderRef.current?.slickPrev()}
-            className="bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
-            aria-label="Previous slide"
-          >
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
+          {/* Desktop Navigation */}
+          {!isMobile && (
+            <div className="hidden md:flex justify-center items-center space-x-4 mt-6">
+              <button
+                onClick={prevSlide}
+                className="bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
+                aria-label="Previous slide"
+                disabled={currentIndex === 0}
+              >
+                <FaChevronLeft className="w-5 h-5" />
+              </button>
 
-          <div className="flex space-x-1">
-            {Array.from({ length: Math.ceil(projects.length / 3) }).map(
-              (_, idx) => (
+              <div className="flex space-x-2">
+                {Array.from({ length: Math.ceil(projects.length / slidesPerView) }).map(
+                  (_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => goToSlide(idx * slidesPerView)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        currentIndex === idx * slidesPerView
+                          ? "bg-[#8267ec] w-6"
+                          : "bg-[#333333] hover:bg-[#8267ec]"
+                      }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  )
+                )}
+              </div>
+
+              <button
+                onClick={nextSlide}
+                className="bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
+                aria-label="Next slide"
+                disabled={currentIndex >= projects.length - slidesPerView}
+              >
+                <FaChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+
+          {/* Mobile Dots */}
+          {isMobile && (
+            <div className="md:hidden flex justify-center space-x-2 mt-6">
+              {projects.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => sliderRef.current?.slickGoTo(idx * 3)}
-                  className="w-2 h-2 rounded-full bg-[#333333] hover:bg-[#8267ec] transition-all duration-300"
-                  aria-label={`Go to slide group ${idx + 1}`}
+                  onClick={() => goToSlide(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentIndex === idx
+                      ? "bg-[#8267ec] w-6"
+                      : "bg-[#333333] hover:bg-[#8267ec]"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
                 />
-              )
-            )}
-          </div>
-
-          <button
-            onClick={() => sliderRef.current?.slickNext()}
-            className="bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
-            aria-label="Next slide"
-          >
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Call to Action - Mobile Optimized */}
@@ -435,6 +404,89 @@ const Projects = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+// Project Card Component
+const ProjectCard = ({ project }) => {
+  return (
+    <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 hover:border-[#8267ec] hover:shadow-[0_0_25px_rgba(130,103,236,0.2)] transition-all duration-300 group h-full">
+      {/* Card Header with Gradient */}
+      <div
+        className={`bg-gradient-to-br ${project.color} p-3 rounded-md mb-3 relative overflow-hidden`}
+      >
+        <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mr-8 -mt-8"></div>
+
+        <div className="relative z-10 flex items-center justify-between mb-2">
+          <div className="text-white group-hover:scale-110 transition-transform">
+            {React.cloneElement(project.icon, {
+              className: "text-xl",
+            })}
+          </div>
+          <div className="bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full">
+            <span className="text-white text-xs font-semibold">
+              {project.category}
+            </span>
+          </div>
+        </div>
+
+        <div className="relative z-10 flex items-center">
+          <MdVerified className="text-white text-sm mr-1" />
+          <span className="text-white text-xs font-medium">
+            Production Ready
+          </span>
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div>
+        <h3 className="text-white font-bold text-base sm:text-sm mb-2 leading-tight min-h-[40px] group-hover:text-[#8267ec] transition-colors">
+          {project.title}
+        </h3>
+
+        <p className="text-gray-300 text-sm sm:text-xs leading-relaxed mb-3 line-clamp-3">
+          {project.description}
+        </p>
+
+        {/* Key Features */}
+        <div className="mb-3">
+          <h4 className="text-white text-xs font-semibold mb-2 flex items-center">
+            <FaCheckCircle className="text-[#8267ec] text-xs mr-1" />
+            Features
+          </h4>
+          <ul className="space-y-1">
+            {project.features.map((feature, idx) => (
+              <li
+                key={idx}
+                className="flex items-start space-x-2 text-gray-300 text-xs"
+              >
+                <div className="w-1 h-1 bg-[#8267ec] rounded-full mt-1.5 flex-shrink-0"></div>
+                <span className="line-clamp-1">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Technologies */}
+        <div className="pt-3 border-t border-[#333333]">
+          <div className="flex flex-wrap gap-1.5">
+            {project.technologies.slice(0, 2).map((tech, idx) => (
+              <span
+                key={idx}
+                className="text-xs text-gray-300 bg-[#1a1a1a] border border-[#333333] px-2 py-1 rounded-md hover:bg-[#8267ec] hover:text-white hover:border-[#8267ec] transition-all duration-200"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.technologies.length > 2 && (
+              <span className="text-xs text-white bg-[#8267ec] border border-[#8267ec] px-2 py-1 rounded-md hover:bg-[#9d8aee] transition-colors">
+                +{project.technologies.length - 2}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

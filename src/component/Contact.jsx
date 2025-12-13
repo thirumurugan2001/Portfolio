@@ -327,43 +327,70 @@ const Contact = () => {
           </div>
         )}
 
-        {/* Section Header */}
+        {/* UPDATED SECTION HEADER - Matching Projects style */}
         <div className="text-center mb-16">
-          <div
-            className="group inline-flex items-center px-4 py-2 bg-[#8267ec] text-white 
-             border border-[#8267ec] rounded-full mb-6 
-             hover:bg-white hover:text-black 
-             transition-all duration-300 transform hover:scale-105 
-             shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
-          >
+          <div className="relative inline-block mb-6">
             <div
-              className="w-2 h-2 bg-white rounded-full mr-3 
-               transition-colors duration-300 group-hover:bg-black"
-            ></div>
+              className="group inline-flex items-center px-4 py-2 rounded-full 
+               border border-[#8267ec] bg-black
+               transition-all duration-300 transform hover:scale-105 
+               shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]
+               hover:bg-[#8267ec] cursor-pointer"
+            >
+              {/* Dot with animation */}
+              <div
+                className="w-2 h-2 rounded-full mr-3 animate-pulse
+                 bg-[#8267ec] transition-all duration-300 
+                 group-hover:bg-white group-hover:scale-110 group-hover:animate-none"
+              ></div>
 
-            <span className="text-sm font-medium tracking-wide transition-colors duration-300">
-              GET IN TOUCH
-            </span>
+              {/* Text */}
+              <span 
+                className="text-sm font-medium tracking-wide 
+                 text-[#8267ec] transition-colors duration-300
+                 group-hover:text-white"
+              >
+                CONTACT ME
+              </span>
+            </div>
           </div>
 
-          <h2 className="text-4xl font-bold text-white tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">
             Let's{" "}
             <span className="bg-gradient-to-r from-[#5f5297ff] to-violet-900 text-transparent bg-clip-text">
-              Connect
+              Connect & Collaborate
             </span>
           </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            For more information or inquiries about my skills and experience,
-            please feel free to get in touch with me.
+          <p className="text-base sm:text-lg text-gray-300 leading-relaxed tracking-wide max-w-3xl mx-auto px-4">
+            Get in touch to discuss your next project, inquire about my services, or just say hello.
           </p>
-          <div className="mt-6 text-gray-300">
-            <div className="flex items-center justify-center space-x-4 mb-2">
-              <FaEnvelope className="w-5 h-5 text-[#8267ec]" />
-              <span title="drop a mail">thirusubramaniyan2001@gmail.com</span>
+        </div>
+
+        {/* Contact Details under header */}
+        <div className="text-center mb-12">
+          <div className="text-gray-300 inline-flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
+            <div className="flex items-center space-x-3 group cursor-pointer">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#111111] border border-[#8267ec] group-hover:bg-[#8267ec] transition-all duration-300">
+                <FaEnvelope className="w-4 h-4 text-[#8267ec] group-hover:text-white transition-colors" />
+              </div>
+              <div className="text-left">
+                <p className="text-xs text-gray-400">Email</p>
+                <span className="font-medium hover:text-[#8267ec] transition-colors text-sm">
+                  thirusubramaniyan2001@gmail.com
+                </span>
+              </div>
             </div>
-            <div className="flex items-center justify-center space-x-4">
-              <FaPhone className="w-5 h-5 text-[#8267ec]" />
-              <span title="Call on">+91- 73392 25958</span>
+
+            <div className="flex items-center space-x-3 group cursor-pointer">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#111111] border border-[#8267ec] group-hover:bg-[#8267ec] transition-all duration-300">
+                <FaPhone className="w-4 h-4 text-[#8267ec] group-hover:text-white transition-colors" />
+              </div>
+              <div className="text-left">
+                <p className="text-xs text-gray-400">Phone</p>
+                <span className="font-medium hover:text-[#8267ec] transition-colors text-sm">
+                  +91- 73392 25958
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -517,88 +544,88 @@ const Contact = () => {
                     placeholder="your.email@example.com"
                     className="w-full px-4 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all bg-black border border-[#333333] text-white focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]"
                     required
-                  />
-                </div>
-              </div>
-
-              {/* Message Field */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium flex items-center space-x-2 text-gray-300">
-                  <FaComment className="w-4 h-4 text-[#8267ec]" />
-                  <span>Your Message</span>
-                </label>
-                <textarea
-                  name="Message"
-                  value={formData.Message}
-                  onChange={handleInputChange}
-                  placeholder="Type your message here . . . ."
-                  rows="5"
-                  className="w-full px-4 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all resize-none bg-black border border-[#333333] text-white focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]"
-                  required
                 />
               </div>
+            </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                {/* Send Message Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border ${
-                    isSubmitting
-                      ? "opacity-50 cursor-not-allowed scale-100"
-                      : "hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
-                  } bg-[#8267ec] text-white border-[#8267ec]`}
-                  onMouseEnter={(e) => {
-                    if (!isSubmitting) {
-                      e.target.style.backgroundColor = "#ffffff";
-                      e.target.style.color = "#8267ec";
-                      e.target.style.borderColor = "#8267ec";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isSubmitting) {
-                      e.target.style.backgroundColor = "#8267ec";
-                      e.target.style.color = "#ffffff";
-                    }
-                  }}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Sending...</span>
-                    </>
-                  ) : (
-                    <>
-                      <FaPaperPlane className="w-4 h-4" />
-                      <span>Send Message</span>
-                    </>
-                  )}
-                </button>
+            {/* Message Field */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium flex items-center space-x-2 text-gray-300">
+                <FaComment className="w-4 h-4 text-[#8267ec]" />
+                <span>Your Message</span>
+              </label>
+              <textarea
+                name="Message"
+                value={formData.Message}
+                onChange={handleInputChange}
+                placeholder="Type your message here . . . ."
+                rows="5"
+                className="w-full px-4 py-3 rounded-lg placeholder-gray-500 focus:outline-none transition-all resize-none bg-black border border-[#333333] text-white focus:border-[#8267ec] focus:shadow-[0_0_15px_rgba(130,103,236,0.2)]"
+                required
+              />
+            </div>
 
-                {/* Send Email Button */}
-                <button
-                  type="button"
-                  onClick={handleManualEmail}
-                  className="flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.3)] bg-black text-[#8267ec] border-[#8267ec]"
-                  onMouseEnter={(e) => {
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              {/* Send Message Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border ${
+                  isSubmitting
+                    ? "opacity-50 cursor-not-allowed scale-100"
+                    : "hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
+                } bg-[#8267ec] text-white border-[#8267ec]`}
+                onMouseEnter={(e) => {
+                  if (!isSubmitting) {
+                    e.target.style.backgroundColor = "#ffffff";
+                    e.target.style.color = "#8267ec";
+                    e.target.style.borderColor = "#8267ec";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSubmitting) {
                     e.target.style.backgroundColor = "#8267ec";
                     e.target.style.color = "#ffffff";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = "black";
-                    e.target.style.color = "#8267ec";
-                  }}
-                >
-                  <FaEnvelope className="w-4 h-4" />
-                  <span>Send Email</span>
-                </button>
-              </div>
-            </form>
-          </div>
+                  }
+                }}
+              >
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <FaPaperPlane className="w-4 h-4" />
+                    <span>Send Message</span>
+                  </>
+                )}
+              </button>
+
+              {/* Send Email Button */}
+              <button
+                type="button"
+                onClick={handleManualEmail}
+                className="flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(130,103,236,0.3)] bg-black text-[#8267ec] border-[#8267ec]"
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = "#8267ec";
+                  e.target.style.color = "#ffffff";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = "black";
+                  e.target.style.color = "#8267ec";
+                }}
+              >
+                <FaEnvelope className="w-4 h-4" />
+                <span>Send Email</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
 

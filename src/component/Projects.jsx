@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useRef } from "react";
 import Slider from "react-slick";
 import {
   FaCloud,
@@ -127,7 +127,6 @@ const Projects = () => {
   ];
 
   const sliderSettings = {
-    // ... (keep your slider settings as is)
     dots: false,
     infinite: true,
     autoplay: true,
@@ -146,10 +145,19 @@ const Projects = () => {
         },
       },
       {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1, // Changed from 1.5 to 1
+          slidesToScroll: 1,
+          centerMode: false, // Disable center mode for single card
+        },
+      },
+      {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1, // Show only one card on mobile
           slidesToScroll: 1,
+          centerMode: false,
         },
       },
     ],
@@ -160,7 +168,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
       <div className="max-w-7xl mx-auto">
         {/* Section Header with Professional Badge Style */}
         <div className="text-center mb-10">
@@ -202,7 +210,7 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Stats Bar - Keeping your existing code */}
+        {/* Stats Bar */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
             <div className="text-[#8267ec] flex justify-center mb-2 group-hover:scale-110 transition-transform">
@@ -250,7 +258,7 @@ const Projects = () => {
           <Slider ref={sliderRef} {...sliderSettings}>
             {projects.map((project, index) => (
               <div key={index} className="px-2 sm:px-3">
-                <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 hover:border-[#8267ec] hover:shadow-[0_0_25px_rgba(130,103,236,0.2)] transition-all duration-300 group h-full">
+                <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 hover:border-[#8267ec] hover:shadow-[0_0_25px_rgba(130,103,236,0.2)] transition-all duration-300 group h-full mx-1 sm:mx-0">
                   {/* Card Header with Gradient */}
                   <div
                     className={`bg-gradient-to-br ${project.color} p-3 rounded-md mb-3 relative overflow-hidden`}
@@ -332,8 +340,8 @@ const Projects = () => {
           </Slider>
         </div>
 
-        {/* Navigation Arrows */}
-        <div className="flex justify-center items-center space-x-4 mb-10">
+        {/* Navigation Arrows - Hide on mobile for single card view */}
+        <div className="hidden sm:flex justify-center items-center space-x-4 mb-10">
           <button
             onClick={() => sliderRef.current?.slickPrev()}
             className="bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
@@ -383,6 +391,19 @@ const Projects = () => {
               />
             </svg>
           </button>
+        </div>
+
+        {/* Mobile Dots Only - Show on mobile */}
+        <div className="sm:hidden flex justify-center items-center space-x-1 mb-10">
+          {Array.from({ length: Math.ceil(projects.length) }).map(
+            (_, idx) => (
+              <button
+                key={idx}
+                onClick={() => sliderRef.current?.slickGoTo(idx)}
+                className="w-2 h-2 rounded-full bg-[#333333] hover:bg-[#8267ec] transition-all duration-300"
+              />
+            )
+          )}
         </div>
 
         {/* Call to Action */}

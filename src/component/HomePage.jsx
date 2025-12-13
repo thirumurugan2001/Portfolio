@@ -142,11 +142,6 @@ const HomePage = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [typingComplete, setTypingComplete] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { text: "Hi! I'm your AI assistant. Ask me anything about Thirumurugan's skills and experience!", sender: "bot" }
-  ]);
-  const [inputValue, setInputValue] = useState("");
   const [animationData, setAnimationData] = useState(null);
   const timeoutRef = useRef(null);
   const canvasRef = useRef(null);
@@ -395,42 +390,8 @@ const HomePage = () => {
     setTypingComplete(true);
   };
 
-  // Chatbot functions
-  const toggleChat = () => {
-    if (isMobile && !isChatOpen) {
-      setIsChatOpen(true);
-    } else {
-      // Navigate to chatbot page
-      navigate('/ask-about-me');
-    }
-  };
-
-  const closeChat = () => {
-    setIsChatOpen(false);
-  };
-
-  const handleSendMessage = () => {
-    if (inputValue.trim()) {
-      setMessages([...messages, { text: inputValue, sender: "user" }]);
-      setInputValue("");
-      
-      // Simulate bot response
-      setTimeout(() => {
-        setMessages(prev => [...prev, { 
-          text: "I see you have a question! For detailed queries about my skills, experience, and projects, please visit the full chatbot page.", 
-          sender: "bot" 
-        }]);
-      }, 1000);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
-  };
-
-  const handleExploreChat = () => {
+  // Chatbot function - Navigate to /ask-about-me
+  const handleChatbotClick = () => {
     navigate('/ask-about-me');
   };
 
@@ -439,7 +400,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans antialiased relative overflow-hidden">
-
       {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
@@ -453,110 +413,28 @@ const HomePage = () => {
 
       {/* Chatbot Icon with Lottie Animation - Bottom Left */}
       <div className={`fixed z-50 ${isMobile ? 'bottom-6 left-6' : 'bottom-8 left-8'}`}>
-        {!isChatOpen && (
-          <button
-            onClick={toggleChat}
-            className="text-white "
-            style={{ 
-              width: isMobile ? '80px' : '100px', 
-              height: isMobile ? '80px' : '100px' 
-            }}
-            aria-label="Chat with AI Assistant"
-          >
-            {animationData ? (
-              <Lottie
-                animationData={animationData}
-                loop={true}
-                autoplay={true}
-                className="w-full h-full"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <FaRobot className="h-14 w-14" />
-              </div>
-            )}
-          </button>
-        )}
-
-        {/* Chat Window - Mobile Only */}
-        {isMobile && isChatOpen && (
-          <div className="fixed inset-0 z-50 flex flex-col bg-black/95">
-            {/* Chat Header */}
-            <div className="bg-gradient-to-r from-[#8267ec] to-[#5f42b5] text-white p-4 rounded-t-lg flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                {animationData && (
-                  <div className="w-6 h-6">
-                    <Lottie
-                      animationData={animationData}
-                      loop={true}
-                      autoplay={true}
-                      className="w-full h-full"
-                    />
-                  </div>
-                )}
-                <h3 className="font-semibold text-base">AI Assistant</h3>
-              </div>
-              <button
-                onClick={closeChat}
-                className="hover:bg-[#5f42b5] rounded-full p-1 transition-colors"
-                aria-label="Close chat"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+        <button
+          onClick={handleChatbotClick}
+          className="text-white rounded-full p-2 duration-300 hover:scale-110 transition-all"
+          style={{ 
+            width: isMobile ? '80px' : '100px', 
+            height: isMobile ? '80px' : '100px' 
+          }}
+          aria-label="Chat with AI Assistant"
+        >
+          {animationData ? (
+            <Lottie
+              animationData={animationData}
+              loop={true}
+              autoplay={true}
+              className="w-full h-full"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <FaRobot className="h-14 w-14" />
             </div>
-
-            {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[85%] px-4 py-2 rounded-lg text-base ${
-                      message.sender === 'user'
-                        ? 'bg-gradient-to-r from-[#8267ec] to-[#5f42b5] text-white'
-                        : 'bg-gray-800 text-gray-100 border border-gray-700'
-                    }`}
-                  >
-                    {message.text}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Input Area */}
-            <div className="p-4 border-t border-gray-800 bg-gray-900">
-              <div className="flex gap-2 mb-2">
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Type your question..."
-                  className="flex-1 px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8267ec] bg-gray-800 text-white"
-                />
-                <button
-                  onClick={handleSendMessage}
-                  className="bg-gradient-to-r from-[#8267ec] to-[#5f42b5] text-white rounded-lg px-4 py-2 transition-colors shadow-md"
-                  aria-label="Send message"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              </div>
-              <button
-                onClick={handleExploreChat}
-                className="w-full bg-gradient-to-r from-[#5f42b5] to-[#8267ec] hover:from-[#8267ec] hover:to-[#5f42b5] text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 text-sm shadow-md"
-              >
-                Explore Full Chatbot →
-              </button>
-            </div>
-          </div>
-        )}
+          )}
+        </button>
       </div>
 
       {/* Content */}

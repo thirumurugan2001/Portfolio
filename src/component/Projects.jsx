@@ -1,4 +1,4 @@
-import React, {useRef } from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import {
   FaCloud,
@@ -27,7 +27,6 @@ const Projects = () => {
   const sliderRef = useRef(null);
 
   const projects = [
-    // ... (keep your projects array as is)
     {
       icon: <FaCloud className="w-5 h-5" />,
       title: "AI Cloud Operations Platform",
@@ -147,17 +146,19 @@ const Projects = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1, // Changed from 1.5 to 1
+          slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false, // Disable center mode for single card
+          centerMode: true,
+          centerPadding: "40px",
         },
       },
       {
-        breakpoint: 640,
+        breakpoint: 480,
         settings: {
-          slidesToShow: 1, // Show only one card on mobile
+          slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false,
+          centerMode: true,
+          centerPadding: "20px",
         },
       },
     ],
@@ -198,67 +199,67 @@ const Projects = () => {
             </div>
           </div>
 
-          <h2 className="text-5xl font-bold text-white tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-3">
             Innovative{" "}
             <span className="bg-gradient-to-r from-[#5f5297ff] to-violet-900 text-transparent bg-clip-text">
               AI & Cloud Solutions
             </span>
           </h2>
-          <p className="text-lg text-gray-300 leading-relaxed tracking-wide">
+          <p className="text-base sm:text-lg text-gray-300 leading-relaxed tracking-wide max-w-3xl mx-auto px-4">
             A collection of cutting-edge projects showcasing expertise in AI,
             machine learning, and cloud automation.
           </p>
         </div>
 
-        {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
+        {/* Stats Bar - Mobile Optimized */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-12 px-2">
+          <div className="bg-[#111111] border border-[#333333] rounded-lg p-3 sm:p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
             <div className="text-[#8267ec] flex justify-center mb-2 group-hover:scale-110 transition-transform">
-              <FaLaptopCode className="text-2xl" />
+              <FaLaptopCode className="text-xl sm:text-2xl" />
             </div>
-            <div className="text-2xl font-bold text-white mb-1">10+ </div>
+            <div className="text-xl sm:text-2xl font-bold text-white mb-1">10+</div>
             <div className="text-gray-300 text-xs font-medium">
               Total Projects
             </div>
           </div>
 
-          <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
+          <div className="bg-[#111111] border border-[#333333] rounded-lg p-3 sm:p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
             <div className="text-[#8267ec] flex justify-center mb-2 group-hover:scale-110 transition-transform">
-              <FaRobot className="text-2xl" />
+              <FaRobot className="text-xl sm:text-2xl" />
             </div>
-            <div className="text-2xl font-bold text-white mb-1">10+</div>
+            <div className="text-xl sm:text-2xl font-bold text-white mb-1">10+</div>
             <div className="text-gray-300 text-xs font-medium">
               AI Solutions
             </div>
           </div>
 
-          <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
+          <div className="bg-[#111111] border border-[#333333] rounded-lg p-3 sm:p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
             <div className="text-[#8267ec] flex justify-center mb-2 group-hover:scale-110 transition-transform">
-              <FaCloud className="text-2xl" />
+              <FaCloud className="text-xl sm:text-2xl" />
             </div>
-            <div className="text-2xl font-bold text-white mb-1">5+</div>
+            <div className="text-xl sm:text-2xl font-bold text-white mb-1">5+</div>
             <div className="text-gray-300 text-xs font-medium">
               Cloud Projects
             </div>
           </div>
 
-          <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
+          <div className="bg-[#111111] border border-[#333333] rounded-lg p-3 sm:p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
             <div className="text-[#8267ec] flex justify-center mb-2 group-hover:scale-110 transition-transform">
-              <FaAward className="text-2xl" />
+              <FaAward className="text-xl sm:text-2xl" />
             </div>
-            <div className="text-2xl font-bold text-white mb-1">100%</div>
+            <div className="text-xl sm:text-2xl font-bold text-white mb-1">100%</div>
             <div className="text-gray-300 text-xs font-medium">
               Success Rate
             </div>
           </div>
         </div>
 
-        {/* Auto-scrolling Carousel with Slider */}
-        <div className="relative mb-10 px-2 sm:px-4 md:px-8">
+        {/* Auto-scrolling Carousel with Slider - Mobile Optimized */}
+        <div className="relative mb-10 px-1 sm:px-2 md:px-8">
           <Slider ref={sliderRef} {...sliderSettings}>
             {projects.map((project, index) => (
-              <div key={index} className="px-2 sm:px-3">
-                <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 hover:border-[#8267ec] hover:shadow-[0_0_25px_rgba(130,103,236,0.2)] transition-all duration-300 group h-full mx-1 sm:mx-0">
+              <div key={index} className="px-1 sm:px-2 md:px-3">
+                <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 hover:border-[#8267ec] hover:shadow-[0_0_25px_rgba(130,103,236,0.2)] transition-all duration-300 group h-full mx-1">
                   {/* Card Header with Gradient */}
                   <div
                     className={`bg-gradient-to-br ${project.color} p-3 rounded-md mb-3 relative overflow-hidden`}
@@ -288,17 +289,17 @@ const Projects = () => {
 
                   {/* Card Body */}
                   <div>
-                    <h3 className="text-white font-bold text-sm mb-1 leading-tight min-h-[40px] group-hover:text-[#8267ec] transition-colors">
+                    <h3 className="text-white font-bold text-base sm:text-sm mb-2 leading-tight min-h-[40px] group-hover:text-[#8267ec] transition-colors">
                       {project.title}
                     </h3>
 
-                    <p className="text-gray-300 text-xs leading-relaxed mb-3 line-clamp-2">
+                    <p className="text-gray-300 text-sm sm:text-xs leading-relaxed mb-3 line-clamp-3">
                       {project.description}
                     </p>
 
                     {/* Key Features */}
                     <div className="mb-3">
-                      <h4 className="text-white text-xs font-semibold mb-1 flex items-center">
+                      <h4 className="text-white text-xs font-semibold mb-2 flex items-center">
                         <FaCheckCircle className="text-[#8267ec] text-xs mr-1" />
                         Features
                       </h4>
@@ -306,9 +307,9 @@ const Projects = () => {
                         {project.features.map((feature, idx) => (
                           <li
                             key={idx}
-                            className="flex items-start space-x-1 text-gray-300 text-xs"
+                            className="flex items-start space-x-2 text-gray-300 text-xs"
                           >
-                            <div className="w-1 h-1 bg-[#8267ec] rounded-full mt-1 flex-shrink-0"></div>
+                            <div className="w-1 h-1 bg-[#8267ec] rounded-full mt-1.5 flex-shrink-0"></div>
                             <span className="line-clamp-1">{feature}</span>
                           </li>
                         ))}
@@ -316,8 +317,8 @@ const Projects = () => {
                     </div>
 
                     {/* Technologies */}
-                    <div className="pt-2 border-t border-[#333333]">
-                      <div className="flex flex-wrap gap-1">
+                    <div className="pt-3 border-t border-[#333333]">
+                      <div className="flex flex-wrap gap-1.5">
                         {project.technologies.slice(0, 2).map((tech, idx) => (
                           <span
                             key={idx}
@@ -340,14 +341,15 @@ const Projects = () => {
           </Slider>
         </div>
 
-        {/* Navigation Arrows - Hide on mobile for single card view */}
-        <div className="hidden sm:flex justify-center items-center space-x-4 mb-10">
+        {/* Navigation Arrows - Mobile Optimized */}
+        <div className="flex justify-center items-center space-x-4 mb-10 px-4">
           <button
             onClick={() => sliderRef.current?.slickPrev()}
             className="bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
+            aria-label="Previous slide"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -368,6 +370,7 @@ const Projects = () => {
                   key={idx}
                   onClick={() => sliderRef.current?.slickGoTo(idx * 3)}
                   className="w-2 h-2 rounded-full bg-[#333333] hover:bg-[#8267ec] transition-all duration-300"
+                  aria-label={`Go to slide group ${idx + 1}`}
                 />
               )
             )}
@@ -376,9 +379,10 @@ const Projects = () => {
           <button
             onClick={() => sliderRef.current?.slickNext()}
             className="bg-[#111111] hover:bg-[#8267ec] border border-[#333333] hover:border-[#8267ec] text-white hover:text-white rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
+            aria-label="Next slide"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -393,48 +397,35 @@ const Projects = () => {
           </button>
         </div>
 
-        {/* Mobile Dots Only - Show on mobile */}
-        <div className="sm:hidden flex justify-center items-center space-x-1 mb-10">
-          {Array.from({ length: Math.ceil(projects.length) }).map(
-            (_, idx) => (
-              <button
-                key={idx}
-                onClick={() => sliderRef.current?.slickGoTo(idx)}
-                className="w-2 h-2 rounded-full bg-[#333333] hover:bg-[#8267ec] transition-all duration-300"
-              />
-            )
-          )}
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center">
-          <div className="bg-black border border-[#8267ec] rounded-xl p-6 max-w-xl mx-auto hover:shadow-[0_0_40px_rgba(130,103,236,0.25)] transition-all duration-300 group">
-            <h3 className="text-white font-semibold text-lg mb-3 flex items-center justify-center">
-              <div className="w-10 h-10 bg-[#8267ec] rounded-lg flex items-center justify-center mr-3 group-hover:scale-105 transition-transform group-hover:shadow-[0_0_20px_rgba(130,103,236,0.5)]">
-                <FaRocket className="text-white text-lg" />
+        {/* Call to Action - Mobile Optimized */}
+        <div className="text-center px-2">
+          <div className="bg-black border border-[#8267ec] rounded-xl p-4 sm:p-6 max-w-xl mx-auto hover:shadow-[0_0_40px_rgba(130,103,236,0.25)] transition-all duration-300 group">
+            <h3 className="text-white font-semibold text-base sm:text-lg mb-3 flex items-center justify-center">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#8267ec] rounded-lg flex items-center justify-center mr-2 sm:mr-3 group-hover:scale-105 transition-transform group-hover:shadow-[0_0_20px_rgba(130,103,236,0.5)]">
+                <FaRocket className="text-white text-sm sm:text-lg" />
               </div>
-              <span className="italic text-sm">
+              <span className="italic text-sm sm:text-base">
                 Ready to Build Something Amazing?
               </span>
             </h3>
 
             <div className="text-center">
-              <p className="text-gray-400 text-sm leading-relaxed mb-4 max-w-md mx-auto italic">
+              <p className="text-gray-400 text-sm leading-relaxed mb-4 max-w-md mx-auto italic px-2">
                 Let's collaborate on your next AI-powered project.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center px-2">
                 <button
-                  className="group bg-[#8267ec] text-white hover:bg-white hover:text-black border border-[#8267ec] px-6 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] flex items-center justify-center space-x-2 text-sm"
+                  className="group bg-[#8267ec] text-white hover:bg-white hover:text-black border border-[#8267ec] px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)] flex items-center justify-center space-x-2 text-sm"
                   onClick={handleStartProjectClick}
                 >
                   <span className="tracking-wide">Start a Project</span>
-                  <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <FaArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
 
                 <a
                   href="#contact"
-                  className="group border border-[#8267ec] text-[#8267ec] hover:bg-[#8267ec] hover:text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-sm hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
+                  className="group border border-[#8267ec] text-[#8267ec] hover:bg-[#8267ec] hover:text-white px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-sm hover:shadow-[0_0_15px_rgba(130,103,236,0.3)]"
                 >
                   <span className="tracking-wide">Contact Me</span>
                 </a>

@@ -13,6 +13,8 @@ import {
 } from "react-icons/fa";
 import { FaLinkedin, FaGithub, FaHackerrank } from "react-icons/fa";
 import { SiCodechef, SiLeetcode, SiHackerrank } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
 import About from "./About";
 import Experience from "./Experience";
 import Projects from "./Projects";
@@ -21,10 +23,11 @@ import Footer from "./Footer";
 import Contact from "./Contact";
 import Certifications from "./Certifications";
 import resumeCV from "../assets/Thirumurugan_Resume.pdf";
+import chatbotAnimationData from "../assets/chatbot-animation.json";
 
 // Color Constants
 const COLORS = {
-  primary: "#8267ec", // Purple
+  primary: "#8267ec",
   black: "#000000",
   white: "#ffffff",
   grayLight: "#f5f5f5",
@@ -138,8 +141,35 @@ const HomePage = () => {
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [typingComplete, setTypingComplete] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { text: "Hi! I'm your AI assistant. Ask me anything about Thirumurugan's skills and experience!", sender: "bot" }
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [animationData, setAnimationData] = useState(null);
   const timeoutRef = useRef(null);
   const canvasRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Load chatbot animation
+  useEffect(() => {
+    setAnimationData(chatbotAnimationData);
+    
+    // Check if mobile on initial load
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  const checkMobile = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
 
   // Neural Network Background Animation - Black, White & Purple Theme
   useEffect(() => {
@@ -365,11 +395,51 @@ const HomePage = () => {
     setTypingComplete(true);
   };
 
+  // Chatbot functions
+  const toggleChat = () => {
+    if (isMobile && !isChatOpen) {
+      setIsChatOpen(true);
+    } else {
+      // Navigate to chatbot page
+      navigate('/ask-about-me');
+    }
+  };
+
+  const closeChat = () => {
+    setIsChatOpen(false);
+  };
+
+  const handleSendMessage = () => {
+    if (inputValue.trim()) {
+      setMessages([...messages, { text: inputValue, sender: "user" }]);
+      setInputValue("");
+      
+      // Simulate bot response
+      setTimeout(() => {
+        setMessages(prev => [...prev, { 
+          text: "I see you have a question! For detailed queries about my skills, experience, and projects, please visit the full chatbot page.", 
+          sender: "bot" 
+        }]);
+      }, 1000);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
+  const handleExploreChat = () => {
+    navigate('/ask-about-me');
+  };
+
   const professionalSummary =
     "Specializing in Large Language Models, RAG Systems, and AI-powered applications. Transforming complex business challenges into scalable AI solutions using cutting-edge machine learning and cloud technologies.";
 
   return (
     <div className="min-h-screen bg-black text-white font-sans antialiased relative overflow-hidden">
+
       {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
@@ -381,35 +451,160 @@ const HomePage = () => {
         </button>
       )}
 
+      {/* Chatbot Icon with Lottie Animation - Bottom Left */}
+      <div className={`fixed z-50 ${isMobile ? 'bottom-6 left-6' : 'bottom-8 left-8'}`}>
+        {!isChatOpen && (
+          <button
+            onClick={toggleChat}
+            className="text-white "
+            style={{ 
+              width: isMobile ? '80px' : '100px', 
+              height: isMobile ? '80px' : '100px' 
+            }}
+            aria-label="Chat with AI Assistant"
+          >
+            {animationData ? (
+              <Lottie
+                animationData={animationData}
+                loop={true}
+                autoplay={true}
+                className="w-full h-full"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <FaRobot className="h-14 w-14" />
+              </div>
+            )}
+          </button>
+        )}
+
+        {/* Chat Window - Mobile Only */}
+        {isMobile && isChatOpen && (
+          <div className="fixed inset-0 z-50 flex flex-col bg-black/95">
+            {/* Chat Header */}
+            <div className="bg-gradient-to-r from-[#8267ec] to-[#5f42b5] text-white p-4 rounded-t-lg flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                {animationData && (
+                  <div className="w-6 h-6">
+                    <Lottie
+                      animationData={animationData}
+                      loop={true}
+                      autoplay={true}
+                      className="w-full h-full"
+                    />
+                  </div>
+                )}
+                <h3 className="font-semibold text-base">AI Assistant</h3>
+              </div>
+              <button
+                onClick={closeChat}
+                className="hover:bg-[#5f42b5] rounded-full p-1 transition-colors"
+                aria-label="Close chat"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Messages Area */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[85%] px-4 py-2 rounded-lg text-base ${
+                      message.sender === 'user'
+                        ? 'bg-gradient-to-r from-[#8267ec] to-[#5f42b5] text-white'
+                        : 'bg-gray-800 text-gray-100 border border-gray-700'
+                    }`}
+                  >
+                    {message.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Input Area */}
+            <div className="p-4 border-t border-gray-800 bg-gray-900">
+              <div className="flex gap-2 mb-2">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type your question..."
+                  className="flex-1 px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8267ec] bg-gray-800 text-white"
+                />
+                <button
+                  onClick={handleSendMessage}
+                  className="bg-gradient-to-r from-[#8267ec] to-[#5f42b5] text-white rounded-lg px-4 py-2 transition-colors shadow-md"
+                  aria-label="Send message"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <button
+                onClick={handleExploreChat}
+                className="w-full bg-gradient-to-r from-[#5f42b5] to-[#8267ec] hover:from-[#8267ec] hover:to-[#5f42b5] text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 text-sm shadow-md"
+              >
+                Explore Full Chatbot →
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Content */}
       <div className="relative z-10">
         <Header />
         <section
           id="home"
-          className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-black"
+          className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-black/50"
         >
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               {/* Left Content */}
               <div className="space-y-8">
                 <div className="space-y-6">
-                  {/* Professional Badge */}                  
-
-                  <div
-                    className="group inline-flex items-center px-4 py-2 bg-[#8267ec] text-white 
-             border border-[#8267ec] rounded-full mb-6 
-             hover:bg-white hover:text-black 
-             transition-all duration-300 transform hover:scale-105 
-             shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
-                  >
+                  {/* Professional Badge */}
+                  <div className="relative inline-block">
                     <div
-                      className="w-2 h-2 bg-white rounded-full mr-3 
-               transition-colors duration-300 group-hover:bg-black"
-                    ></div>
+                      className="professional-badge inline-flex items-center px-4 py-2.5 rounded-full border cursor-pointer transition-all duration-300 group bg-black"
+                      style={{
+                        borderColor: "#8267ec",
+                        color: "#8267ec",
+                      }}
+                    >
+                      <div
+                        className="badge-dot w-2 h-2 rounded-full mr-3 animate-pulse transition-all duration-300"
+                        style={{
+                          backgroundColor: "#8267ec",
+                        }}
+                      ></div>
+                      <span className="badge-text text-sm font-medium tracking-wide transition-colors duration-300">
+                        AI RESEARCH ENGINEER
+                      </span>
+                    </div>
 
-                    <span className="text-sm font-medium tracking-wide transition-colors duration-300">
-                      AI RESEARCH ENGINEER
-                    </span>
+                    <style jsx>{`
+                      .professional-badge:hover {
+                        background-color: #8267ec !important;
+                        color: #ffffff !important;
+                      }
+                      .professional-badge:hover .badge-dot {
+                        background-color: #ffffff !important;
+                        animation: none !important;
+                        transform: scale(1.1);
+                      }
+                      .professional-badge:hover .badge-text {
+                        color: #ffffff !important;
+                      }
+                    `}</style>
                   </div>
 
                   {/* Name and Title */}

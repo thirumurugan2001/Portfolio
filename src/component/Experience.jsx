@@ -339,22 +339,41 @@ const Experience = () => {
             <div className="space-y-8">
               {/* Header Section */}
               <div className="space-y-6">
-                <div
-                  className="group inline-flex items-center px-4 py-2 bg-[#8267ec] text-white 
-             border border-[#8267ec] rounded-full mb-6 
-             hover:bg-white hover:text-black 
-             transition-all duration-300 transform hover:scale-105 
-             shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
-                >
-                  <div
-                    className="w-2 h-2 bg-white rounded-full mr-3 
-               transition-colors duration-300 group-hover:bg-black"
-                  ></div>
+                
 
-                  <span className="text-sm font-medium tracking-wide transition-colors duration-300">
-                    PROFESSIONAL JOURNEY
-                  </span>
+                 {/* Professional Badge */}
+              <div className="relative inline-block">
+                <div 
+                  className="professional-badge inline-flex items-center px-4 py-2.5 rounded-full border cursor-pointer transition-all duration-300 group bg-black"
+                  style={{ 
+                    borderColor: '#8267ec',
+                    color: '#8267ec'
+                  }}
+                >
+                  <div 
+                    className="badge-dot w-2 h-2 rounded-full mr-3 animate-pulse transition-all duration-300"
+                    style={{ 
+                      backgroundColor: '#8267ec'
+                    }}
+                  ></div>
+                  <span className="badge-text text-sm font-medium tracking-wide transition-colors duration-300"> PROFESSIONAL JOURNEY</span>
                 </div>
+                
+                <style jsx>{`
+                  .professional-badge:hover {
+                    background-color: #8267ec !important;
+                    color: #ffffff !important;
+                  }
+                  .professional-badge:hover .badge-dot {
+                    background-color: #ffffff !important;
+                    animation: none !important;
+                    transform: scale(1.1);
+                  }
+                  .professional-badge:hover .badge-text {
+                    color: #ffffff !important;
+                  }
+                `}</style>
+              </div>
 
                 <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
                   My{" "}

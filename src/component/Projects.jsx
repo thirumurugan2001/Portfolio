@@ -27,6 +27,7 @@ const Projects = () => {
   const sliderRef = useRef(null);
 
   const projects = [
+    // ... (keep your projects array as is)
     {
       icon: <FaCloud className="w-5 h-5" />,
       title: "AI Cloud Operations Platform",
@@ -126,6 +127,7 @@ const Projects = () => {
   ];
 
   const sliderSettings = {
+    // ... (keep your slider settings as is)
     dots: false,
     infinite: true,
     autoplay: true,
@@ -160,23 +162,32 @@ const Projects = () => {
   return (
     <section id="projects" className="py-16 px-4 sm:px-6 lg:px-8 bg-black">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+        {/* Section Header with Professional Badge Style */}
         <div className="text-center mb-10">
-          <div
-            className="group inline-flex items-center px-4 py-2 bg-[#8267ec] text-white 
-             border border-[#8267ec] rounded-full mb-6 
-             hover:bg-white hover:text-black 
-             transition-all duration-300 transform hover:scale-105 
-             shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]"
-          >
+          <div className="relative inline-block mb-6">
             <div
-              className="w-2 h-2 bg-white rounded-full mr-3 
-               transition-colors duration-300 group-hover:bg-black"
-            ></div>
+              className="group inline-flex items-center px-4 py-2 rounded-full 
+               border border-[#8267ec] bg-black
+               transition-all duration-300 transform hover:scale-105 
+               shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]
+               hover:bg-[#8267ec] cursor-pointer"
+            >
+              {/* Dot with animation */}
+              <div
+                className="w-2 h-2 rounded-full mr-3 animate-pulse
+                 bg-[#8267ec] transition-all duration-300 
+                 group-hover:bg-white group-hover:scale-110 group-hover:animate-none"
+              ></div>
 
-            <span className="text-sm font-medium tracking-wide transition-colors duration-300">
-              MAJOR PROJECTS
-            </span>
+              {/* Text */}
+              <span 
+                className="text-sm font-medium tracking-wide 
+                 text-[#8267ec] transition-colors duration-300
+                 group-hover:text-white"
+              >
+                MAJOR PROJECTS
+              </span>
+            </div>
           </div>
 
           <h2 className="text-5xl font-bold text-white tracking-tight mb-3">
@@ -191,7 +202,7 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Stats Bar */}
+        {/* Stats Bar - Keeping your existing code */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           <div className="bg-[#111111] border border-[#333333] rounded-lg p-4 text-center hover:shadow-[0_0_15px_rgba(130,103,236,0.1)] transition-all duration-300 hover:border-[#8267ec] group">
             <div className="text-[#8267ec] flex justify-center mb-2 group-hover:scale-110 transition-transform">

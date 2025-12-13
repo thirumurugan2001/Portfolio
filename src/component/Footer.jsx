@@ -1,64 +1,91 @@
-import { FaLinkedin, FaGithub, FaHackerrank, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
-import { SiCodechef, SiLeetcode } from 'react-icons/si';
-import { useNavigate } from 'react-router-dom';
+import {
+  FaLinkedin,
+  FaGithub,
+  FaHackerrank,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+} from "react-icons/fa";
+import { SiCodechef, SiLeetcode } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const navigate = useNavigate();
 
   const socialLinks = [
-    { icon: <FaLinkedin className="w-5 h-5" />, name: 'LinkedIn', url: 'https://www.linkedin.com/in/thirumurugan-subramaniyan-a62351212/' },
-    { icon: <FaGithub className="w-5 h-5" />, name: 'GitHub', url: 'https://github.com/thirumurugan2001' },
-    { icon: <SiCodechef className="w-5 h-5" />, name: 'CodeChef', url: 'https://www.codechef.com/users/thiru2001' },
-    { icon: <FaHackerrank className="w-5 h-5" />, name: 'HackerRank', url: 'https://www.hackerrank.com/profile/thirusubramaniy1' },
-    { icon: <SiLeetcode className="w-5 h-5" />, name: 'LeetCode', url: 'https://leetcode.com/u/thirusubramaniyan2001/' },
+    {
+      icon: <FaLinkedin className="w-5 h-5" />,
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/in/thirumurugan-subramaniyan-a62351212/",
+    },
+    {
+      icon: <FaGithub className="w-5 h-5" />,
+      name: "GitHub",
+      url: "https://github.com/thirumurugan2001",
+    },
+    {
+      icon: <SiCodechef className="w-5 h-5" />,
+      name: "CodeChef",
+      url: "https://www.codechef.com/users/thiru2001",
+    },
+    {
+      icon: <FaHackerrank className="w-5 h-5" />,
+      name: "HackerRank",
+      url: "https://www.hackerrank.com/profile/thirusubramaniy1",
+    },
+    {
+      icon: <SiLeetcode className="w-5 h-5" />,
+      name: "LeetCode",
+      url: "https://leetcode.com/u/thirusubramaniyan2001/",
+    },
   ];
 
   const quickLinks = [
-    { name: 'Home', section: 'home' },
-    { name: 'About', section: 'about' },
-    { name: 'Experience', section: 'experience' },
-    { name: 'Projects', section: 'projects' },
-    { name: 'Contact', section: 'contact' }
+    { name: "Home", section: "home" },
+    { name: "About", section: "about" },
+    { name: "Experience", section: "experience" },
+    { name: "Projects", section: "projects" },
+    { name: "Contact", section: "contact" },
   ];
 
   const contactInfo = [
     {
       icon: <FaMapMarkerAlt className="w-4 h-4" />,
-      type: 'Current Location',
-      value: 'Velachery, Chennai, Tamil Nadu'
+      type: "Current Location",
+      value: "Velachery, Chennai, Tamil Nadu",
     },
     {
       icon: <FaMapMarkerAlt className="w-4 h-4" />,
-      type: 'Permanent Location',
-      value: 'Salem, Tamil Nadu'
+      type: "Permanent Location",
+      value: "Salem, Tamil Nadu",
     },
     {
       icon: <FaEnvelope className="w-4 h-4" />,
-      type: 'Email',
-      value: 'thirusubramaniyan2001@gmail.com',
-      href: 'mailto:thirusubramaniyan2001@gmail.com'
+      type: "Email",
+      value: "thirusubramaniyan2001@gmail.com",
+      href: "mailto:thirusubramaniyan2001@gmail.com",
     },
     {
       icon: <FaPhone className="w-4 h-4" />,
-      type: 'Primary Contact',
-      value: '+91 - 7339225958',
-      href: 'tel:+917339225958'
+      type: "Primary Contact",
+      value: "+91 - 7339225958",
+      href: "tel:+917339225958",
     },
   ];
 
   const handleNavClick = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     }
   };
 
   const handleLogoClick = () => {
-    navigate('/');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate("/");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -71,38 +98,79 @@ const Footer = () => {
             {/* Logo with same animation as header */}
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <div 
+                <div
                   className="w-12 h-12 bg-[#8267ec] rounded-full flex items-center justify-center group hover:scale-110 transition-all duration-300 cursor-pointer shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.5)]"
                   onClick={handleLogoClick}
                 >
                   <div className="w-8 h-8 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="text-[#8267ec] font-bold text-xs tracking-tighter">TS</span>
+                    <span className="text-[#8267ec] font-bold text-xs tracking-tighter">
+                      TS
+                    </span>
                   </div>
-                  <span className="absolute text-white font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">TS</span>
+                  <span className="absolute text-white font-bold text-sm tracking-tighter group-hover:opacity-0 transition-opacity duration-300">
+                    TS
+                  </span>
                 </div>
               </div>
               <div>
-                <div className="text-white font-bold text-xl leading-tight tracking-tight">THIRUMURUGAN S</div>
-                <div className="text-gray-300 text-sm font-medium tracking-wider opacity-90 uppercase">AI Research Engineer</div>
+                <div className="text-white font-bold text-xl leading-tight tracking-tight">
+                  THIRUMURUGAN S
+                </div>
+                <div className="text-gray-300 text-sm font-medium tracking-wider opacity-90 uppercase">
+                  AI Research Engineer
+                </div>
               </div>
             </div>
 
             <p className="text-gray-300 opacity-80 text-sm leading-relaxed max-w-md">
-              Specializing in AI-powered solutions, LLM fine-tuning, and cloud-native applications. 
-              Transforming complex business challenges into scalable, intelligent systems through 
-              cutting-edge technology and innovative engineering.
+              Specializing in AI-powered solutions, LLM fine-tuning, and
+              cloud-native applications. Transforming complex business
+              challenges into scalable, intelligent systems through cutting-edge
+              technology and innovative engineering.
             </p>
-            
-            {/* Professional Badge - Matching header style */}
-            <div className="inline-flex items-center px-5 py-2.5 bg-[#8267ec] rounded-full group hover:bg-white hover:shadow-[0_0_20px_rgba(130,103,236,0.5)] transition-all duration-300 cursor-pointer shadow-md">
-              <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none group-hover:scale-110 group-hover:bg-[#8267ec]"></div>
-              <span className="text-white text-sm font-medium tracking-wide group-hover:text-[#8267ec]">OPEN TO WORK</span>
+
+            {/* Professional Badge */}
+            <div className="relative inline-block">
+              <div
+                className="professional-badge inline-flex items-center px-4 py-2.5 rounded-full border cursor-pointer transition-all duration-300 group bg-black"
+                style={{
+                  borderColor: "#8267ec",
+                  color: "#8267ec",
+                }}
+              >
+                <div
+                  className="badge-dot w-2 h-2 rounded-full mr-3 animate-pulse transition-all duration-300"
+                  style={{
+                    backgroundColor: "#8267ec",
+                  }}
+                ></div>
+                <span className="badge-text text-sm font-medium tracking-wide transition-colors duration-300">
+                  OPEN TO WORK
+                </span>
+              </div>
+
+              <style jsx>{`
+                .professional-badge:hover {
+                  background-color: #8267ec !important;
+                  color: #ffffff !important;
+                }
+                .professional-badge:hover .badge-dot {
+                  background-color: #ffffff !important;
+                  animation: none !important;
+                  transform: scale(1.1);
+                }
+                .professional-badge:hover .badge-text {
+                  color: #ffffff !important;
+                }
+              `}</style>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-white font-bold text-lg tracking-tight border-b border-[#8267ec] pb-2">NAVIGATION</h3>
+            <h3 className="text-white font-bold text-lg tracking-tight border-b border-[#8267ec] pb-2">
+              NAVIGATION
+            </h3>
             <div className="grid grid-cols-1 gap-3">
               {quickLinks.map((link, index) => (
                 <button
@@ -119,7 +187,9 @@ const Footer = () => {
 
           {/* Contact Information */}
           <div className="space-y-4">
-            <h3 className="text-white font-bold text-lg tracking-tight border-b border-[#8267ec] pb-2">CONTACT</h3>
+            <h3 className="text-white font-bold text-lg tracking-tight border-b border-[#8267ec] pb-2">
+              CONTACT
+            </h3>
             <div className="space-y-3">
               {contactInfo.map((contact, index) => (
                 <div key={index} className="flex items-start space-x-3 group">
@@ -127,16 +197,20 @@ const Footer = () => {
                     {contact.icon}
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-400 opacity-80 text-xs font-medium uppercase tracking-wide">{contact.type}</p>
+                    <p className="text-gray-400 opacity-80 text-xs font-medium uppercase tracking-wide">
+                      {contact.type}
+                    </p>
                     {contact.href ? (
-                      <a 
+                      <a
                         href={contact.href}
                         className="text-gray-300 text-sm hover:text-[#8267ec] transition-colors duration-200 break-words block mt-1"
                       >
                         {contact.value}
                       </a>
                     ) : (
-                      <p className="text-gray-300 text-sm break-words mt-1">{contact.value}</p>
+                      <p className="text-gray-300 text-sm break-words mt-1">
+                        {contact.value}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -153,10 +227,11 @@ const Footer = () => {
           {/* Copyright */}
           <div className="text-center lg:text-left">
             <p className="text-gray-400 opacity-100 text-sm tracking-wide font-light">
-              © 2025 THIRUMURUGAN SUBRAMANIYAN • AI RESEARCH & DEVELOPMENT • ALL RIGHTS RESERVED
+              © 2025 THIRUMURUGAN SUBRAMANIYAN • AI RESEARCH & DEVELOPMENT • ALL
+              RIGHTS RESERVED
             </p>
           </div>
-          
+
           {/* Social Links */}
           <div className="flex space-x-6">
             {socialLinks.map((social, index) => (

@@ -201,11 +201,30 @@ const Certifications = () => {
         
         {/* Section Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-[#8267ec] border border-[#8267ec] rounded-full mb-4 group hover:shadow-[0_0_15px_rgba(130,103,236,0.5)] transition-all duration-300">
-            <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse group-hover:animate-none"></div>
-            <span className="text-white text-sm font-medium tracking-wide">
-              CREDENTIALS & ACHIEVEMENTS
-            </span>
+          <div className="relative inline-block mb-6">
+            <div
+              className="group inline-flex items-center px-4 py-2 rounded-full 
+               border border-[#8267ec] bg-black
+               transition-all duration-300 transform hover:scale-105 
+               shadow-md hover:shadow-[0_0_20px_rgba(130,103,236,0.4)]
+               hover:bg-[#8267ec] cursor-pointer"
+            >
+              {/* Dot with animation */}
+              <div
+                className="w-2 h-2 rounded-full mr-3 animate-pulse
+                 bg-[#8267ec] transition-all duration-300 
+                 group-hover:bg-white group-hover:scale-110 group-hover:animate-none"
+              ></div>
+
+              {/* Text */}
+              <span 
+                className="text-sm font-medium tracking-wide 
+                 text-[#8267ec] transition-colors duration-300
+                 group-hover:text-white"
+              >
+               CREDENTIALS & ACHIEVEMENTS
+              </span>
+            </div>
           </div>
           
           <h2 className="text-5xl font-bold text-white tracking-tight mb-3">

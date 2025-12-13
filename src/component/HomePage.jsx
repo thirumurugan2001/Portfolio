@@ -9,7 +9,6 @@ import {
   FaNetworkWired,
   FaRobot,
   FaCogs,
-  FaArrowUp,
 } from "react-icons/fa";
 import { FaLinkedin, FaGithub, FaHackerrank } from "react-icons/fa";
 import { SiCodechef, SiLeetcode, SiHackerrank } from "react-icons/si";
@@ -139,7 +138,6 @@ const HomePage = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [typingComplete, setTypingComplete] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [animationData, setAnimationData] = useState(null);
@@ -321,31 +319,6 @@ const HomePage = () => {
     };
   }, []);
 
-  // Scroll to top function
-  const scrollToTop = () => {
-    const homeSection = document.getElementById("home");
-    if (homeSection) {
-      homeSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
-
-  // Show/hide scroll to top button based on scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => prev + 1);
@@ -400,25 +373,15 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans antialiased relative overflow-hidden">
-      {/* Scroll to Top Button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 bg-[#8267ec] text-white border border-[#8267ec] w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-[0_0_20px_rgba(130,103,236,0.6)]"
-          aria-label="Scroll to top"
-        >
-          <FaArrowUp className="w-5 h-5" />
-        </button>
-      )}
-
-      {/* Chatbot Icon with Lottie Animation - Bottom Left */}
-      <div className={`fixed z-50 ${isMobile ? 'bottom-6 left-6' : 'bottom-8 left-8'}`}>
+      
+      {/* Chatbot Icon with Lottie Animation - Bottom Right */}
+      <div className={`fixed z-50 ${isMobile ? 'bottom-6 right-6' : 'bottom-8 right-8'}`}>
         <button
           onClick={handleChatbotClick}
-          className="text-white rounded-full p-2 duration-300 hover:scale-110 transition-all"
+          className="text-white rounded-full p-2 duration-300 hover:scale-110 transition-all group"
           style={{ 
-            width: isMobile ? '80px' : '100px', 
-            height: isMobile ? '80px' : '100px' 
+            width: isMobile ? '120px' : '150px', 
+            height: isMobile ? '120px' : '150px' 
           }}
           aria-label="Chat with AI Assistant"
         >
@@ -430,10 +393,17 @@ const HomePage = () => {
               className="w-full h-full"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <FaRobot className="h-14 w-14" />
+            <div className="w-full h-full flex items-center justify-center bg-[#8267ec] rounded-full">
+              <FaRobot className={`${isMobile ? 'h-10 w-10' : 'h-14 w-14'} text-white`} />
             </div>
           )}
+          
+          {/* Tooltip on hover */}
+          <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block">
+            <div className="bg-black border border-[#8267ec] text-white text-xs py-1 px-3 rounded-lg whitespace-nowrap">
+              Ask about me
+            </div>
+          </div>
         </button>
       </div>
 

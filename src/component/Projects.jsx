@@ -32,6 +32,7 @@ const Projects = () => {
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const autoScrollRef = useRef(null);
   const slidesPerViewRef = useRef(3);
+  const autoScrollIntervalRef = useRef(null);
 
   const projects = [
     // New Projects - Added at the beginning for prominence
@@ -100,6 +101,17 @@ const Projects = () => {
       technologies: ["RAG", "LLMs", "Web App"],
       category: "AI & Education",
       color: "from-[#111111] to-[#333333]",
+      period: "Recent",
+    },
+    {
+      icon: <FaRobot className="w-5 h-5" />,
+      title: "India Tourism AI Model",
+      description:
+        "RAG and fine-tuning model for intelligent tourism recommendations.",
+      features: ["Fine-tuned LLM", "Tourism AI", "Recommendations"],
+      technologies: ["Fine-Tuning", "RAG", "AI"],
+      category: "AI & Tourism",
+      color: "from-[#8267ec] to-[#9d8aee]",
       period: "Recent",
     },
     {
@@ -186,13 +198,46 @@ const Projects = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Calculate total slides for desktop view
-  const totalDesktopSlides = Math.ceil(projects.length / slidesPerViewRef.current);
-  
+  // Mobile Auto-scroll functionality - Forward only
+  useEffect(() => {
+    if (!isMobile || !isAutoScrolling) {
+      if (autoScrollIntervalRef.current) {
+        clearInterval(autoScrollIntervalRef.current);
+        autoScrollIntervalRef.current = null;
+      }
+      return;
+    }
+
+    // Clear any existing interval
+    if (autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current);
+    }
+
+    // Set up new interval for mobile auto-scroll
+    autoScrollIntervalRef.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => {
+        // If at last project, jump to first
+        if (prevIndex >= projects.length - 1) {
+          return 0;
+        }
+        // Otherwise go to next project
+        return prevIndex + 1;
+      });
+    }, 3000); // Change slide every 3 seconds
+
+    // Cleanup
+    return () => {
+      if (autoScrollIntervalRef.current) {
+        clearInterval(autoScrollIntervalRef.current);
+      }
+    };
+  }, [isMobile, isAutoScrolling, projects.length]);
+
+  // Desktop navigation logic (for manual navigation)
   const nextSlide = () => {
     if (isMobile) {
-      // For mobile: when at last item, jump to first
-      if (currentIndex === projects.length - 1) {
+      // For mobile: manual next - when at last item, jump to first
+      if (currentIndex >= projects.length - 1) {
         setCurrentIndex(0);
       } else {
         setCurrentIndex(prevIndex => prevIndex + 1);
@@ -211,7 +256,7 @@ const Projects = () => {
 
   const prevSlide = () => {
     if (isMobile) {
-      // For mobile: when at first item, go to last
+      // For mobile: manual previous - when at first item, go to last
       if (currentIndex === 0) {
         setCurrentIndex(projects.length - 1);
       } else {
@@ -237,17 +282,6 @@ const Projects = () => {
       setCurrentIndex(index * slidesPerViewRef.current);
     }
   };
-
-  // Auto-scroll functionality - only forward, never backward
-  useEffect(() => {
-    if (!isAutoScrolling) return;
-
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 3000); // Change slide every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [currentIndex, isAutoScrolling, isMobile]);
 
   // Pause auto-scroll on user interaction
   const handleUserInteraction = () => {
@@ -281,8 +315,16 @@ const Projects = () => {
     if (isMobile) {
       return projects.length;
     } else {
-      return totalDesktopSlides;
+      return Math.ceil(projects.length / slidesPerViewRef.current);
     }
+  };
+
+  // Auto-scroll progress indicator
+  const getProgressPercentage = () => {
+    if (isMobile) {
+      return ((currentIndex + 1) / projects.length) * 100;
+    }
+    return 0;
   };
 
   return (
@@ -327,6 +369,26 @@ const Projects = () => {
             A portfolio of cutting-edge projects showcasing expertise in AI, machine learning, cloud automation, and enterprise solutions.
           </p>
         </div>
+
+        {/* Mobile Auto-scroll Progress Bar */}
+        {isMobile && (
+          <div className="md:hidden mb-6 px-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs text-gray-400">
+                Auto-scroll: {isAutoScrolling ? 'On' : 'Paused'}
+              </span>
+              <span className="text-xs text-gray-400">
+                {currentIndex + 1} / {projects.length}
+              </span>
+            </div>
+            <div className="h-1 bg-[#333333] rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-[#8267ec] to-[#9d8aee] transition-all duration-500 ease-out"
+                style={{ width: `${getProgressPercentage()}%` }}
+              ></div>
+            </div>
+          </div>
+        )}
 
         {/* Updated Stats Bar - Updated counts */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-12 px-2">
@@ -503,6 +565,7 @@ const Projects = () => {
             </div>
           )}
         </div>
+
 
         {/* Call to Action - Updated text */}
         <div className="text-center px-2">

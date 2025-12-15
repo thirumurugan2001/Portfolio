@@ -172,18 +172,32 @@ const ChatbotComponent = () => {
     try {
       // Start typing animation immediately
       setIsTyping(true);
-      const typingMessage = {
+      const thinkingMessage = {
         id: Date.now() + 1,
+        text: "Thinking",
+        isUser: false,
+        timestamp: new Date(),
+        isThinking: true
+      };
+
+      setMessages(prev => [...prev, thinkingMessage]);
+
+      // Make API call
+      const responseText = await callChatbotAPI(userMessageText);
+      
+      // Remove the "Thinking..." message and add the actual response
+      setMessages(prev => prev.filter(msg => !msg.isThinking));
+      
+      // Create a new message for the actual response
+      const responseMessage = {
+        id: Date.now() + 2,
         text: "",
         isUser: false,
         timestamp: new Date(),
         isTyping: true
       };
 
-      setMessages(prev => [...prev, typingMessage]);
-
-      // Make API call
-      const responseText = await callChatbotAPI(userMessageText);
+      setMessages(prev => [...prev, responseMessage]);
       
       // Simulate typing effect with actual API response
       let currentText = "";
@@ -194,7 +208,7 @@ const ChatbotComponent = () => {
           currentText += responseText[index];
           setMessages(prev => 
             prev.map(msg => 
-              msg.id === typingMessage.id 
+              msg.id === responseMessage.id 
                 ? { ...msg, text: currentText, isTyping: false }
                 : msg
             )
@@ -208,7 +222,7 @@ const ChatbotComponent = () => {
           // Update the message to remove typing state and add border
           setMessages(prev => 
             prev.map(msg => 
-              msg.id === typingMessage.id 
+              msg.id === responseMessage.id 
                 ? { ...msg, isTyping: false, showBorder: true }
                 : msg
             )
@@ -221,8 +235,8 @@ const ChatbotComponent = () => {
       setIsLoading(false);
       setIsTyping(false);
       
-      // Remove typing message and show error
-      setMessages(prev => prev.filter(msg => !msg.isTyping));
+      // Remove thinking and typing messages and show error
+      setMessages(prev => prev.filter(msg => !msg.isThinking && !msg.isTyping));
       
       const errorMessage = {
         id: Date.now(),
@@ -554,25 +568,28 @@ const ChatbotComponent = () => {
                       (message.showBorder || message.isUser) ? 'border' : ''
                     } ${message.isUser ? 'bg-[#8267ec] text-white border-[#8267ec]' : 'bg-[#111111] text-white border-[#333333]'}`}
                   >
-                    {message.isTyping ? (
-                      <div className="flex space-x-1">
-                        <div 
-                          className={`w-1.5 h-1.5 rounded-full animate-bounce ${
-                            message.isUser ? 'bg-white' : 'bg-[#8267ec]'
-                          }`}
-                        ></div>
-                        <div 
-                          className={`w-1.5 h-1.5 rounded-full animate-bounce ${
-                            message.isUser ? 'bg-white' : 'bg-[#8267ec]'
-                          }`}
-                          style={{ animationDelay: '0.1s' }}
-                        ></div>
-                        <div 
-                          className={`w-1.5 h-1.5 rounded-full animate-bounce ${
-                            message.isUser ? 'bg-white' : 'bg-[#8267ec]'
-                          }`}
-                          style={{ animationDelay: '0.2s' }}
-                        ></div>
+                    {message.isThinking ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="text-sm text-gray-400 italic">Thinking</div>
+                        <div className="flex space-x-1">
+                          <div 
+                            className="w-1.5 h-1.5 rounded-full bg-[#8267ec] animate-bounce"
+                            style={{ animationDelay: '0ms' }}
+                          ></div>
+                          <div 
+                            className="w-1.5 h-1.5 rounded-full bg-[#8267ec] animate-bounce"
+                            style={{ animationDelay: '150ms' }}
+                          ></div>
+                          <div 
+                            className="w-1.5 h-1.5 rounded-full bg-[#8267ec] animate-bounce"
+                            style={{ animationDelay: '300ms' }}
+                          ></div>
+                        </div>
+                      </div>
+                    ) : message.isTyping ? (
+                      <div className="text-sm">
+                        {message.text}
+                        <span className="animate-pulse text-[#8267ec]">|</span>
                       </div>
                     ) : (
                       <div className="text-xs sm:text-sm whitespace-pre-wrap">

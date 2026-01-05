@@ -248,7 +248,9 @@ const Footer = () => {
             ))}
           </div>
         </div>
+        <span class="w-full flex justify-center items-center font-bold text-[11.5vw] bg-gradient-to-b from-[#8267ec] to-[#000000] bg-clip-text text-transparent leading-none">THIRUMURUGAN</span>
       </div>
+      <></>
     </footer>
   );
 };
